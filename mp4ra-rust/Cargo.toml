@@ -3,7 +3,7 @@ name = "mp4ra-rust"
 version = "0.1.0"
 authors = ["David Holroyd <dave@badgers-in-foil.co.uk>"]
 edition = "2018"
-description = "enums with variants representing code points managed by the MPEG4 Registration Authority"
+description = "Types and associated constants representing code points managed by the MPEG4 Registration Authority"
 readme = "README.md"
 repository = "https://github.com/dholroyd/mp4ra-rust"
 
