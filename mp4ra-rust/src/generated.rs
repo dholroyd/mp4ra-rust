@@ -370,6 +370,8 @@ impl SampleEntryCode {
           SampleEntryCode::DVAV => Some(HandlerCode::VIDE),
           SampleEntryCode::DVH1 => Some(HandlerCode::VIDE),
           SampleEntryCode::DVHE => Some(HandlerCode::VIDE),
+          SampleEntryCode::DYOL => Some(HandlerCode::META),
+          SampleEntryCode::DYVP => Some(HandlerCode::META),
           SampleEntryCode::EC_3 => Some(HandlerCode::SOUN),
           SampleEntryCode::EC_PLUS_3 => Some(HandlerCode::SOUN),
           SampleEntryCode::ENCA => Some(HandlerCode::SOUN),
@@ -383,10 +385,16 @@ impl SampleEntryCode {
           SampleEntryCode::G726 => Some(HandlerCode::SOUN),
           SampleEntryCode::HEV1 => Some(HandlerCode::VIDE),
           SampleEntryCode::HEV2 => Some(HandlerCode::VIDE),
+          SampleEntryCode::HEV3 => Some(HandlerCode::VIDE),
           SampleEntryCode::HVC1 => Some(HandlerCode::VIDE),
           SampleEntryCode::HVC2 => Some(HandlerCode::VIDE),
+          SampleEntryCode::HVC3 => Some(HandlerCode::VIDE),
           SampleEntryCode::HVT1 => Some(HandlerCode::VIDE),
+          SampleEntryCode::HVT2 => Some(HandlerCode::VIDE),
+          SampleEntryCode::HVT3 => Some(HandlerCode::VIDE),
           SampleEntryCode::ICPV => Some(HandlerCode::VIDE),
+          SampleEntryCode::INVO => Some(HandlerCode::META),
+          SampleEntryCode::INVP => Some(HandlerCode::META),
           SampleEntryCode::IXSE => Some(HandlerCode::META),
           SampleEntryCode::J2KI => Some(HandlerCode::VIDE),
           SampleEntryCode::JXSM => Some(HandlerCode::VIDE),
@@ -417,11 +425,13 @@ impl SampleEntryCode {
           SampleEntryCode::MVD2 => Some(HandlerCode::VIDE),
           SampleEntryCode::MVD3 => Some(HandlerCode::VIDE),
           SampleEntryCode::MVD4 => Some(HandlerCode::VIDE),
+          SampleEntryCode::OCPC => Some(HandlerCode::META),
           SampleEntryCode::OKSD => Some(HandlerCode::META),
           SampleEntryCode::OPUS => Some(HandlerCode::SOUN),
           SampleEntryCode::PM2T => Some(HandlerCode::HINT),
           SampleEntryCode::PRTP => Some(HandlerCode::HINT),
           SampleEntryCode::RAW  => Some(HandlerCode::SOUN),
+          SampleEntryCode::RCVP => Some(HandlerCode::META),
           SampleEntryCode::RESV => Some(HandlerCode::VIDE),
           SampleEntryCode::RM2T => Some(HandlerCode::HINT),
           SampleEntryCode::RRTP => Some(HandlerCode::HINT),
@@ -430,6 +440,7 @@ impl SampleEntryCode {
           SampleEntryCode::RTMD => Some(HandlerCode::META),
           SampleEntryCode::RTP  => Some(HandlerCode::HINT),
           SampleEntryCode::RV60 => Some(HandlerCode::VIDE),
+          SampleEntryCode::RVP2 => Some(HandlerCode::META),
           SampleEntryCode::S263 => Some(HandlerCode::VIDE),
           SampleEntryCode::SAMR => Some(HandlerCode::SOUN),
           SampleEntryCode::SAWB => Some(HandlerCode::SOUN),
@@ -443,6 +454,7 @@ impl SampleEntryCode {
           SampleEntryCode::SSMV => Some(HandlerCode::SOUN),
           SampleEntryCode::STCP => Some(HandlerCode::HINT),
           SampleEntryCode::STGS => Some(HandlerCode::GRAP),
+          SampleEntryCode::STMD => Some(HandlerCode::META),
           SampleEntryCode::STPP => Some(HandlerCode::SUBT),
           SampleEntryCode::STXT => Some(HandlerCode::TEXT),
           SampleEntryCode::SVC1 => Some(HandlerCode::VIDE),
@@ -450,6 +462,7 @@ impl SampleEntryCode {
           SampleEntryCode::SVCM => Some(HandlerCode::META),
           SampleEntryCode::TC64 => Some(HandlerCode::TMCD),
           SampleEntryCode::TMCD => Some(HandlerCode::TMCD),
+          SampleEntryCode::TTSL => Some(HandlerCode::META),
           SampleEntryCode::TWOS => Some(HandlerCode::SOUN),
           SampleEntryCode::TX3G => Some(HandlerCode::TEXT),
           SampleEntryCode::ULAW => Some(HandlerCode::SOUN),
@@ -458,6 +471,7 @@ impl SampleEntryCode {
           SampleEntryCode::VC_1 => Some(HandlerCode::VIDE),
           SampleEntryCode::VP08 => Some(HandlerCode::VIDE),
           SampleEntryCode::VP09 => Some(HandlerCode::VIDE),
+          SampleEntryCode::VRSP => Some(HandlerCode::META),
           SampleEntryCode::WVTT => Some(HandlerCode::TEXT),
           _ => None,
         }
@@ -724,6 +738,20 @@ impl SampleEntryCode {
     /// Specification: _Dolby Vision_
     pub const DVHE: SampleEntryCode = SampleEntryCode(FourCC(*b"dvhe"));
 
+    /// Dynamic overlay parameters
+    /// 
+    /// FourCC: `dyol`
+    /// 
+    /// Specification: _OMAF_
+    pub const DYOL: SampleEntryCode = SampleEntryCode(FourCC(*b"dyol"));
+
+    /// Dynamic viewpoint parameters
+    /// 
+    /// FourCC: `dyvp`
+    /// 
+    /// Specification: _OMAF_
+    pub const DYVP: SampleEntryCode = SampleEntryCode(FourCC(*b"dyvp"));
+
     /// Enhanced AC-3 audio
     /// 
     /// FourCC: `ec-3`
@@ -817,6 +845,13 @@ impl SampleEntryCode {
 
     /// High Efficiency Video Coding
     /// 
+    /// FourCC: `hev3`
+    /// 
+    /// Specification: _NALu Video_
+    pub const HEV3: SampleEntryCode = SampleEntryCode(FourCC(*b"hev3"));
+
+    /// High Efficiency Video Coding
+    /// 
     /// FourCC: `hvc1`
     /// 
     /// Specification: _NALu Video_
@@ -829,6 +864,13 @@ impl SampleEntryCode {
     /// Specification: _NALu Video_
     pub const HVC2: SampleEntryCode = SampleEntryCode(FourCC(*b"hvc2"));
 
+    /// High Efficiency Video Coding
+    /// 
+    /// FourCC: `hvc3`
+    /// 
+    /// Specification: _NALu Video_
+    pub const HVC3: SampleEntryCode = SampleEntryCode(FourCC(*b"hvc3"));
+
     /// HEVC tile tracks
     /// 
     /// FourCC: `hvt1`
@@ -836,12 +878,40 @@ impl SampleEntryCode {
     /// Specification: _NALu Video_
     pub const HVT1: SampleEntryCode = SampleEntryCode(FourCC(*b"hvt1"));
 
+    /// HEVC slice segment data track
+    /// 
+    /// FourCC: `hvt2`
+    /// 
+    /// Specification: _NALu Video_
+    pub const HVT2: SampleEntryCode = SampleEntryCode(FourCC(*b"hvt2"));
+
+    /// HEVC Tile Track with Slice Segment Header Info
+    /// 
+    /// FourCC: `hvt3`
+    /// 
+    /// Specification: _NALu Video_
+    pub const HVT3: SampleEntryCode = SampleEntryCode(FourCC(*b"hvt3"));
+
     /// Incomplete video
     /// 
     /// FourCC: `icpv`
     /// 
     /// Specification: _ISO_
     pub const ICPV: SampleEntryCode = SampleEntryCode(FourCC(*b"icpv"));
+
+    /// Initial viewing orientation
+    /// 
+    /// FourCC: `invo`
+    /// 
+    /// Specification: _OMAF_
+    pub const INVO: SampleEntryCode = SampleEntryCode(FourCC(*b"invo"));
+
+    /// Initial viewpoint
+    /// 
+    /// FourCC: `invp`
+    /// 
+    /// Specification: _OMAF_
+    pub const INVP: SampleEntryCode = SampleEntryCode(FourCC(*b"invp"));
 
     /// DVB Track Level Index Track
     /// 
@@ -1053,6 +1123,13 @@ impl SampleEntryCode {
     /// Specification: _NALu Video_
     pub const MVD4: SampleEntryCode = SampleEntryCode(FourCC(*b"mvd4"));
 
+    /// Object centre points correspondence between viewpoints
+    /// 
+    /// FourCC: `ocpc`
+    /// 
+    /// Specification: _OMAF_
+    pub const OCPC: SampleEntryCode = SampleEntryCode(FourCC(*b"ocpc"));
+
     /// OMA Keys
     /// 
     /// FourCC: `oksd`
@@ -1087,6 +1164,13 @@ impl SampleEntryCode {
     /// 
     /// Specification: _MJ2_
     pub const RAW : SampleEntryCode = SampleEntryCode(FourCC(*b"raw "));
+
+    /// Recommended viewport without indicating a viewpoint
+    /// 
+    /// FourCC: `rcvp`
+    /// 
+    /// Specification: _OMAF_
+    pub const RCVP: SampleEntryCode = SampleEntryCode(FourCC(*b"rcvp"));
 
     /// Restricted Video
     /// 
@@ -1143,6 +1227,13 @@ impl SampleEntryCode {
     /// 
     /// Specification: _RealHD_
     pub const RV60: SampleEntryCode = SampleEntryCode(FourCC(*b"rv60"));
+
+    /// Recommended viewport concerning one or more indicated viewpoints
+    /// 
+    /// FourCC: `rvp2`
+    /// 
+    /// Specification: _OMAF_
+    pub const RVP2: SampleEntryCode = SampleEntryCode(FourCC(*b"rvp2"));
 
     /// ITU H.263 video (3GPP format)
     /// 
@@ -1235,6 +1326,13 @@ impl SampleEntryCode {
     /// Specification: _Sony_
     pub const STGS: SampleEntryCode = SampleEntryCode(FourCC(*b"STGS"));
 
+    /// Metadata for ERP (equirectangular projection) regions
+    /// 
+    /// FourCC: `stmd`
+    /// 
+    /// Specification: _OMAF_
+    pub const STMD: SampleEntryCode = SampleEntryCode(FourCC(*b"stmd"));
+
     /// Subtitles (Timed Text)
     /// 
     /// FourCC: `stpp`
@@ -1283,6 +1381,13 @@ impl SampleEntryCode {
     /// 
     /// Specification: _Apple_
     pub const TMCD: SampleEntryCode = SampleEntryCode(FourCC(*b"tmcd"));
+
+    /// Sphere location for timed text
+    /// 
+    /// FourCC: `ttsl`
+    /// 
+    /// Specification: _OMAF_
+    pub const TTSL: SampleEntryCode = SampleEntryCode(FourCC(*b"ttsl"));
 
     /// Uncompressed 16-bit audio
     /// 
@@ -1340,6 +1445,13 @@ impl SampleEntryCode {
     /// Specification: _VPxx_
     pub const VP09: SampleEntryCode = SampleEntryCode(FourCC(*b"vp09"));
 
+    /// Viewing space
+    /// 
+    /// FourCC: `vrsp`
+    /// 
+    /// Specification: _OMAF_
+    pub const VRSP: SampleEntryCode = SampleEntryCode(FourCC(*b"vrsp"));
+
     /// WebVTT data
     /// 
     /// FourCC: `wvtt`
@@ -1350,6 +1462,20 @@ impl SampleEntryCode {
 }
 
 impl BoxCode {
+    /// 2D region quality ranking
+    /// 
+    /// FourCC: `2dqr`
+    /// 
+    /// Specification: _OMAF_
+    pub const 2DQR: BoxCode = BoxCode(FourCC(*b"2dqr"));
+
+    /// spatial relationship 2D source
+    /// 
+    /// FourCC: `2dss`
+    /// 
+    /// Specification: _OMAF_
+    pub const 2DSS: BoxCode = BoxCode(FourCC(*b"2dss"));
+
     /// Asset information to identify, license and play
     /// 
     /// FourCC: `ainf`
@@ -1455,6 +1581,13 @@ impl BoxCode {
     /// Specification: _ISO_
     pub const CO64: BoxCode = BoxCode(FourCC(*b"co64"));
 
+    /// composition information
+    /// 
+    /// FourCC: `coif`
+    /// 
+    /// Specification: _OMAF_
+    pub const COIF: BoxCode = BoxCode(FourCC(*b"coif"));
+
     /// Content Information Box
     /// 
     /// FourCC: `coin`
@@ -1468,6 +1601,13 @@ impl BoxCode {
     /// 
     /// Specification: _JPEG2000_
     pub const COLR: BoxCode = BoxCode(FourCC(*b"colr"));
+
+    /// coverage information
+    /// 
+    /// FourCC: `covi`
+    /// 
+    /// Specification: _OMAF_
+    pub const COVI: BoxCode = BoxCode(FourCC(*b"covi"));
 
     /// Reserved
     /// 
@@ -1658,6 +1798,20 @@ impl BoxCode {
     /// Specification: _ISO_
     pub const FIRE: BoxCode = BoxCode(FourCC(*b"fire"));
 
+    /// fisheye omnidirectional video
+    /// 
+    /// FourCC: `fovd`
+    /// 
+    /// Specification: _OMAF_
+    pub const FOVD: BoxCode = BoxCode(FourCC(*b"fovd"));
+
+    /// fisheye video essential info
+    /// 
+    /// FourCC: `fovi`
+    /// 
+    /// Specification: _OMAF_
+    pub const FOVI: BoxCode = BoxCode(FourCC(*b"fovi"));
+
     /// File Partition
     /// 
     /// FourCC: `fpar`
@@ -1693,6 +1847,13 @@ impl BoxCode {
     /// Specification: _ISO_
     pub const FTYP: BoxCode = BoxCode(FourCC(*b"ftyp"));
 
+    /// fisheye video supplemental info
+    /// 
+    /// FourCC: `fvsi`
+    /// 
+    /// Specification: _OMAF_
+    pub const FVSI: BoxCode = BoxCode(FourCC(*b"fvsi"));
+
     /// Group ID to name
     /// 
     /// FourCC: `gitn`
@@ -1707,11 +1868,11 @@ impl BoxCode {
     /// Specification: _OMA DRM 2.0_
     pub const GRPI: BoxCode = BoxCode(FourCC(*b"grpi"));
 
-    /// Groups List box
+    /// Groups list box
     /// 
     /// FourCC: `grpl`
     /// 
-    /// Specification: _HEIF_
+    /// Specification: _ISO_
     pub const GRPL: BoxCode = BoxCode(FourCC(*b"grpl"));
 
     /// handler, declares the media (handler) type
@@ -2071,12 +2232,26 @@ impl BoxCode {
     /// Specification: _ISO_
     pub const MEHD: BoxCode = BoxCode(FourCC(*b"mehd"));
 
+    /// media offset
+    /// 
+    /// FourCC: `meof`
+    /// 
+    /// Specification: _OMAF_
+    pub const MEOF: BoxCode = BoxCode(FourCC(*b"meof"));
+
     /// metabox relation
     /// 
     /// FourCC: `mere`
     /// 
     /// Specification: _ISO_
     pub const MERE: BoxCode = BoxCode(FourCC(*b"mere"));
+
+    /// mesh box
+    /// 
+    /// FourCC: `mesh`
+    /// 
+    /// Specification: _OMAF_
+    pub const MESH: BoxCode = BoxCode(FourCC(*b"mesh"));
 
     /// Metadata container
     /// 
@@ -2133,6 +2308,13 @@ impl BoxCode {
     /// 
     /// Specification: _ISO_
     pub const MOOV: BoxCode = BoxCode(FourCC(*b"moov"));
+
+    /// mesh omnidirectional video
+    /// 
+    /// FourCC: `movd`
+    /// 
+    /// Specification: _OMAF_
+    pub const MOVD: BoxCode = BoxCode(FourCC(*b"movd"));
 
     /// MVC sub track view box
     /// 
@@ -2253,12 +2435,26 @@ impl BoxCode {
     /// Specification: _OMA DRM 2.0_
     pub const OHDR: BoxCode = BoxCode(FourCC(*b"ohdr"));
 
+    /// OMAF timed text configuration
+    /// 
+    /// FourCC: `otcf`
+    /// 
+    /// Specification: _OMAF_
+    pub const OTCF: BoxCode = BoxCode(FourCC(*b"otcf"));
+
     /// Original file type
     /// 
     /// FourCC: `otyp`
     /// 
     /// Specification: _ISO_
     pub const OTYP: BoxCode = BoxCode(FourCC(*b"otyp"));
+
+    /// overlay configuration
+    /// 
+    /// FourCC: `ovly`
+    /// 
+    /// Specification: _OMAF_
+    pub const OVLY: BoxCode = BoxCode(FourCC(*b"ovly"));
 
     /// sample padding bits
     /// 
@@ -2330,6 +2526,20 @@ impl BoxCode {
     /// Specification: _ISO_
     pub const PNOT: BoxCode = BoxCode(FourCC(*b"pnot"));
 
+    /// projected omnidirectional video
+    /// 
+    /// FourCC: `povd`
+    /// 
+    /// Specification: _OMAF_
+    pub const POVD: BoxCode = BoxCode(FourCC(*b"povd"));
+
+    /// projection format
+    /// 
+    /// FourCC: `prfr`
+    /// 
+    /// Specification: _OMAF_
+    pub const PRFR: BoxCode = BoxCode(FourCC(*b"prfr"));
+
     /// Producer reference time
     /// 
     /// FourCC: `prft`
@@ -2392,6 +2602,34 @@ impl BoxCode {
     /// 
     /// Specification: _ISO_
     pub const RINF: BoxCode = BoxCode(FourCC(*b"rinf"));
+
+    /// rotation box
+    /// 
+    /// FourCC: `rotn`
+    /// 
+    /// Specification: _OMAF_
+    pub const ROTN: BoxCode = BoxCode(FourCC(*b"rotn"));
+
+    /// sphere region configuration
+    /// 
+    /// FourCC: `rosc`
+    /// 
+    /// Specification: _OMAF_
+    pub const ROSC: BoxCode = BoxCode(FourCC(*b"rosc"));
+
+    /// recommended viewport information
+    /// 
+    /// FourCC: `rvif`
+    /// 
+    /// Specification: _OMAF_
+    pub const RVIF: BoxCode = BoxCode(FourCC(*b"rvif"));
+
+    /// region-wise packing
+    /// 
+    /// FourCC: `rwpk`
+    /// 
+    /// Specification: _OMAF_
+    pub const RWPK: BoxCode = BoxCode(FourCC(*b"rwpk"));
 
     /// Sample auxiliary information offsets
     /// 
@@ -2512,6 +2750,13 @@ impl BoxCode {
     /// Specification: _ISO_
     pub const SMHD: BoxCode = BoxCode(FourCC(*b"smhd"));
 
+    /// sub-picture region
+    /// 
+    /// FourCC: `sprg`
+    /// 
+    /// Specification: _OMAF_
+    pub const SPRG: BoxCode = BoxCode(FourCC(*b"sprg"));
+
     /// System Renewability Message
     /// 
     /// FourCC: `srmb`
@@ -2532,6 +2777,13 @@ impl BoxCode {
     /// 
     /// Specification: _ISO_
     pub const SRPP: BoxCode = BoxCode(FourCC(*b"srpp"));
+
+    /// sphere region quality ranking
+    /// 
+    /// FourCC: `srqr`
+    /// 
+    /// Specification: _OMAF_
+    pub const SRQR: BoxCode = BoxCode(FourCC(*b"srqr"));
 
     /// Sub-sample index
     /// 
@@ -2889,6 +3141,13 @@ impl BoxCode {
     /// 
     /// Specification: _ISO_
     pub const VMHD: BoxCode = BoxCode(FourCC(*b"vmhd"));
+
+    /// viewing space
+    /// 
+    /// FourCC: `vssn`
+    /// 
+    /// Specification: _OMAF_
+    pub const VSSN: BoxCode = BoxCode(FourCC(*b"vssn"));
 
     /// Multiview Scene Information
     /// 
@@ -3539,6 +3798,13 @@ impl BrandCode {
     /// Specification: _3GPP-VR_
     pub const THREE_VRM: BrandCode = BrandCode(FourCC(*b"3vrm"));
 
+    /// Advanced tiling OMAF video profile
+    /// 
+    /// FourCC: `adti`
+    /// 
+    /// Specification: _OMAF_
+    pub const ADTI: BrandCode = BrandCode(FourCC(*b"adti"));
+
     /// ARRI Digital Camera
     /// 
     /// FourCC: `ARRI`
@@ -3573,6 +3839,34 @@ impl BrandCode {
     /// 
     /// Specification: _HEIF_
     pub const AVCS: BrandCode = BrandCode(FourCC(*b"avcs"));
+
+    /// AVC-based viewport-dependent OMAF video profile
+    /// 
+    /// FourCC: `avde`
+    /// 
+    /// Specification: _OMAF_
+    pub const AVDE: BrandCode = BrandCode(FourCC(*b"avde"));
+
+    /// AV1 image format brand
+    /// 
+    /// FourCC: `avif`
+    /// 
+    /// Specification: _AVIF_
+    pub const AVIF: BrandCode = BrandCode(FourCC(*b"avif"));
+
+    /// AV1 intra-only brand
+    /// 
+    /// FourCC: `avio`
+    /// 
+    /// Specification: _AVIF_
+    pub const AVIO: BrandCode = BrandCode(FourCC(*b"avio"));
+
+    /// AV1 image sequence brand
+    /// 
+    /// FourCC: `avis`
+    /// 
+    /// Specification: _AVIF_
+    pub const AVIS: BrandCode = BrandCode(FourCC(*b"avis"));
 
     /// Blinkbox Master File: H.264 video and 16-bit little-endian LPCM audio
     /// 
@@ -3622,6 +3916,13 @@ impl BrandCode {
     /// 
     /// Specification: _CMAF_
     pub const CAAC: BrandCode = BrandCode(FourCC(*b"caac"));
+
+    /// CMAF Media Profile for OMAF 3D audio baseline profile
+    /// 
+    /// FourCC: `cabl`
+    /// 
+    /// Specification: _OMAF_
+    pub const CABL: BrandCode = BrandCode(FourCC(*b"cabl"));
 
     /// CMAF Media Profile - AAC multichannel adaptive audio
     /// 
@@ -3686,6 +3987,13 @@ impl BrandCode {
     /// Specification: _CMAF_
     pub const CFSD: BrandCode = BrandCode(FourCC(*b"cfsd"));
 
+    /// CMAF Media Profile compatibility to HDR10+ (ST2094-40)
+    /// 
+    /// FourCC: `cdm4`
+    /// 
+    /// Specification: _SCTE-215-1-1b_
+    pub const CDM4: BrandCode = BrandCode(FourCC(*b"cdm4"));
+
     /// CMAF Media Profile - HEVC HDR10
     /// 
     /// FourCC: `chd1`
@@ -3699,6 +4007,13 @@ impl BrandCode {
     /// 
     /// Specification: _CMAF_
     pub const CHDF: BrandCode = BrandCode(FourCC(*b"chdf"));
+
+    /// CMAF Media Profile for the HEVC-based viewport-dependent OMAF video profile
+    /// 
+    /// FourCC: `chev`
+    /// 
+    /// Specification: _OMAF_
+    pub const CHEV: BrandCode = BrandCode(FourCC(*b"chev"));
 
     /// CMAF Media Profile - HEVC HHD8
     /// 
@@ -3797,6 +4112,20 @@ impl BrandCode {
     /// 
     /// Specification: _CMAF_
     pub const CUD8: BrandCode = BrandCode(FourCC(*b"cud8"));
+
+    /// CMAF Media Profile for the unconstrained HEVC-based viewport-independent OMAF video profile
+    /// 
+    /// FourCC: `cuvd`
+    /// 
+    /// Specification: _OMAF_
+    pub const CUVD: BrandCode = BrandCode(FourCC(*b"cuvd"));
+
+    /// CMAF Media Profile for the HEVC-based viewport-independent OMAF video profile
+    /// 
+    /// FourCC: `cvid`
+    /// 
+    /// Specification: _OMAF_
+    pub const CVID: BrandCode = BrandCode(FourCC(*b"cvid"));
 
     /// CMAF Media Profile - WebVTT
     /// 
@@ -4008,12 +4337,33 @@ impl BrandCode {
     /// Specification: _HEIF_
     pub const HEIX: BrandCode = BrandCode(FourCC(*b"heix"));
 
+    /// OMAF HEVC image profile
+    /// 
+    /// FourCC: `heoi`
+    /// 
+    /// Specification: _OMAF_
+    pub const HEOI: BrandCode = BrandCode(FourCC(*b"heoi"));
+
     /// HEVC image sequence brands
     /// 
     /// FourCC: `hevc`
     /// 
     /// Specification: _HEIF_
     pub const HEVC: BrandCode = BrandCode(FourCC(*b"hevc"));
+
+    /// HEVC-based viewport-dependent OMAF video profile
+    /// 
+    /// FourCC: `hevd`
+    /// 
+    /// Specification: _OMAF_
+    pub const HEVD: BrandCode = BrandCode(FourCC(*b"hevd"));
+
+    /// HEVC-based viewport-independent OMAF video profile
+    /// 
+    /// FourCC: `hevi`
+    /// 
+    /// Specification: _OMAF_
+    pub const HEVI: BrandCode = BrandCode(FourCC(*b"hevi"));
 
     /// L-HEVC image sequence brands
     /// 
@@ -4050,12 +4400,75 @@ impl BrandCode {
     /// Specification: _NALu Video_
     pub const HVCI: BrandCode = BrandCode(FourCC(*b"hvci"));
 
+    /// L-HEVC extended explicit reconstruction brand
+    /// 
+    /// FourCC: `hvcx`
+    /// 
+    /// Specification: _NALu Video_
+    pub const HVCX: BrandCode = BrandCode(FourCC(*b"hvcx"));
+
     /// HEVC Tile Track
     /// 
     /// FourCC: `hvti`
     /// 
     /// Specification: _NALu Video_
     pub const HVTI: BrandCode = BrandCode(FourCC(*b"hvti"));
+
+    /// IFE-SD Media Profile
+    /// 
+    /// FourCC: `ifsd`
+    /// 
+    /// Specification: _IFE_
+    pub const IFSD: BrandCode = BrandCode(FourCC(*b"ifsd"));
+
+    /// IFE-HSD Media Profile
+    /// 
+    /// FourCC: `ifhs`
+    /// 
+    /// Specification: _IFE_
+    pub const IFHS: BrandCode = BrandCode(FourCC(*b"ifhs"));
+
+    /// IFE-HD Media Profile
+    /// 
+    /// FourCC: `ifhd`
+    /// 
+    /// Specification: _IFE_
+    pub const IFHD: BrandCode = BrandCode(FourCC(*b"ifhd"));
+
+    /// IFE-HHD10 Media Profile
+    /// 
+    /// FourCC: `ifhx`
+    /// 
+    /// Specification: _IFE_
+    pub const IFHX: BrandCode = BrandCode(FourCC(*b"ifhx"));
+
+    /// IFE-HDHDR Media Profile
+    /// 
+    /// FourCC: `ifhh`
+    /// 
+    /// Specification: _IFE_
+    pub const IFHH: BrandCode = BrandCode(FourCC(*b"ifhh"));
+
+    /// IFE-UHD10 Media Profile
+    /// 
+    /// FourCC: `ifhu`
+    /// 
+    /// Specification: _IFE_
+    pub const IFHU: BrandCode = BrandCode(FourCC(*b"ifhu"));
+
+    /// IFE-HDR10 Media Profile
+    /// 
+    /// FourCC: `ifhr`
+    /// 
+    /// Specification: _IFE_
+    pub const IFHR: BrandCode = BrandCode(FourCC(*b"ifhr"));
+
+    /// IFE-AAC Core Media Profile
+    /// 
+    /// FourCC: `ifaa`
+    /// 
+    /// Specification: _IFE_
+    pub const IFAA: BrandCode = BrandCode(FourCC(*b"ifaa"));
 
     /// Apple iFrame Specification, Version 8.1 Jan 2013
     /// 
@@ -4246,6 +4659,13 @@ impl BrandCode {
     /// Specification: _JPM_
     pub const JPM : BrandCode = BrandCode(FourCC(*b"jpm "));
 
+    /// OMAF legacy image profile
+    /// 
+    /// FourCC: `jpoi`
+    /// 
+    /// Specification: _OMAF_
+    pub const JPOI: BrandCode = BrandCode(FourCC(*b"jpoi"));
+
     /// The JPSearch data interchange format, for the exchange of image collections and respective metadata
     /// 
     /// FourCC: `jpsi`
@@ -4357,6 +4777,20 @@ impl BrandCode {
     /// 
     /// Specification: _iTunes_
     pub const M4V : BrandCode = BrandCode(FourCC(*b"M4V "));
+
+    /// AVIF Baseline Profile
+    /// 
+    /// FourCC: `MA1B`
+    /// 
+    /// Specification: _AVIF_
+    pub const MA1B: BrandCode = BrandCode(FourCC(*b"MA1B"));
+
+    /// AVIF Advanced Profile
+    /// 
+    /// FourCC: `MA1A`
+    /// 
+    /// Specification: _AVIF_
+    pub const MA1A: BrandCode = BrandCode(FourCC(*b"MA1A"));
 
     /// Media File for Samsung video Metadata
     /// 
@@ -4540,6 +4974,13 @@ impl BrandCode {
     /// Specification: _Nikon_
     pub const NIKO: BrandCode = BrandCode(FourCC(*b"niko"));
 
+    /// Non-linear storyline toolset brand
+    /// 
+    /// FourCC: `nlsl`
+    /// 
+    /// Specification: _OMAF_
+    pub const NLSL: BrandCode = BrandCode(FourCC(*b"nlsl"));
+
     /// No Leading Picture Sync Brand
     /// 
     /// FourCC: `nras`
@@ -4547,12 +4988,33 @@ impl BrandCode {
     /// Specification: _NALu Video_
     pub const NRAS: BrandCode = BrandCode(FourCC(*b"nras"));
 
+    /// OMAF 2D audio legacy profile
+    /// 
+    /// FourCC: `oa2d`
+    /// 
+    /// Specification: _OMAF_
+    pub const OA2D: BrandCode = BrandCode(FourCC(*b"oa2d"));
+
+    /// OMAF 3D audio baseline profile
+    /// 
+    /// FourCC: `oabl`
+    /// 
+    /// Specification: _OMAF_
+    pub const OABL: BrandCode = BrandCode(FourCC(*b"oabl"));
+
     /// OMA DCF (DRM Content Format)
     /// 
     /// FourCC: `odcf`
     /// 
     /// Specification: _OMA DRM 2.0_
     pub const ODCF: BrandCode = BrandCode(FourCC(*b"odcf"));
+
+    /// OMAF viewport-independent baseline presentation profile
+    /// 
+    /// FourCC: `ompp`
+    /// 
+    /// Specification: _OMAF_
+    pub const OMPP: BrandCode = BrandCode(FourCC(*b"ompp"));
 
     /// OMA PDCF (DRM Content Format)
     /// 
@@ -4567,6 +5029,20 @@ impl BrandCode {
     /// 
     /// Specification: _OMA DRM XBS_
     pub const OPX2: BrandCode = BrandCode(FourCC(*b"opx2"));
+
+    /// OMAF viewport-dependent baseline presentation profile
+    /// 
+    /// FourCC: `ovdp`
+    /// 
+    /// Specification: _OMAF_
+    pub const OVDP: BrandCode = BrandCode(FourCC(*b"ovdp"));
+
+    /// Overlay toolset brand
+    /// 
+    /// FourCC: `ovly`
+    /// 
+    /// Specification: _OMAF_
+    pub const OVLY: BrandCode = BrandCode(FourCC(*b"ovly"));
 
     /// Generic Partial File
     /// 
@@ -4673,6 +5149,13 @@ impl BrandCode {
     /// Specification: _DASH_
     pub const SISX: BrandCode = BrandCode(FourCC(*b"sisx"));
 
+    /// Simple tiling OMAF video profile
+    /// 
+    /// FourCC: `siti`
+    /// 
+    /// Specification: _OMAF_
+    pub const SITI: BrandCode = BrandCode(FourCC(*b"siti"));
+
     /// Dynamic metadata for Single Layer SDR-compatible HDR video streams
     /// 
     /// FourCC: `slh1`
@@ -4701,6 +5184,27 @@ impl BrandCode {
     /// Specification: _DASH_
     pub const SSSS: BrandCode = BrandCode(FourCC(*b"ssss"));
 
+    /// OMAF IMSC1 timed text profile
+    /// 
+    /// FourCC: `ttml`
+    /// 
+    /// Specification: _OMAF_
+    pub const TTML: BrandCode = BrandCode(FourCC(*b"ttml"));
+
+    /// OMAF WebVTT timed text profile
+    /// 
+    /// FourCC: `ttwv`
+    /// 
+    /// Specification: _OMAF_
+    pub const TTWV: BrandCode = BrandCode(FourCC(*b"ttwv"));
+
+    /// Unconstrained HEVC-based viewport-independent OMAF video profile
+    /// 
+    /// FourCC: `uhvi`
+    /// 
+    /// Specification: _OMAF_
+    pub const UHVI: BrandCode = BrandCode(FourCC(*b"uhvi"));
+
     /// Unified identifiers
     /// 
     /// FourCC: `unif`
@@ -4715,6 +5219,13 @@ impl BrandCode {
     /// Specification: _DECE_
     pub const UVVU: BrandCode = BrandCode(FourCC(*b"uvvu"));
 
+    /// Viewpoint toolset brand
+    /// 
+    /// FourCC: `vwpt`
+    /// 
+    /// Specification: _OMAF_
+    pub const VWPT: BrandCode = BrandCode(FourCC(*b"vwpt"));
+
     /// XAVC File Format
     /// 
     /// FourCC: `XAVC`
@@ -4728,6 +5239,55 @@ impl BrandCode {
     /// 
     /// Specification: _Youtube_
     pub const YT4 : BrandCode = BrandCode(FourCC(*b"yt4 "));
+
+    /// CMAF High frame rate Media Profile - HEVC HDR10H
+    /// 
+    /// FourCC: `chd2`
+    /// 
+    /// Specification: _CMAF_
+    pub const CHD2: BrandCode = BrandCode(FourCC(*b"chd2"));
+
+    /// CMAF Interlaced Media Profile - INT10
+    /// 
+    /// FourCC: `cint`
+    /// 
+    /// Specification: _CMAF_
+    pub const CINT: BrandCode = BrandCode(FourCC(*b"cint"));
+
+    /// CMAF High frame rate Media Profile - HEVC HLG10H
+    /// 
+    /// FourCC: `clg2`
+    /// 
+    /// Specification: _CMAF_
+    pub const CLG2: BrandCode = BrandCode(FourCC(*b"clg2"));
+
+    /// CMAF High frame rate Media Profile - HEVC UHD10H
+    /// 
+    /// FourCC: `cud2`
+    /// 
+    /// Specification: _CMAF_
+    pub const CUD2: BrandCode = BrandCode(FourCC(*b"cud2"));
+
+    /// CMAF High frame rate Media Profile - HEVC UHD8H
+    /// 
+    /// FourCC: `cud9`
+    /// 
+    /// Specification: _CMAF_
+    pub const CUD9: BrandCode = BrandCode(FourCC(*b"cud9"));
+
+    /// Image file format structural brand CICP alpha and depth
+    /// 
+    /// FourCC: `mif2`
+    /// 
+    /// Specification: _HEIF_
+    pub const MIF2: BrandCode = BrandCode(FourCC(*b"mif2"));
+
+    /// Image file format brand for predictively coded image items
+    /// 
+    /// FourCC: `pred`
+    /// 
+    /// Specification: _HEIF_
+    pub const PRED: BrandCode = BrandCode(FourCC(*b"pred"));
 
 }
 
@@ -4750,7 +5310,7 @@ impl TrackReferenceCode {
     /// 
     /// FourCC: `auxl`
     /// 
-    /// Specification: _HEIF_
+    /// Specification: _ISO_
     pub const AUXL: TrackReferenceCode = TrackReferenceCode(FourCC(*b"auxl"));
 
     /// AVC parameter set stream link
@@ -4766,6 +5326,13 @@ impl TrackReferenceCode {
     /// 
     /// Specification: _MPEG-4_
     pub const CDSC: TrackReferenceCode = TrackReferenceCode(FourCC(*b"cdsc"));
+
+    /// this track describes the referenced tracks and track groups collectively
+    /// 
+    /// FourCC: `cdtg`
+    /// 
+    /// Specification: _OMAF_
+    pub const CDTG: TrackReferenceCode = TrackReferenceCode(FourCC(*b"cdtg"));
 
     /// track containing the depth view
     /// 
@@ -4851,6 +5418,13 @@ impl TrackReferenceCode {
     /// Specification: _NALu Video_
     pub const SCAL: TrackReferenceCode = TrackReferenceCode(FourCC(*b"scal"));
 
+    /// reference to a shadow sync sample track
+    /// 
+    /// FourCC: `shsc`
+    /// 
+    /// Specification: _OMAF_
+    pub const SHSC: TrackReferenceCode = TrackReferenceCode(FourCC(*b"shsc"));
+
     /// AVC Switch from
     /// 
     /// FourCC: `swfr`
@@ -4879,11 +5453,11 @@ impl TrackReferenceCode {
     /// Specification: _NALu Video_
     pub const TBAS: TrackReferenceCode = TrackReferenceCode(FourCC(*b"tbas"));
 
-    /// Thumbnail track
+    /// Thumbnail track reference
     /// 
     /// FourCC: `thmb`
     /// 
-    /// Specification: _HEIF_
+    /// Specification: _ISO_
     pub const THMB: TrackReferenceCode = TrackReferenceCode(FourCC(*b"thmb"));
 
     /// Time code. Usually references a time code track.
@@ -4906,5 +5480,19 @@ impl TrackReferenceCode {
     /// 
     /// Specification: _ISO_
     pub const VPLX: TrackReferenceCode = TrackReferenceCode(FourCC(*b"vplx"));
+
+    /// this track uses fonts carried/defined in the referenced track
+    /// 
+    /// FourCC: `font`
+    /// 
+    /// Specification: _ISO_
+    pub const FONT: TrackReferenceCode = TrackReferenceCode(FourCC(*b"font"));
+
+    /// subtitle or timed text or overlay graphical information
+    /// 
+    /// FourCC: `subt`
+    /// 
+    /// Specification: _ISO_
+    pub const SUBT: TrackReferenceCode = TrackReferenceCode(FourCC(*b"subt"));
 
 }
