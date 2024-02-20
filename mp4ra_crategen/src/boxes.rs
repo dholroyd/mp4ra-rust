@@ -1,15 +1,18 @@
 use crate::database::Database;
 use codegen::{Scope, Const};
+use regex::Captures;
 use crate::record::Record;
 
 pub struct BoxGen {
     bangstart: regex::Regex,
+    numstart: regex::Regex,
 }
 
 impl BoxGen {
     pub fn new() -> BoxGen {
         BoxGen {
             bangstart: regex::Regex::new("^!").unwrap(),
+            numstart: regex::Regex::new("^(\\d)").unwrap(),
         }
     }
 
@@ -19,8 +22,23 @@ impl BoxGen {
     }
     fn create_base_name(&self, text: &str) -> String {
         // handle codes starting '!'
-        self.bangstart.replace(&text, "compressed_")
-            .to_string()
+        let val = self.bangstart.replace(&text, "compressed_");
+        let val = self.numstart.replace(&val, |caps: &Captures| {
+            match &caps[1] {
+                "1" => "ONE_",
+                "2" => "TWO_",
+                "3" => "THREE_",
+                "4" => "FOUR_",
+                "5" => "FIVE_",
+                "6" => "SIX_",
+                "7" => "SEVEN_",
+                "8" => "EIGHT_",
+                "9" => "NINE_",
+                "0" => "ZERO_",
+                _ => unreachable!()
+            }
+        });
+        val.to_string()
     }
 
     pub(crate) fn gen_boxes(&self, database: &Database, scope: &mut Scope) {

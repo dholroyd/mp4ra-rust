@@ -17,7 +17,7 @@ fn main() {
 // This is generated code.
 // If you need changes, alter the format-identifier_crategen project, not this file.
 // --------");
-    let database = database::Database::new("../mp4ra.github.io/CSV");
+    let database = database::Database::new("../mp4ra.github.io/data");
     let handler_variants_by_description = handlers::GenHandlers::new().gen_handlers(&database, &mut scope);
     sample_entry::SampleEntryGen::new().gen_sample_entries(&database, &mut scope, &handler_variants_by_description);
     boxes::BoxGen::new().gen_boxes(&database, &mut scope);
