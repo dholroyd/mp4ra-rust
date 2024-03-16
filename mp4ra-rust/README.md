@@ -3,6 +3,9 @@
 Types with associated constants representing code points managed by the
 [MPEG4 Registration Authority](https://mp4ra.org/).
 
+[![crates.io version](https://img.shields.io/crates/v/mp4ra-rust.svg)](https://crates.io/crates/mp4ra-rust)
+[![Documentation](https://docs.rs/mp4ra-rust/badge.svg)](https://docs.rs/mp4ra-rust)
+
 This crate has been generated from metadata published by the MP4RA by code in the
 [mp4ra-rust project](https://github.com/dholroyd/mp4ra-rust).
 
