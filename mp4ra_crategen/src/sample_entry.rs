@@ -98,7 +98,7 @@ impl SampleEntryGen {
         for se in records {
             let code = &se.code;
             let var_const = self.create_const_name(&code);
-            let mut con = Const::new(&var_const, "SampleEntryCode", &format!("SampleEntryCode(FourCC(*b{:?}))", code));
+            let mut con = Const::new(&var_const, "SampleEntryCode", &format!("SampleEntryCode::new(*b{:?})", code));
             con.vis("pub");
             con.doc(&format!("{}\n\nFourCC: `{}`\n\nSpecification: _{}_", se.description, code, se.specification));
             se_impl.push_const(con);

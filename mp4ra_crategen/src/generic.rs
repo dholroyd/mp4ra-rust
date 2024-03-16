@@ -27,7 +27,7 @@ impl GenericGenerator {
         for se in records {
             let code = &se.code;
             let var_name = self.create_const_name(&code);
-            let mut con = Const::new(&var_name, &self.type_name, &format!("{}(FourCC(*b{:?}))", &self.type_name, code));
+            let mut con = Const::new(&var_name, &self.type_name, &format!("{}::new(*b{:?})", &self.type_name, code));
             con.vis("pub");
             con.doc(&format!("{}\n\nFourCC: `{}`\n\nSpecification: _{}_", se.description, code, se.specification));
             my_impl.push_const(con);

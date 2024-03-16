@@ -103,6 +103,12 @@ impl From<u8> for ObjectTypeIdentifier {
 ///  - the [Handlers section on mp4ra.org](http://mp4ra.org/#/handlers)
 #[derive(Clone, Copy, Eq, PartialEq, Debug)]
 pub struct HandlerCode(pub FourCC);
+impl HandlerCode {
+    /// Construct a `HandlerCode` from its four-cc value
+    pub const fn new(code: [u8; 4]) -> HandlerCode {
+        HandlerCode(FourCC(code))
+    }
+}
 impl From<HandlerCode> for FourCC {
     fn from(val: HandlerCode) -> Self {
         val.0
@@ -137,6 +143,12 @@ impl From<FourCC> for HandlerCode {
 ///  - the [Sample Entry Codes section on mp4ra.org](http://mp4ra.org/#/qtcodecs)
 #[derive(Clone, Copy, Eq, PartialEq, Debug)]
 pub struct SampleEntryCode(pub FourCC);
+impl SampleEntryCode {
+    /// Construct a `SampleEntryCode` from its four-cc value
+    pub const fn new(code: [u8; 4]) -> SampleEntryCode {
+        SampleEntryCode(FourCC(code))
+    }
+}
 impl From<SampleEntryCode> for FourCC {
     fn from(val: SampleEntryCode) -> Self {
         val.0
@@ -149,12 +161,18 @@ impl From<FourCC> for SampleEntryCode {
 }
 
 
-/// Codes for for ISO-family _box_ entries within an MP4 file.
+/// Codes for ISO-family _box_ entries within an MP4 file.
 ///
 /// See also,
 ///  - the [Boxes section on mp4ra.org](http://mp4ra.org/#/atoms)
 #[derive(Clone, Copy, Eq, PartialEq, Debug)]
 pub struct BoxCode(pub FourCC);
+impl BoxCode {
+    /// Construct a `BoxCode` from its four-cc value
+    pub const fn new(code: [u8; 4]) -> BoxCode {
+        BoxCode(FourCC(code))
+    }
+}
 impl From<BoxCode> for FourCC {
     fn from(val: BoxCode) -> Self {
         val.0
@@ -173,6 +191,12 @@ impl From<FourCC> for BoxCode {
 ///  - the [Brands section on mp4ra.org](http://mp4ra.org/#/brands)
 #[derive(Clone, Copy, Eq, PartialEq, Debug)]
 pub struct BrandCode(pub FourCC);
+impl BrandCode {
+    /// Construct a `BrandCode` from its four-cc value
+    pub const fn new(code: [u8; 4]) -> BrandCode {
+        BrandCode(FourCC(code))
+    }
+}
 impl From<BrandCode> for FourCC {
     fn from(val: BrandCode) -> Self {
         val.0
@@ -191,6 +215,12 @@ impl From<FourCC> for BrandCode {
 ///  - the [Track References section on mp4ra.org](http://mp4ra.org/#/track_references)
 #[derive(Clone, Copy, Eq, PartialEq, Debug)]
 pub struct TrackReferenceCode(pub FourCC);
+impl TrackReferenceCode {
+    /// Construct a `TrackReferenceCode` from its four-cc value
+    pub const fn new(code: [u8; 4]) -> TrackReferenceCode {
+        TrackReferenceCode(FourCC(code))
+    }
+}
 impl From<TrackReferenceCode> for FourCC {
     fn from(val: TrackReferenceCode) -> Self {
         val.0
