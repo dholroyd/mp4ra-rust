@@ -9,7 +9,7 @@
 #![deny(rust_2018_idioms, future_incompatible, missing_docs)]
 
 use std::fmt;
-use four_cc::FourCC;
+pub use four_cc::FourCC;
 
 include!("generated.rs");
 
