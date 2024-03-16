@@ -55,10 +55,7 @@ impl OtiGen {
 
         let text = self
             .strip_footnote(&text)
-            .replace("/", "_")
-            .replace(".", "_")
-            .replace("|", "_")
-            .replace("+", "_");
+            .replace(['/', '.', '|', '+'], "_");
 
         if oti.code == "02" {
             format!("{}BifsV2Config", text.trim())
@@ -68,7 +65,7 @@ impl OtiGen {
     }
 
     fn strip_footnote(&self, text: &str) -> String {
-        self.footnote_ref.replace(&text, "").trim().to_string()
+        self.footnote_ref.replace(text, "").trim().to_string()
     }
 
     pub(crate) fn gen_oti(&self, database: &Database, scope: &mut Scope) {
@@ -82,7 +79,7 @@ impl OtiGen {
         let oti_impl = scope.new_impl("ObjectTypeIdentifier");
         for oti in oti_list {
             let code = &oti.code;
-            let const_name = self.create_const_name(&oti);
+            let const_name = self.create_const_name(oti);
             if const_name == "USER_PRIVATE" || const_name == "WITHDRAWN" {
                 continue;
             }
@@ -94,7 +91,7 @@ impl OtiGen {
             c.vis("pub");
             let desc = self.strip_footnote(&oti.description);
             let mut doc = format!("{}\n\nType value: `0x{}`", desc, code);
-            if oti.specification != "" {
+            if !oti.specification.is_empty() {
                 write!(&mut doc, "\n\nSpecification: _{}_", oti.specification).unwrap();
             }
             c.doc(&doc);
@@ -113,9 +110,9 @@ impl OtiGen {
         fmt_fn.line("let label = match *self {");
         for oti in records {
             let code = CodeRange::try_from(oti.code.as_str())
-                .expect(&format!("Unexpected OTI {:?}", &oti.code));
+                .unwrap_or_else(|_| panic!("Unexpected OTI {:?}", &oti.code));
 
-            let const_name = self.create_const_name(&oti);
+            let const_name = self.create_const_name(oti);
             if const_name == "WITHDRAWN" {
                 fmt_fn.line(format!(
                     "    {}(0x{}) => \"WITHDRAWN\",",
@@ -159,7 +156,7 @@ impl TryFrom<&str> for CodeRange {
 
     fn try_from(val: &str) -> Result<CodeRange, Self::Error> {
         let vals: Result<Vec<u8>, ParseIntError> = val
-            .splitn(2, "-")
+            .splitn(2, '-')
             .map(str::trim)
             .map(|s| u8::from_str_radix(s, 16))
             .collect();

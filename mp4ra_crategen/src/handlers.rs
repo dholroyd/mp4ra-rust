@@ -18,7 +18,7 @@ impl GenHandlers {
     fn create_base_name(&self, text: &str) -> String {
         // handle initial digit,
         self.initdigit
-            .replace(&text, |caps: &regex::Captures| match &caps[0] {
+            .replace(text, |caps: &regex::Captures| match &caps[0] {
                 "1" => "One_",
                 "2" => "Two_",
                 "3" => "Three_",
@@ -56,7 +56,7 @@ impl GenHandlers {
     ) {
         for handler in handler_list {
             let code = &handler.code;
-            let const_name = self.create_const_name(&code);
+            let const_name = self.create_const_name(code);
             handler_variants_by_description.insert(
                 handler.description.clone(),
                 format!("HandlerCode::{}", const_name),
@@ -67,7 +67,7 @@ impl GenHandlers {
         let handler_impl = scope.new_impl("HandlerCode");
         for se in box_list {
             let code = &se.code;
-            let var_name = self.create_const_name(&code);
+            let var_name = self.create_const_name(code);
             let mut con = Const::new(
                 &var_name,
                 "HandlerCode",

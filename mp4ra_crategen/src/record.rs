@@ -32,7 +32,7 @@ pub(crate) mod code_format {
         Ok(re
             .replace_all(&s, |caps: &regex::Captures| {
                 String::from_utf8(vec![u8::from_str_radix(&caps[1], 16).unwrap()])
-                    .expect(&format!("invalid {:?}", &caps[0]))
+                    .unwrap_or_else(|_| panic!("invalid {:?}", &caps[0]))
             })
             .to_string())
     }

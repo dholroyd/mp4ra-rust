@@ -1,6 +1,6 @@
 use crate::database::Database;
 use codegen::{Const, Scope};
-use regex;
+
 use serde::Deserialize;
 use std::collections::HashMap;
 
@@ -35,7 +35,7 @@ impl SampleEntryGen {
     }
 
     fn create_base_name(&self, text: &str) -> String {
-        let text = text.replace("-", "_");
+        let text = text.replace('-', "_");
 
         // handle codes ending in '+'
         let text = self.plusend.replace(&text, "_plus");
@@ -89,7 +89,7 @@ impl SampleEntryGen {
         handler_name_fn.line("match *self {");
         for se in records {
             let code = &se.code;
-            let const_name = self.create_const_name(&code);
+            let const_name = self.create_const_name(code);
             if let Some(handler_var) = handler_variants_by_description.get(&se.handler) {
                 handler_name_fn.line(format!(
                     "  SampleEntryCode::{} => Some({}),",
@@ -110,7 +110,7 @@ impl SampleEntryGen {
         let se_impl = scope.new_impl("SampleEntryCode");
         for se in records {
             let code = &se.code;
-            let var_const = self.create_const_name(&code);
+            let var_const = self.create_const_name(code);
             let mut con = Const::new(
                 &var_const,
                 "SampleEntryCode",

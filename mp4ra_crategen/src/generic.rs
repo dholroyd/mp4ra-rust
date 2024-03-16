@@ -17,14 +17,14 @@ impl GenericGenerator {
     }
 
     pub(crate) fn gen(&self, box_list: &[Record], scope: &mut Scope) {
-        self.gen_consts(&box_list, scope);
+        self.gen_consts(box_list, scope);
     }
 
     fn gen_consts(&self, records: &[Record], scope: &mut Scope) {
         let my_impl = scope.new_impl(&self.type_name);
         for se in records {
             let code = &se.code;
-            let var_name = self.create_const_name(&code);
+            let var_name = self.create_const_name(code);
             let mut con = Const::new(
                 &var_name,
                 &self.type_name,
@@ -44,7 +44,7 @@ impl GenericGenerator {
     }
     fn create_base_name(&self, text: &str) -> String {
         // handle codes starting '!'
-        let text = self.bangstart.replace(&text, "compressed_").to_string();
+        let text = self.bangstart.replace(text, "compressed_").to_string();
         // handle initial digit,
         self.initdigit
             .replace(&text, |caps: &regex::Captures| match &caps[0] {

@@ -21,7 +21,7 @@ impl BoxGen {
     }
     fn create_base_name(&self, text: &str) -> String {
         // handle codes starting '!'
-        let val = self.bangstart.replace(&text, "compressed_");
+        let val = self.bangstart.replace(text, "compressed_");
         let val = self
             .numstart
             .replace(&val, |caps: &Captures| match &caps[1] {
@@ -53,7 +53,7 @@ impl BoxGen {
         let box_impl = scope.new_impl("BoxCode");
         for se in box_list {
             let code = &se.code;
-            let var_name = self.create_const_name(&code);
+            let var_name = self.create_const_name(code);
             let mut con = Const::new(&var_name, "BoxCode", &format!("BoxCode::new(*b{:?})", code));
             con.vis("pub");
             con.doc(&format!(
