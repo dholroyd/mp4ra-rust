@@ -1,7 +1,7 @@
 use crate::database::Database;
-use codegen::{Scope, Const};
-use regex::Captures;
 use crate::record::Record;
+use codegen::{Const, Scope};
+use regex::Captures;
 
 pub struct BoxGen {
     bangstart: regex::Regex,
@@ -17,14 +17,14 @@ impl BoxGen {
     }
 
     fn create_const_name(&self, text: &str) -> String {
-        self.create_base_name(text)
-            .to_uppercase()
+        self.create_base_name(text).to_uppercase()
     }
     fn create_base_name(&self, text: &str) -> String {
         // handle codes starting '!'
         let val = self.bangstart.replace(&text, "compressed_");
-        let val = self.numstart.replace(&val, |caps: &Captures| {
-            match &caps[1] {
+        let val = self
+            .numstart
+            .replace(&val, |caps: &Captures| match &caps[1] {
                 "1" => "ONE_",
                 "2" => "TWO_",
                 "3" => "THREE_",
@@ -35,14 +35,15 @@ impl BoxGen {
                 "8" => "EIGHT_",
                 "9" => "NINE_",
                 "0" => "ZERO_",
-                _ => unreachable!()
-            }
-        });
+                _ => unreachable!(),
+            });
         val.to_string()
     }
 
     pub(crate) fn gen_boxes(&self, database: &Database, scope: &mut Scope) {
-        let mut box_list = database.load::<Record>("boxes.csv").expect("Failure generating boxes entries");
+        let mut box_list = database
+            .load::<Record>("boxes.csv")
+            .expect("Failure generating boxes entries");
         // the code "xml " appears twice, so remove dup (maybe we should keep both descriptions?)
         box_list.dedup_by_key(|bx| bx.code.clone());
         self.gen_boxes_consts(&box_list, scope);
@@ -55,7 +56,10 @@ impl BoxGen {
             let var_name = self.create_const_name(&code);
             let mut con = Const::new(&var_name, "BoxCode", &format!("BoxCode::new(*b{:?})", code));
             con.vis("pub");
-            con.doc(&format!("{}\n\nFourCC: `{}`\n\nSpecification: _{}_", se.description, code, se.specification));
+            con.doc(&format!(
+                "{}\n\nFourCC: `{}`\n\nSpecification: _{}_",
+                se.description, code, se.specification
+            ));
             box_impl.push_const(con);
         }
     }

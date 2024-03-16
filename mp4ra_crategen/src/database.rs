@@ -1,5 +1,5 @@
-use std::path::PathBuf;
 use serde::de::DeserializeOwned;
+use std::path::PathBuf;
 
 pub(crate) struct Database {
     basepath: PathBuf,
@@ -13,8 +13,7 @@ impl Database {
     }
 
     pub fn load<REC: DeserializeOwned>(&self, name: &str) -> Result<Vec<REC>, csv::Error> {
-        let input = std::fs::File::open(self.basepath.join(name))
-            .expect(name);
+        let input = std::fs::File::open(self.basepath.join(name)).expect(name);
         let mut rdr = csv::Reader::from_reader(input);
         rdr.deserialize().collect()
     }

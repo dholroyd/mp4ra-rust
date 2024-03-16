@@ -8,8 +8,8 @@
 #![forbid(unsafe_code)]
 #![deny(rust_2018_idioms, future_incompatible, missing_docs)]
 
-use std::fmt;
 pub use four_cc::FourCC;
+use std::fmt;
 
 include!("generated.rs");
 
@@ -120,7 +120,6 @@ impl From<FourCC> for HandlerCode {
     }
 }
 
-
 /// Codes identifying _sample entries_ registered with ISO.
 ///
 /// The `handler()` method will give you the code for the handler specified for this kind of
@@ -160,7 +159,6 @@ impl From<FourCC> for SampleEntryCode {
     }
 }
 
-
 /// Codes for ISO-family _box_ entries within an MP4 file.
 ///
 /// See also,
@@ -184,7 +182,6 @@ impl From<FourCC> for BoxCode {
     }
 }
 
-
 /// Codes for MPEG4 _brands_, identifying with which specification some MP4 data is compatible .
 ///
 /// See also,
@@ -207,7 +204,6 @@ impl From<FourCC> for BrandCode {
         BrandCode(val)
     }
 }
-
 
 /// Codes for _track reference link types_.
 ///

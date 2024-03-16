@@ -1,7 +1,7 @@
-use serde::Deserialize;
-use regex;
-use codegen::{Scope, Const};
 use crate::database::Database;
+use codegen::{Const, Scope};
+use regex;
+use serde::Deserialize;
 use std::collections::HashMap;
 
 #[derive(Debug, Deserialize)]
@@ -31,8 +31,7 @@ impl SampleEntryGen {
     }
 
     fn create_const_name(&self, text: &str) -> String {
-        self.create_base_name(text)
-            .to_uppercase()
+        self.create_base_name(text).to_uppercase()
     }
 
     fn create_base_name(&self, text: &str) -> String {
@@ -45,8 +44,8 @@ impl SampleEntryGen {
         let text = self.plusin.replace(&text, "_plus_");
 
         // handle initial digit,
-        self.initdigit.replace(&text, |caps: &regex::Captures| {
-            match &caps[0] {
+        self.initdigit
+            .replace(&text, |caps: &regex::Captures| match &caps[0] {
                 "1" => "One_",
                 "2" => "Two_",
                 "3" => "Three_",
@@ -58,18 +57,29 @@ impl SampleEntryGen {
                 "9" => "Nine_",
                 "0" => "Ten_",
                 _ => panic!("unexpected {:?}", &caps[0]),
-            }
-        })
+            })
             .to_string()
     }
 
-    pub(crate) fn gen_sample_entries(&self, database: &Database, scope: &mut Scope, handler_variants_by_description: &HashMap<String, String>) {
-        let records = database.load::<SampleEntry>("sample-entries.csv").expect("Failure generating sample entries");
+    pub(crate) fn gen_sample_entries(
+        &self,
+        database: &Database,
+        scope: &mut Scope,
+        handler_variants_by_description: &HashMap<String, String>,
+    ) {
+        let records = database
+            .load::<SampleEntry>("sample-entries.csv")
+            .expect("Failure generating sample entries");
         self.gen_sample_entries_handler_impls(&records, scope, handler_variants_by_description);
         self.gen_sample_entries_consts(&records, scope);
     }
 
-    fn gen_sample_entries_handler_impls(&self, records: &[SampleEntry], scope: &mut Scope, handler_variants_by_description: &HashMap<String, String>) {
+    fn gen_sample_entries_handler_impls(
+        &self,
+        records: &[SampleEntry],
+        scope: &mut Scope,
+        handler_variants_by_description: &HashMap<String, String>,
+    ) {
         let mut sample_entry_impl = codegen::Impl::new("SampleEntryCode");
         let handler_name_fn = sample_entry_impl.new_fn("handler");
         handler_name_fn.vis("pub")
@@ -81,7 +91,10 @@ impl SampleEntryGen {
             let code = &se.code;
             let const_name = self.create_const_name(&code);
             if let Some(handler_var) = handler_variants_by_description.get(&se.handler) {
-                handler_name_fn.line(format!("  SampleEntryCode::{} => Some({}),", &const_name, handler_var));
+                handler_name_fn.line(format!(
+                    "  SampleEntryCode::{} => Some({}),",
+                    &const_name, handler_var
+                ));
             } else {
                 eprintln!("No handler for {:?}", &se.handler);
                 handler_name_fn.line(format!("  SampleEntryCode::{} => None,", &const_name));
@@ -98,9 +111,16 @@ impl SampleEntryGen {
         for se in records {
             let code = &se.code;
             let var_const = self.create_const_name(&code);
-            let mut con = Const::new(&var_const, "SampleEntryCode", &format!("SampleEntryCode::new(*b{:?})", code));
+            let mut con = Const::new(
+                &var_const,
+                "SampleEntryCode",
+                &format!("SampleEntryCode::new(*b{:?})", code),
+            );
             con.vis("pub");
-            con.doc(&format!("{}\n\nFourCC: `{}`\n\nSpecification: _{}_", se.description, code, se.specification));
+            con.doc(&format!(
+                "{}\n\nFourCC: `{}`\n\nSpecification: _{}_",
+                se.description, code, se.specification
+            ));
             se_impl.push_const(con);
         }
     }

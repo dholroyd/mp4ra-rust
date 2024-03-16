@@ -21,19 +21,20 @@ pub struct TypedRecord {
 
 /// decode characters encoded as dolar-prefixed hex.
 pub(crate) mod code_format {
-    use serde::{Deserializer, Deserialize};
+    use serde::{Deserialize, Deserializer};
 
-    pub fn deserialize<'de, D>(
-        deserializer: D,
-    ) -> Result<String, D::Error>
-        where
-            D: Deserializer<'de>,
+    pub fn deserialize<'de, D>(deserializer: D) -> Result<String, D::Error>
+    where
+        D: Deserializer<'de>,
     {
         let s = String::deserialize(deserializer)?;
         let re = regex::Regex::new("\\$(\\d\\d)").unwrap();
-        Ok(re.replace_all(&s, |caps: &regex::Captures| {
-            String::from_utf8(vec![u8::from_str_radix(&caps[1], 16).unwrap()]).expect(&format!("invalid {:?}", &caps[0]))
-        }).to_string())
+        Ok(re
+            .replace_all(&s, |caps: &regex::Captures| {
+                String::from_utf8(vec![u8::from_str_radix(&caps[1], 16).unwrap()])
+                    .expect(&format!("invalid {:?}", &caps[0]))
+            })
+            .to_string())
     }
 
     #[cfg(test)]
@@ -42,7 +43,8 @@ pub(crate) mod code_format {
 
         #[test]
         fn test_decode() {
-            let v: Result<String, serde::de::value::Error> = super::deserialize("A$20$42$43".into_deserializer());
+            let v: Result<String, serde::de::value::Error> =
+                super::deserialize("A$20$42$43".into_deserializer());
             assert!(matches!(v, Ok(s) if s=="A BC"));
         }
     }

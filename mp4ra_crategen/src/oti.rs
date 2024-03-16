@@ -1,12 +1,12 @@
 use crate::database::Database;
-use codegen::{Scope, Const};
 use crate::record::Record;
+use codegen::{Const, Scope};
 use convert_case::{Case, Casing};
-use std::fmt::Display;
-use std::fmt;
-use std::num::ParseIntError;
 use std::convert::TryFrom;
+use std::fmt;
+use std::fmt::Display;
 use std::fmt::Write;
+use std::num::ParseIntError;
 
 pub struct OtiGen {
     digit_start: regex::Regex,
@@ -23,7 +23,8 @@ impl OtiGen {
 
     fn create_const_name(&self, oti: &Record) -> String {
         self.create_base_name(oti)
-            .to_case(Case::UpperSnake).to_string()
+            .to_case(Case::UpperSnake)
+            .to_string()
     }
     fn create_base_name(&self, oti: &Record) -> String {
         // TODO: the naming strategy is to transform the description given in MP4RA data into
@@ -35,8 +36,9 @@ impl OtiGen {
             return "Withdrawn".to_string();
         }
         // handle initial digit, as in "3GPP2 Compact Multimedia Format"
-        let text = self.digit_start.replace(&oti.description, |caps: &regex::Captures| {
-            match &caps[0] {
+        let text = self
+            .digit_start
+            .replace(&oti.description, |caps: &regex::Captures| match &caps[0] {
                 "1" => "One_",
                 "2" => "Two_",
                 "3" => "Three_",
@@ -48,11 +50,11 @@ impl OtiGen {
                 "9" => "Nine_",
                 "0" => "Ten_",
                 _ => panic!("unexpected {:?}", &caps[0]),
-            }
-        })
+            })
             .to_string();
 
-        let text = self.strip_footnote(&text)
+        let text = self
+            .strip_footnote(&text)
             .replace("/", "_")
             .replace(".", "_")
             .replace("|", "_")
@@ -61,20 +63,18 @@ impl OtiGen {
         if oti.code == "02" {
             format!("{}BifsV2Config", text.trim())
         } else {
-            text
-                .trim()
-                .to_string()
+            text.trim().to_string()
         }
     }
 
     fn strip_footnote(&self, text: &str) -> String {
-        self.footnote_ref.replace(&text, "")
-            .trim()
-            .to_string()
+        self.footnote_ref.replace(&text, "").trim().to_string()
     }
 
     pub(crate) fn gen_oti(&self, database: &Database, scope: &mut Scope) {
-        let oti_list = database.load::<Record>("oti.csv").expect("Failure generating boxes entries");
+        let oti_list = database
+            .load::<Record>("oti.csv")
+            .expect("Failure generating boxes entries");
         self.gen_oti_consts(&oti_list, scope);
         self.gen_debug(&oti_list, scope);
     }
@@ -86,7 +86,11 @@ impl OtiGen {
             if const_name == "USER_PRIVATE" || const_name == "WITHDRAWN" {
                 continue;
             }
-            let mut c = Const::new(&const_name, "ObjectTypeIdentifier", &format!("ObjectTypeIdentifier(0x{})", code));
+            let mut c = Const::new(
+                &const_name,
+                "ObjectTypeIdentifier",
+                &format!("ObjectTypeIdentifier(0x{})", code),
+            );
             c.vis("pub");
             let desc = self.strip_footnote(&oti.description);
             let mut doc = format!("{}\n\nType value: `0x{}`", desc, code);
@@ -98,41 +102,52 @@ impl OtiGen {
         }
     }
 
-
     fn gen_debug(&self, records: &[Record], scope: &mut Scope) {
         let mut debug_impl = codegen::Impl::new("ObjectTypeIdentifier");
         debug_impl.impl_trait("fmt::Debug");
         let fmt_fn = debug_impl.new_fn("fmt");
-        fmt_fn.ret("fmt::Result")
+        fmt_fn
+            .ret("fmt::Result")
             .arg_ref_self()
             .arg("f", "&mut fmt::Formatter<'_>");
         fmt_fn.line("let label = match *self {");
         for oti in records {
-            let code = CodeRange::try_from(oti.code.as_str()).expect(&format!("Unexpected OTI {:?}", &oti.code));
+            let code = CodeRange::try_from(oti.code.as_str())
+                .expect(&format!("Unexpected OTI {:?}", &oti.code));
 
             let const_name = self.create_const_name(&oti);
             if const_name == "WITHDRAWN" {
-                fmt_fn.line(format!("    {}(0x{}) => \"WITHDRAWN\",", "ObjectTypeIdentifier", &oti.code));
+                fmt_fn.line(format!(
+                    "    {}(0x{}) => \"WITHDRAWN\",",
+                    "ObjectTypeIdentifier", &oti.code
+                ));
             } else {
                 match code {
                     CodeRange::Single(_s) => {
-                        fmt_fn.line(format!("    {}::{} => {:?},", "ObjectTypeIdentifier", &const_name, &const_name));
-                    },
+                        fmt_fn.line(format!(
+                            "    {}::{} => {:?},",
+                            "ObjectTypeIdentifier", &const_name, &const_name
+                        ));
+                    }
                     CodeRange::Range(s, e) => {
-                        fmt_fn.line(format!("    {}({:#x}..={:#x}) => {:?},", "ObjectTypeIdentifier", s, e, &const_name));
-                    },
+                        fmt_fn.line(format!(
+                            "    {}({:#x}..={:#x}) => {:?},",
+                            "ObjectTypeIdentifier", s, e, &const_name
+                        ));
+                    }
                 }
             }
         }
-        fmt_fn.line(format!("    {}(_) => \"RESERVED\",", "ObjectTypeIdentifier"));
+        fmt_fn.line(format!(
+            "    {}(_) => \"RESERVED\",",
+            "ObjectTypeIdentifier"
+        ));
         fmt_fn.line("};");
         fmt_fn.line("write!(f, \"{}({:#04x})\", label, self.0)");
 
         scope.push_impl(debug_impl);
     }
-
 }
-
 
 enum CodeRange {
     Single(u8),
