@@ -33,5 +33,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Build and run
-        run: cargo run
+      - name: Check formatting
+        run: cargo fmt --check
+      # need to get local patches to 'codegen' upstreamed in order to run this
+      # in CI
+      #- name: Build and run
+      #  run: cargo run
