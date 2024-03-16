@@ -1,0 +1,16 @@
+version: 2
+updates:
+- package-ecosystem: cargo
+  directory: "/mp4ra-rust"
+  schedule:
+    interval: daily
+
+- package-ecosystem: cargo
+  directory: "/mp4ra_crategen"
+  schedule:
+    interval: monthly
+
+- package-ecosystem: github-actions
+  directory: /
+  schedule:
+    interval: monthly
