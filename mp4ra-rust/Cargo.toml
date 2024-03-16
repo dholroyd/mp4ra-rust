@@ -2,7 +2,7 @@
 name = "mp4ra-rust"
 version = "0.2.0"
 authors = ["David Holroyd <dave@badgers-in-foil.co.uk>"]
-edition = "2018"
+edition = "2021"
 description = "Types and associated constants representing code points managed by the MPEG4 Registration Authority"
 readme = "README.md"
 repository = "https://github.com/dholroyd/mp4ra-rust"
