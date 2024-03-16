@@ -1,6 +1,6 @@
 [package]
 name = "mp4ra-rust"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["David Holroyd <dave@badgers-in-foil.co.uk>"]
 edition = "2021"
 description = "Types and associated constants representing code points managed by the MPEG4 Registration Authority"
