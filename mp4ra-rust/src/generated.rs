@@ -1,7 +1,7 @@
 // --------
 // WARNING
 // This is generated code.
-// If you need changes, alter the format-identifier_crategen project, not this file.
+// If you need changes, alter the mp4ra_crategen project, not this file.
 // --------
 impl HandlerCode {
     /// 3GPP Scene Description
@@ -38,7 +38,7 @@ impl HandlerCode {
     ///
     /// FourCC: `crsm`
     ///
-    /// Specification: _MPEG-4_
+    /// Specification: _MP4v2_
     pub const CRSM: HandlerCode = HandlerCode::new(*b"crsm");
     /// DVB Mandatory Metadata
     ///
@@ -62,7 +62,7 @@ impl HandlerCode {
     ///
     /// FourCC: `fdsm`
     ///
-    /// Specification: _MPEG-4_
+    /// Specification: _ISO_
     pub const FDSM: HandlerCode = HandlerCode::new(*b"fdsm");
     /// General MPEG-4 systems streams (without specific handler)
     ///
@@ -104,13 +104,13 @@ impl HandlerCode {
     ///
     /// FourCC: `ipsm`
     ///
-    /// Specification: _MPEG-4_
+    /// Specification: _MP4v2_
     pub const IPSM: HandlerCode = HandlerCode::new(*b"ipsm");
     /// MPEG7Stream
     ///
     /// FourCC: `m7sm`
     ///
-    /// Specification: _MPEG-4_
+    /// Specification: _MP4v2_
     pub const M7SM: HandlerCode = HandlerCode::new(*b"m7sm");
     /// Metadata
     ///
@@ -122,7 +122,7 @@ impl HandlerCode {
     ///
     /// FourCC: `mjsm`
     ///
-    /// Specification: _MPEG-4_
+    /// Specification: _MP4v2_
     pub const MJSM: HandlerCode = HandlerCode::new(*b"mjsm");
     /// MPEG-21 Digital item
     ///
@@ -182,13 +182,13 @@ impl HandlerCode {
     ///
     /// FourCC: `ocsm`
     ///
-    /// Specification: _MPEG-4_
+    /// Specification: _MP4v2_
     pub const OCSM: HandlerCode = HandlerCode::new(*b"ocsm");
     /// ObjectDescriptorStream
     ///
     /// FourCC: `odsm`
     ///
-    /// Specification: _MPEG-4_
+    /// Specification: _MP4v2_
     pub const ODSM: HandlerCode = HandlerCode::new(*b"odsm");
     /// Image Item and Image sequences
     ///
@@ -212,7 +212,7 @@ impl HandlerCode {
     ///
     /// FourCC: `sdsm`
     ///
-    /// Specification: _MPEG-4_
+    /// Specification: _MP4v2_
     pub const SDSM: HandlerCode = HandlerCode::new(*b"sdsm");
     /// Key Management Messages
     ///
@@ -292,6 +292,12 @@ impl HandlerCode {
     ///
     /// Specification: _ISO_
     pub const HAPT: HandlerCode = HandlerCode::new(*b"hapt");
+    /// Neural network handler (items defined in the MetaBox represent neural networks)
+    ///
+    /// FourCC: `nnet`
+    ///
+    /// Specification: _NALu Video_
+    pub const NNET: HandlerCode = HandlerCode::new(*b"nnet");
 }
 impl SampleEntryCode {
     /// Return the identifier of a handler for this type of sample entry, if a single handler type is defined.  For those _sample entry_ types where MP4RA notes there are 'various' handlers, this method will return `None`
@@ -321,7 +327,11 @@ impl SampleEntryCode {
             SampleEntryCode::AVS3 => Some(HandlerCode::VIDE),
             SampleEntryCode::CAMM => Some(HandlerCode::VIDE),
             SampleEntryCode::CAVS => Some(HandlerCode::SOUN),
+            SampleEntryCode::AV3A => Some(HandlerCode::SOUN),
             SampleEntryCode::DAV1 => Some(HandlerCode::VIDE),
+            SampleEntryCode::DEPI => Some(HandlerCode::META),
+            SampleEntryCode::DFCE => Some(HandlerCode::META),
+            SampleEntryCode::DIPI => Some(HandlerCode::META),
             SampleEntryCode::DRA1 => Some(HandlerCode::SOUN),
             SampleEntryCode::DRAC => Some(HandlerCode::VIDE),
             SampleEntryCode::DTS_PLUS => Some(HandlerCode::SOUN),
@@ -351,6 +361,7 @@ impl SampleEntryCode {
             SampleEntryCode::EVM1 => Some(HandlerCode::VIDE),
             SampleEntryCode::EVS1 => Some(HandlerCode::VIDE),
             SampleEntryCode::EVS2 => Some(HandlerCode::VIDE),
+            SampleEntryCode::EVTE => Some(HandlerCode::META),
             SampleEntryCode::FDP => Some(HandlerCode::HINT),
             SampleEntryCode::FFV1 => Some(HandlerCode::VIDE),
             SampleEntryCode::FLAC => Some(HandlerCode::SOUN),
@@ -366,6 +377,13 @@ impl SampleEntryCode {
             SampleEntryCode::HVT2 => Some(HandlerCode::VIDE),
             SampleEntryCode::HVT3 => Some(HandlerCode::VIDE),
             SampleEntryCode::ICPV => Some(HandlerCode::VIDE),
+            SampleEntryCode::ICP3 => Some(HandlerCode::VOLV),
+            SampleEntryCode::ICPA => Some(HandlerCode::SOUN),
+            SampleEntryCode::ICPH => Some(HandlerCode::HINT),
+            SampleEntryCode::ICPM => Some(HandlerCode::META),
+            SampleEntryCode::ICPP => Some(HandlerCode::HAPT),
+            SampleEntryCode::ICPS => None,
+            SampleEntryCode::ICPT => Some(HandlerCode::TEXT),
             SampleEntryCode::INVO => Some(HandlerCode::META),
             SampleEntryCode::INVP => Some(HandlerCode::META),
             SampleEntryCode::IXSE => Some(HandlerCode::META),
@@ -406,6 +424,7 @@ impl SampleEntryCode {
             SampleEntryCode::RAW => Some(HandlerCode::SOUN),
             SampleEntryCode::RCVP => Some(HandlerCode::META),
             SampleEntryCode::RESV => Some(HandlerCode::VIDE),
+            SampleEntryCode::RESA => Some(HandlerCode::SOUN),
             SampleEntryCode::RM2T => Some(HandlerCode::HINT),
             SampleEntryCode::RRTP => Some(HandlerCode::HINT),
             SampleEntryCode::RSRP => Some(HandlerCode::HINT),
@@ -452,6 +471,7 @@ impl SampleEntryCode {
             SampleEntryCode::VC_1 => Some(HandlerCode::VIDE),
             SampleEntryCode::VP08 => Some(HandlerCode::VIDE),
             SampleEntryCode::VP09 => Some(HandlerCode::VIDE),
+            SampleEntryCode::VQME => Some(HandlerCode::META),
             SampleEntryCode::VRSP => Some(HandlerCode::META),
             SampleEntryCode::VVCN => Some(HandlerCode::VIDE),
             SampleEntryCode::VVC1 => Some(HandlerCode::VIDE),
@@ -461,9 +481,14 @@ impl SampleEntryCode {
             SampleEntryCode::ENCU => Some(HandlerCode::SUBT),
             SampleEntryCode::ENCP => Some(HandlerCode::HAPT),
             SampleEntryCode::ENC3 => Some(HandlerCode::VOLV),
+            SampleEntryCode::UNCV => Some(HandlerCode::VIDE),
             SampleEntryCode::IAMF => Some(HandlerCode::SOUN),
             SampleEntryCode::IPCM => Some(HandlerCode::SOUN),
             SampleEntryCode::FPCM => Some(HandlerCode::SOUN),
+            SampleEntryCode::CNDM => Some(HandlerCode::VIDE),
+            SampleEntryCode::LVC1 => Some(HandlerCode::VIDE),
+            SampleEntryCode::APAC => Some(HandlerCode::SOUN),
+            SampleEntryCode::APV1 => Some(HandlerCode::VIDE),
             _ => None,
         }
     }
@@ -607,18 +632,42 @@ impl SampleEntryCode {
     ///
     /// Specification: _CamMotion_
     pub const CAMM: SampleEntryCode = SampleEntryCode::new(*b"camm");
-    /// AVS2-P3 codec
+    /// AVS2-P3 Codec
     ///
     /// FourCC: `cavs`
     ///
     /// Specification: _GB-T-20090-9_
     pub const CAVS: SampleEntryCode = SampleEntryCode::new(*b"cavs");
+    /// AVS3-P3 Codec
+    ///
+    /// FourCC: `av3a`
+    ///
+    /// Specification: _T-AI-109.7_
+    pub const AV3A: SampleEntryCode = SampleEntryCode::new(*b"av3a");
     /// AV1-related Dolby Vision consistent with av01
     ///
     /// FourCC: `dav1`
     ///
     /// Specification: _Dolby Vision_
     pub const DAV1: SampleEntryCode = SampleEntryCode::new(*b"dav1");
+    /// Decoder power indication
+    ///
+    /// FourCC: `depi`
+    ///
+    /// Specification: _Metrics_
+    pub const DEPI: SampleEntryCode = SampleEntryCode::new(*b"depi");
+    /// Display fine control
+    ///
+    /// FourCC: `dfce`
+    ///
+    /// Specification: _Metrics_
+    pub const DFCE: SampleEntryCode = SampleEntryCode::new(*b"dfce");
+    /// Display power indication
+    ///
+    /// FourCC: `dipi`
+    ///
+    /// Specification: _Metrics_
+    pub const DIPI: SampleEntryCode = SampleEntryCode::new(*b"dipi");
     /// DRA Audio
     ///
     /// FourCC: `dra1`
@@ -793,6 +842,12 @@ impl SampleEntryCode {
     ///
     /// Specification: _NALu Video_
     pub const EVS2: SampleEntryCode = SampleEntryCode::new(*b"evs2");
+    /// Event message instance
+    ///
+    /// FourCC: `evte`
+    ///
+    /// Specification: _Event Message_
+    pub const EVTE: SampleEntryCode = SampleEntryCode::new(*b"evte");
     /// File delivery hints
     ///
     /// FourCC: `fdp `
@@ -883,6 +938,48 @@ impl SampleEntryCode {
     ///
     /// Specification: _ISO_
     pub const ICPV: SampleEntryCode = SampleEntryCode::new(*b"icpv");
+    /// Incomplete volumetric visual
+    ///
+    /// FourCC: `icp3`
+    ///
+    /// Specification: _ISO_
+    pub const ICP3: SampleEntryCode = SampleEntryCode::new(*b"icp3");
+    /// Incomplete audio
+    ///
+    /// FourCC: `icpa`
+    ///
+    /// Specification: _ISO_
+    pub const ICPA: SampleEntryCode = SampleEntryCode::new(*b"icpa");
+    /// Incomplete hint
+    ///
+    /// FourCC: `icph`
+    ///
+    /// Specification: _ISO_
+    pub const ICPH: SampleEntryCode = SampleEntryCode::new(*b"icph");
+    /// Incomplete timed metadata
+    ///
+    /// FourCC: `icpm`
+    ///
+    /// Specification: _ISO_
+    pub const ICPM: SampleEntryCode = SampleEntryCode::new(*b"icpm");
+    /// Incomplete haptics
+    ///
+    /// FourCC: `icpp`
+    ///
+    /// Specification: _ISO_
+    pub const ICPP: SampleEntryCode = SampleEntryCode::new(*b"icpp");
+    /// Incomplete system
+    ///
+    /// FourCC: `icps`
+    ///
+    /// Specification: _ISO_
+    pub const ICPS: SampleEntryCode = SampleEntryCode::new(*b"icps");
+    /// Incomplete text
+    ///
+    /// FourCC: `icpt`
+    ///
+    /// Specification: _ISO_
+    pub const ICPT: SampleEntryCode = SampleEntryCode::new(*b"icpt");
     /// Initial viewing orientation
     ///
     /// FourCC: `invo`
@@ -1013,19 +1110,19 @@ impl SampleEntryCode {
     ///
     /// FourCC: `mp4a`
     ///
-    /// Specification: _MP4v1_
+    /// Specification: _MP4v2_
     pub const MP4A: SampleEntryCode = SampleEntryCode::new(*b"mp4a");
     /// MPEG-4 Systems
     ///
     /// FourCC: `mp4s`
     ///
-    /// Specification: _MP4v1_
+    /// Specification: _MP4v2_
     pub const MP4S: SampleEntryCode = SampleEntryCode::new(*b"mp4s");
     /// MPEG-4 Visual
     ///
     /// FourCC: `mp4v`
     ///
-    /// Specification: _MP4v1_
+    /// Specification: _MP4v2_
     pub const MP4V: SampleEntryCode = SampleEntryCode::new(*b"mp4v");
     /// Multiview coding
     ///
@@ -1121,8 +1218,14 @@ impl SampleEntryCode {
     ///
     /// FourCC: `resv`
     ///
-    /// Specification: _NALu Video_
+    /// Specification: _ISO_
     pub const RESV: SampleEntryCode = SampleEntryCode::new(*b"resv");
+    /// Restricted Audio
+    ///
+    /// FourCC: `resa`
+    ///
+    /// Specification: _ISO_
+    pub const RESA: SampleEntryCode = SampleEntryCode::new(*b"resa");
     /// MPEG-2 Transport Reception
     ///
     /// FourCC: `rm2t`
@@ -1399,6 +1502,12 @@ impl SampleEntryCode {
     ///
     /// Specification: _VPxx_
     pub const VP09: SampleEntryCode = SampleEntryCode::new(*b"vp09");
+    /// Quality metrics
+    ///
+    /// FourCC: `vqme`
+    ///
+    /// Specification: _Metrics_
+    pub const VQME: SampleEntryCode = SampleEntryCode::new(*b"vqme");
     /// Viewing space
     ///
     /// FourCC: `vrsp`
@@ -1453,6 +1562,12 @@ impl SampleEntryCode {
     ///
     /// Specification: _ISO_
     pub const ENC3: SampleEntryCode = SampleEntryCode::new(*b"enc3");
+    /// Uncompressed Video
+    ///
+    /// FourCC: `uncv`
+    ///
+    /// Specification: _UNCV_
+    pub const UNCV: SampleEntryCode = SampleEntryCode::new(*b"uncv");
     /// Immersive Audio Model and Formats - Encapsulated IA Sequence
     ///
     /// FourCC: `iamf`
@@ -1471,6 +1586,30 @@ impl SampleEntryCode {
     ///
     /// Specification: _ISO-UNCA_
     pub const FPCM: SampleEntryCode = SampleEntryCode::new(*b"fpcm");
+    /// Dynamic Metadata Sample Entry(XF-AVC S/XF-HEVC S File Format)
+    ///
+    /// FourCC: `cndm`
+    ///
+    /// Specification: _Canon_
+    pub const CNDM: SampleEntryCode = SampleEntryCode::new(*b"cndm");
+    /// LCEVC video track
+    ///
+    /// FourCC: `lvc1`
+    ///
+    /// Specification: _NALu Video_
+    pub const LVC1: SampleEntryCode = SampleEntryCode::new(*b"lvc1");
+    /// Apple Positional Audio Codec
+    ///
+    /// FourCC: `apac`
+    ///
+    /// Specification: _Apple_
+    pub const APAC: SampleEntryCode = SampleEntryCode::new(*b"apac");
+    /// APV mezzanine video codec for storage exchange and editing of professional quality video
+    ///
+    /// FourCC: `apv1`
+    ///
+    /// Specification: _OpenAPV_
+    pub const APV1: SampleEntryCode = SampleEntryCode::new(*b"apv1");
 }
 impl BoxCode {
     /// 2D region quality ranking
@@ -1627,7 +1766,7 @@ impl BoxCode {
     ///
     /// FourCC: `crhd`
     ///
-    /// Specification: _MP4v1_
+    /// Specification: _MP4v2_
     pub const CRHD: BoxCode = BoxCode::new(*b"crhd");
     /// compact sample to group
     ///
@@ -1729,7 +1868,7 @@ impl BoxCode {
     ///
     /// FourCC: `evti`
     ///
-    /// Specification: _ATSC 3.0_
+    /// Specification: _ATSC 3.0 A337_
     pub const EVTI: BoxCode = BoxCode::new(*b"evti");
     /// extended type and type combination
     ///
@@ -1933,7 +2072,7 @@ impl BoxCode {
     ///
     /// FourCC: `iods`
     ///
-    /// Specification: _MP4v1_
+    /// Specification: _MP4v2_
     pub const IODS: BoxCode = BoxCode::new(*b"iods");
     /// ItemPropertyContainerBox
     ///
@@ -1945,7 +2084,7 @@ impl BoxCode {
     ///
     /// FourCC: `iphd`
     ///
-    /// Specification: _MP4v1_
+    /// Specification: _MP4v2_
     pub const IPHD: BoxCode = BoxCode::new(*b"iphd");
     /// ItemPropertyAssociation
     ///
@@ -2119,7 +2258,7 @@ impl BoxCode {
     ///
     /// FourCC: `m7hd`
     ///
-    /// Specification: _MP4v1_
+    /// Specification: _MP4v2_
     pub const M7HD: BoxCode = BoxCode::new(*b"m7hd");
     /// Reserved
     ///
@@ -2221,7 +2360,7 @@ impl BoxCode {
     ///
     /// FourCC: `mjhd`
     ///
-    /// Specification: _MP4v1_
+    /// Specification: _MP4v2_
     pub const MJHD: BoxCode = BoxCode::new(*b"mjhd");
     /// multimap video
     ///
@@ -2299,7 +2438,7 @@ impl BoxCode {
     ///
     /// FourCC: `ochd`
     ///
-    /// Specification: _MP4v1_
+    /// Specification: _MP4v2_
     pub const OCHD: BoxCode = BoxCode::new(*b"ochd");
     /// OMA DRM Access Unit Format
     ///
@@ -2317,7 +2456,7 @@ impl BoxCode {
     ///
     /// FourCC: `odhd`
     ///
-    /// Specification: _MP4v1_
+    /// Specification: _MP4v2_
     pub const ODHD: BoxCode = BoxCode::new(*b"odhd");
     /// OMA DRM Discrete Media Headers
     ///
@@ -2557,7 +2696,7 @@ impl BoxCode {
     ///
     /// FourCC: `sdhd`
     ///
-    /// Specification: _MP4v1_
+    /// Specification: _MP4v2_
     pub const SDHD: BoxCode = BoxCode::new(*b"sdhd");
     /// Independent and Disposable Samples Box
     ///
@@ -3087,6 +3226,84 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const STVI: BoxCode = BoxCode::new(*b"stvi");
+    /// Sample packing information box
+    ///
+    /// FourCC: `spki`
+    ///
+    /// Specification: _ISO_
+    pub const SPKI: BoxCode = BoxCode::new(*b"spki");
+    /// audio element description
+    ///
+    /// FourCC: `aedb`
+    ///
+    /// Specification: _ISO_
+    pub const AEDB: BoxCode = BoxCode::new(*b"aedb");
+    /// audio element box
+    ///
+    /// FourCC: `aelm`
+    ///
+    /// Specification: _ISO_
+    pub const AELM: BoxCode = BoxCode::new(*b"aelm");
+    /// audio element positioning interactivity polar box
+    ///
+    /// FourCC: `aepp`
+    ///
+    /// Specification: _ISO_
+    pub const AEPP: BoxCode = BoxCode::new(*b"aepp");
+    /// audio element prominence interactivity box
+    ///
+    /// FourCC: `aepr`
+    ///
+    /// Specification: _ISO_
+    pub const AEPR: BoxCode = BoxCode::new(*b"aepr");
+    /// audio element selection box
+    ///
+    /// FourCC: `aesb`
+    ///
+    /// Specification: _ISO_
+    pub const AESB: BoxCode = BoxCode::new(*b"aesb");
+    /// audio element selection description box
+    ///
+    /// FourCC: `aesd`
+    ///
+    /// Specification: _ISO_
+    pub const AESD: BoxCode = BoxCode::new(*b"aesd");
+    /// audio rendering indication
+    ///
+    /// FourCC: `ardi`
+    ///
+    /// Specification: _ISO_
+    pub const ARDI: BoxCode = BoxCode::new(*b"ardi");
+    /// Label box
+    ///
+    /// FourCC: `labl`
+    ///
+    /// Specification: _ISO_
+    pub const LABL: BoxCode = BoxCode::new(*b"labl");
+    /// Extended Language Tag
+    ///
+    /// FourCC: `elng`
+    ///
+    /// Specification: _ISO_
+    pub const ELNG: BoxCode = BoxCode::new(*b"elng");
+    /// Redundant Sample Original Timing
+    ///
+    /// FourCC: `rsot`
+    ///
+    /// Specification: _ISO_
+    pub const RSOT: BoxCode = BoxCode::new(*b"rsot");
+    /// Sub-sample Reference Table Box
+    ///
+    /// FourCC: `ssrt`
+    ///
+    /// Specification: _ISO_
+    pub const SSRT: BoxCode = BoxCode::new(*b"ssrt");
+    /// The MinimizedImageBox provides a more compact representation of the MetaBox for a subset of use cases
+    ///
+    /// FourCC: `mini`
+    ///
+    /// Specification: _HEIF_
+    pub const MINI: BoxCode = BoxCode::new(*b"mini");
 }
 impl ObjectTypeIdentifier {
     /// Forbidden
@@ -4026,11 +4243,11 @@ impl BrandCode {
     ///
     /// Specification: _OMAF_
     pub const CVID: BrandCode = BrandCode::new(*b"cvid");
-    /// CMAF media profile for the VVC-based viewport-independent OMAF video profile
+    /// Baseline VVC media profile
     ///
     /// FourCC: `cvvc`
     ///
-    /// Specification: _OMAF_
+    /// Specification: _CMAF_
     pub const CVVC: BrandCode = BrandCode::new(*b"cvvc");
     /// CMAF Media Profile - WebVTT
     ///
@@ -5136,6 +5353,84 @@ impl BrandCode {
     ///
     /// Specification: _AOM-IAMF_
     pub const IAMF: BrandCode = BrandCode::new(*b"iamf");
+    /// Apple HEVC Video with Alpha
+    ///
+    /// FourCC: `muxa`
+    ///
+    /// Specification: _Apple HEVC Alpha_
+    pub const MUXA: BrandCode = BrandCode::new(*b"muxa");
+    /// CMAF Media Profile for Constrained Multilayer VVC
+    ///
+    /// FourCC: `cvvm`
+    ///
+    /// Specification: _ATSC 3.0 A345_
+    pub const CVVM: BrandCode = BrandCode::new(*b"cvvm");
+    /// CMAF Media Profile for ATSC Full Range Constrained Baseline VVC
+    ///
+    /// FourCC: `cafr`
+    ///
+    /// Specification: _ATSC 3.0 A345_
+    pub const CAFR: BrandCode = BrandCode::new(*b"cafr");
+    /// XF-AVC S/XF-HEVC S File Format
+    ///
+    /// FourCC: `XFVC`
+    ///
+    /// Specification: _Canon_
+    pub const XFVC: BrandCode = BrandCode::new(*b"XFVC");
+    /// CMAF Media Profile – AVS3-P3
+    ///
+    /// FourCC: `ca3a`
+    ///
+    /// Specification: _T-AI-109.7_
+    pub const CA3A: BrandCode = BrandCode::new(*b"ca3a");
+    /// CMAF Media Profile for MPEG-5 LCEVC
+    ///
+    /// FourCC: `clv1`
+    ///
+    /// Specification: _CMAF_
+    pub const CLV1: BrandCode = BrandCode::new(*b"clv1");
+    /// Version of the ISO file format
+    ///
+    /// FourCC: `isod`
+    ///
+    /// Specification: _ISO_
+    pub const ISOD: BrandCode = BrandCode::new(*b"isod");
+    /// CMAF EVC Baseline Media Profile
+    ///
+    /// FourCC: `cevb`
+    ///
+    /// Specification: _CMAF_
+    pub const CEVB: BrandCode = BrandCode::new(*b"cevb");
+    /// CMAF EVC Main Media Profile
+    ///
+    /// FourCC: `cevm`
+    ///
+    /// Specification: _CMAF_
+    pub const CEVM: BrandCode = BrandCode::new(*b"cevm");
+    /// CMAF Random Access chunk
+    ///
+    /// FourCC: `cmfr`
+    ///
+    /// Specification: _CMAF_
+    pub const CMFR: BrandCode = BrandCode::new(*b"cmfr");
+    /// MPEG-H audio BL single-stream media profile
+    ///
+    /// FourCC: `cmh1`
+    ///
+    /// Specification: _CMAF_
+    pub const CMH1: BrandCode = BrandCode::new(*b"cmh1");
+    /// MPEG-H audio BL multi-stream media profile
+    ///
+    /// FourCC: `cmh2`
+    ///
+    /// Specification: _CMAF_
+    pub const CMH2: BrandCode = BrandCode::new(*b"cmh2");
+    /// SampleAuxiliaryInformationSizesBox with version 1 and 2
+    ///
+    /// FourCC: `saie`
+    ///
+    /// Specification: _ISO_
+    pub const SAIE: BrandCode = BrandCode::new(*b"saie");
 }
 impl TrackReferenceCode {
     /// Additional audio track
@@ -5184,7 +5479,7 @@ impl TrackReferenceCode {
     ///
     /// FourCC: `dpnd`
     ///
-    /// Specification: _MPEG-4_
+    /// Specification: _MP4v2_
     pub const DPND: TrackReferenceCode = TrackReferenceCode::new(*b"dpnd");
     /// EVC slice base track
     ///
@@ -5214,7 +5509,7 @@ impl TrackReferenceCode {
     ///
     /// FourCC: `ipir`
     ///
-    /// Specification: _MPEG-4_
+    /// Specification: _MP4v2_
     pub const IPIR: TrackReferenceCode = TrackReferenceCode::new(*b"ipir");
     /// Audio layer track dependency
     ///
@@ -5232,7 +5527,7 @@ impl TrackReferenceCode {
     ///
     /// FourCC: `mpod`
     ///
-    /// Specification: _MPEG-4_
+    /// Specification: _MP4v2_
     pub const MPOD: TrackReferenceCode = TrackReferenceCode::new(*b"mpod");
     /// track that contains an 'oref' sample group
     ///
@@ -5298,7 +5593,7 @@ impl TrackReferenceCode {
     ///
     /// FourCC: `sync`
     ///
-    /// Specification: _MPEG-4_
+    /// Specification: _MP4v2_
     pub const SYNC: TrackReferenceCode = TrackReferenceCode::new(*b"sync");
     /// HEVC Tile track base
     ///
@@ -5378,4 +5673,22 @@ impl TrackReferenceCode {
     ///
     /// Specification: _NALu Video_
     pub const VVCN: TrackReferenceCode = TrackReferenceCode::new(*b"vvcN");
+    /// The referenced tracks provide supplementary video to achieve picture-in-picture functionality
+    ///
+    /// FourCC: `supm`
+    ///
+    /// Specification: _NALu Video_
+    pub const SUPM: TrackReferenceCode = TrackReferenceCode::new(*b"supm");
+    /// associated external stream track
+    ///
+    /// FourCC: `aest`
+    ///
+    /// Specification: _ISO_
+    pub const AEST: TrackReferenceCode = TrackReferenceCode::new(*b"aest");
+    /// Rendering-related metadata
+    ///
+    /// FourCC: `rndr`
+    ///
+    /// Specification: _Apple_
+    pub const RNDR: TrackReferenceCode = TrackReferenceCode::new(*b"rndr");
 }
