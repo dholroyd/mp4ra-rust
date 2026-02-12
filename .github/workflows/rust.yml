@@ -19,6 +19,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true
       - name: Check formatting
         run: cargo fmt --check
       - name: Build
@@ -33,9 +35,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true
       - name: Check formatting
         run: cargo fmt --check
-      # need to get local patches to 'codegen' upstreamed in order to run this
-      # in CI
-      #- name: Build and run
-      #  run: cargo run
+      - name: Build and run
+        run: cargo run

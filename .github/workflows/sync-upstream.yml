@@ -1,0 +1,47 @@
+name: Sync upstream MP4RA data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 4 * * 1" # Weekly on Mondays at 04:30 UTC
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Update submodule to latest upstream
+        run: git submodule update --remote mp4ra.github.io
+
+      - name: Run code generator
+        working-directory: ./mp4ra_crategen
+        run: cargo run
+
+      - name: Check for changes
+        id: git-diff
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            SHA=$(git -C mp4ra.github.io rev-parse --short HEAD)
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "submodule_sha=$SHA" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create pull request
+        if: steps.git-diff.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "Sync with upstream MP4RA data (mp4ra.github.io@${{ steps.git-diff.outputs.submodule_sha }})"
+          title: "Sync with upstream MP4RA data (mp4ra.github.io@${{ steps.git-diff.outputs.submodule_sha }})"
+          body: |
+            Automated sync of `mp4ra.github.io` submodule to commit `${{ steps.git-diff.outputs.submodule_sha }}` and regeneration of `mp4ra-rust/src/generated.rs`.
+          branch: auto-sync-upstream
+          delete-branch: true
