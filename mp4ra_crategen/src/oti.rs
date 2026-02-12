@@ -1,7 +1,8 @@
 use crate::database::Database;
+use crate::doc_attrs;
 use crate::record::Record;
-use codegen::{Const, Scope};
 use convert_case::{Case, Casing};
+use quote::format_ident;
 use std::convert::TryFrom;
 use std::fmt;
 use std::fmt::Display;
@@ -27,11 +28,6 @@ impl OtiGen {
             .to_string()
     }
     fn create_base_name(&self, oti: &Record) -> String {
-        // TODO: the naming strategy is to transform the description given in MP4RA data into
-        //       a valid const-name.  This means we break if MP4RA reword a description (would be
-        //       within their rights to do so).  For the sake of stability, we probably need to
-        //       supply our own names, or to lobby MP4RA for stable values.  For now, we hope that
-        //       they don't make changes; we should automatically asset this somehow!
         if oti.specification == "Deprecated" {
             return "Withdrawn".to_string();
         }
@@ -68,81 +64,90 @@ impl OtiGen {
         self.footnote_ref.replace(text, "").trim().to_string()
     }
 
-    pub(crate) fn gen_oti(&self, database: &Database, scope: &mut Scope) {
+    pub(crate) fn gen_oti(&self, database: &Database, items: &mut Vec<syn::Item>) {
         let oti_list = database
             .load::<Record>("oti.csv")
             .expect("Failure generating boxes entries");
-        self.gen_oti_consts(&oti_list, scope);
-        self.gen_debug(&oti_list, scope);
+        self.gen_oti_consts(&oti_list, items);
+        self.gen_debug(&oti_list, items);
     }
-    fn gen_oti_consts(&self, oti_list: &[Record], scope: &mut Scope) {
-        let oti_impl = scope.new_impl("ObjectTypeIdentifier");
+    fn gen_oti_consts(&self, oti_list: &[Record], items: &mut Vec<syn::Item>) {
+        let mut consts: Vec<syn::ImplItem> = Vec::new();
         for oti in oti_list {
             let code = &oti.code;
             let const_name = self.create_const_name(oti);
             if const_name == "USER_PRIVATE" || const_name == "WITHDRAWN" {
                 continue;
             }
-            let mut c = Const::new(
-                &const_name,
-                "ObjectTypeIdentifier",
-                &format!("ObjectTypeIdentifier(0x{})", code),
-            );
-            c.vis("pub");
+            let const_ident = format_ident!("{}", const_name);
             let desc = self.strip_footnote(&oti.description);
             let mut doc = format!("{}\n\nType value: `0x{}`", desc, code);
             if !oti.specification.is_empty() {
                 write!(&mut doc, "\n\nSpecification: _{}_", oti.specification).unwrap();
             }
-            c.doc(&doc);
-            oti_impl.push_const(c);
+            let attrs = doc_attrs(&doc);
+            let init_expr: syn::Expr =
+                syn::parse_str(&format!("ObjectTypeIdentifier(0x{})", code)).unwrap();
+            consts.push(syn::parse_quote! {
+                #(#attrs)*
+                pub const #const_ident: ObjectTypeIdentifier = #init_expr;
+            });
         }
+        items.push(syn::parse_quote! {
+            impl ObjectTypeIdentifier {
+                #(#consts)*
+            }
+        });
     }
 
-    fn gen_debug(&self, records: &[Record], scope: &mut Scope) {
-        let mut debug_impl = codegen::Impl::new("ObjectTypeIdentifier");
-        debug_impl.impl_trait("fmt::Debug");
-        let fmt_fn = debug_impl.new_fn("fmt");
-        fmt_fn
-            .ret("fmt::Result")
-            .arg_ref_self()
-            .arg("f", "&mut fmt::Formatter<'_>");
-        fmt_fn.line("let label = match *self {");
+    fn gen_debug(&self, records: &[Record], items: &mut Vec<syn::Item>) {
+        let mut match_arms: Vec<syn::Arm> = Vec::new();
         for oti in records {
             let code = CodeRange::try_from(oti.code.as_str())
                 .unwrap_or_else(|_| panic!("Unexpected OTI {:?}", &oti.code));
 
             let const_name = self.create_const_name(oti);
             if const_name == "WITHDRAWN" {
-                fmt_fn.line(format!(
-                    "    {}(0x{}) => \"WITHDRAWN\",",
-                    "ObjectTypeIdentifier", &oti.code
-                ));
+                let arm: syn::Arm = syn::parse_str(&format!(
+                    "ObjectTypeIdentifier(0x{}) => \"WITHDRAWN\",",
+                    &oti.code
+                ))
+                .unwrap();
+                match_arms.push(arm);
             } else {
                 match code {
                     CodeRange::Single(_s) => {
-                        fmt_fn.line(format!(
-                            "    {}::{} => {:?},",
-                            "ObjectTypeIdentifier", &const_name, &const_name
-                        ));
+                        let const_ident = format_ident!("{}", &const_name);
+                        let name_str = &const_name;
+                        match_arms.push(syn::parse_quote! {
+                            ObjectTypeIdentifier::#const_ident => #name_str,
+                        });
                     }
                     CodeRange::Range(s, e) => {
-                        fmt_fn.line(format!(
-                            "    {}({:#x}..={:#x}) => {:?},",
-                            "ObjectTypeIdentifier", s, e, &const_name
-                        ));
+                        let arm: syn::Arm = syn::parse_str(&format!(
+                            "ObjectTypeIdentifier({:#x}..={:#x}) => {:?},",
+                            s, e, &const_name
+                        ))
+                        .unwrap();
+                        match_arms.push(arm);
                     }
                 }
             }
         }
-        fmt_fn.line(format!(
-            "    {}(_) => \"RESERVED\",",
-            "ObjectTypeIdentifier"
-        ));
-        fmt_fn.line("};");
-        fmt_fn.line("write!(f, \"{}({:#04x})\", label, self.0)");
+        match_arms.push(syn::parse_quote! {
+            ObjectTypeIdentifier(_) => "RESERVED",
+        });
 
-        scope.push_impl(debug_impl);
+        items.push(syn::parse_quote! {
+            impl fmt::Debug for ObjectTypeIdentifier {
+                fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+                    let label = match *self {
+                        #(#match_arms)*
+                    };
+                    write!(f, "{}({:#04x})", label, self.0)
+                }
+            }
+        });
     }
 }
 

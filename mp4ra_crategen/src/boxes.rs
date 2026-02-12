@@ -1,6 +1,7 @@
 use crate::database::Database;
+use crate::doc_attrs;
 use crate::record::Record;
-use codegen::{Const, Scope};
+use quote::format_ident;
 use regex::Captures;
 
 pub struct BoxGen {
@@ -17,7 +18,7 @@ impl BoxGen {
     }
 
     fn create_const_name(&self, text: &str) -> String {
-        self.create_base_name(text).to_uppercase()
+        self.create_base_name(text).trim().to_uppercase()
     }
     fn create_base_name(&self, text: &str) -> String {
         // handle codes starting '!'
@@ -40,27 +41,36 @@ impl BoxGen {
         val.to_string()
     }
 
-    pub(crate) fn gen_boxes(&self, database: &Database, scope: &mut Scope) {
+    pub(crate) fn gen_boxes(&self, database: &Database, items: &mut Vec<syn::Item>) {
         let mut box_list = database
             .load::<Record>("boxes.csv")
             .expect("Failure generating boxes entries");
         // the code "xml " appears twice, so remove dup (maybe we should keep both descriptions?)
         box_list.dedup_by_key(|bx| bx.code.clone());
-        self.gen_boxes_consts(&box_list, scope);
+        self.gen_boxes_consts(&box_list, items);
     }
 
-    fn gen_boxes_consts(&self, box_list: &[Record], scope: &mut Scope) {
-        let box_impl = scope.new_impl("BoxCode");
+    fn gen_boxes_consts(&self, box_list: &[Record], items: &mut Vec<syn::Item>) {
+        let mut consts: Vec<syn::ImplItem> = Vec::new();
         for se in box_list {
             let code = &se.code;
-            let var_name = self.create_const_name(code);
-            let mut con = Const::new(&var_name, "BoxCode", &format!("BoxCode::new(*b{:?})", code));
-            con.vis("pub");
-            con.doc(&format!(
+            let const_ident = format_ident!("{}", self.create_const_name(code));
+            let doc = format!(
                 "{}\n\nFourCC: `{}`\n\nSpecification: _{}_",
                 se.description, code, se.specification
-            ));
-            box_impl.push_const(con);
+            );
+            let attrs = doc_attrs(&doc);
+            let init_expr: syn::Expr =
+                syn::parse_str(&format!("BoxCode::new(*b{:?})", code)).unwrap();
+            consts.push(syn::parse_quote! {
+                #(#attrs)*
+                pub const #const_ident: BoxCode = #init_expr;
+            });
         }
+        items.push(syn::parse_quote! {
+            impl BoxCode {
+                #(#consts)*
+            }
+        });
     }
 }

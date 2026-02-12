@@ -1,5 +1,6 @@
+use crate::doc_attrs;
 use crate::record::Record;
-use codegen::{Const, Scope};
+use quote::format_ident;
 
 pub(crate) struct GenericGenerator {
     type_name: String,
@@ -16,31 +17,37 @@ impl GenericGenerator {
         }
     }
 
-    pub(crate) fn gen(&self, box_list: &[Record], scope: &mut Scope) {
-        self.gen_consts(box_list, scope);
+    pub(crate) fn gen(&self, box_list: &[Record], items: &mut Vec<syn::Item>) {
+        self.gen_consts(box_list, items);
     }
 
-    fn gen_consts(&self, records: &[Record], scope: &mut Scope) {
-        let my_impl = scope.new_impl(&self.type_name);
+    fn gen_consts(&self, records: &[Record], items: &mut Vec<syn::Item>) {
+        let type_ident = format_ident!("{}", &self.type_name);
+        let mut consts: Vec<syn::ImplItem> = Vec::new();
         for se in records {
             let code = &se.code;
-            let var_name = self.create_const_name(code);
-            let mut con = Const::new(
-                &var_name,
-                &self.type_name,
-                &format!("{}::new(*b{:?})", &self.type_name, code),
-            );
-            con.vis("pub");
-            con.doc(&format!(
+            let const_ident = format_ident!("{}", self.create_const_name(code));
+            let doc = format!(
                 "{}\n\nFourCC: `{}`\n\nSpecification: _{}_",
                 se.description, code, se.specification
-            ));
-            my_impl.push_const(con);
+            );
+            let attrs = doc_attrs(&doc);
+            let init_expr: syn::Expr =
+                syn::parse_str(&format!("{}::new(*b{:?})", &self.type_name, code)).unwrap();
+            consts.push(syn::parse_quote! {
+                #(#attrs)*
+                pub const #const_ident: #type_ident = #init_expr;
+            });
         }
+        items.push(syn::parse_quote! {
+            impl #type_ident {
+                #(#consts)*
+            }
+        });
     }
 
     fn create_const_name(&self, text: &str) -> String {
-        self.create_base_name(text).to_uppercase()
+        self.create_base_name(text).trim().to_uppercase()
     }
     fn create_base_name(&self, text: &str) -> String {
         // handle codes starting '!'

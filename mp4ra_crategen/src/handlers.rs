@@ -1,6 +1,7 @@
 use crate::database::Database;
+use crate::doc_attrs;
 use crate::record::TypedRecord;
-use codegen::{Const, Scope};
+use quote::format_ident;
 use std::collections::HashMap;
 
 pub struct GenHandlers {
@@ -13,7 +14,7 @@ impl GenHandlers {
         }
     }
     fn create_const_name(&self, text: &str) -> String {
-        self.create_base_name(text).to_uppercase()
+        self.create_base_name(text).trim().to_uppercase()
     }
     fn create_base_name(&self, text: &str) -> String {
         // handle initial digit,
@@ -37,14 +38,14 @@ impl GenHandlers {
     pub(crate) fn gen_handlers(
         &self,
         database: &Database,
-        scope: &mut Scope,
+        items: &mut Vec<syn::Item>,
     ) -> HashMap<String, String> {
         let handler_list = database
             .load::<TypedRecord>("handlers.csv")
             .expect("Failure generating boxes entries");
         let mut handler_variants_by_description = HashMap::new();
         self.gen_handlers_mapping(&handler_list, &mut handler_variants_by_description);
-        self.gen_handlers_consts(&handler_list, scope);
+        self.gen_handlers_consts(&handler_list, items);
 
         handler_variants_by_description
     }
@@ -63,22 +64,27 @@ impl GenHandlers {
             );
         }
     }
-    fn gen_handlers_consts(&self, box_list: &[TypedRecord], scope: &mut Scope) {
-        let handler_impl = scope.new_impl("HandlerCode");
+    fn gen_handlers_consts(&self, box_list: &[TypedRecord], items: &mut Vec<syn::Item>) {
+        let mut consts: Vec<syn::ImplItem> = Vec::new();
         for se in box_list {
             let code = &se.code;
-            let var_name = self.create_const_name(code);
-            let mut con = Const::new(
-                &var_name,
-                "HandlerCode",
-                &format!("HandlerCode::new(*b{:?})", code),
-            );
-            con.vis("pub");
-            con.doc(&format!(
+            let const_ident = format_ident!("{}", self.create_const_name(code));
+            let doc = format!(
                 "{}\n\nFourCC: `{}`\n\nSpecification: _{}_",
                 se.description, code, se.specification
-            ));
-            handler_impl.push_const(con);
+            );
+            let attrs = doc_attrs(&doc);
+            let init_expr: syn::Expr =
+                syn::parse_str(&format!("HandlerCode::new(*b{:?})", code)).unwrap();
+            consts.push(syn::parse_quote! {
+                #(#attrs)*
+                pub const #const_ident: HandlerCode = #init_expr;
+            });
         }
+        items.push(syn::parse_quote! {
+            impl HandlerCode {
+                #(#consts)*
+            }
+        });
     }
 }
