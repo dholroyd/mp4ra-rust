@@ -1612,6 +1612,30 @@ impl SampleEntryCode {
     pub const APV1: SampleEntryCode = SampleEntryCode::new(*b"apv1");
 }
 impl BoxCode {
+    /// Compressed movie fragment
+    ///
+    /// FourCC: `!mof`
+    ///
+    /// Specification: _ISO_
+    pub const COMPRESSED_MOF: BoxCode = BoxCode::new(*b"!mof");
+    /// Compressed movie
+    ///
+    /// FourCC: `!mov`
+    ///
+    /// Specification: _ISO_
+    pub const COMPRESSED_MOV: BoxCode = BoxCode::new(*b"!mov");
+    /// Compressed segment index
+    ///
+    /// FourCC: `!six`
+    ///
+    /// Specification: _ISO_
+    pub const COMPRESSED_SIX: BoxCode = BoxCode::new(*b"!six");
+    /// Compressed subsegment index
+    ///
+    /// FourCC: `!ssx`
+    ///
+    /// Specification: _ISO_
+    pub const COMPRESSED_SSX: BoxCode = BoxCode::new(*b"!ssx");
     /// 2D region quality ranking
     ///
     /// FourCC: `2dqr`
@@ -1624,18 +1648,126 @@ impl BoxCode {
     ///
     /// Specification: _OMAF_
     pub const TWO_DSS: BoxCode = BoxCode::new(*b"2dss");
+    /// MVDDepthResolutionBox
+    ///
+    /// FourCC: `3dpr`
+    ///
+    /// Specification: _NALu Video_
+    pub const THREE_DPR: BoxCode = BoxCode::new(*b"3dpr");
+    /// Exif Metadata
+    ///
+    /// FourCC: `Exif`
+    ///
+    /// Specification: _JPXS_
+    pub const EXIF: BoxCode = BoxCode::new(*b"Exif");
+    /// ID3 version 2 container
+    ///
+    /// FourCC: `ID32`
+    ///
+    /// Specification: _id3v2_
+    pub const ID32: BoxCode = BoxCode::new(*b"ID32");
+    /// JPEG XL Signature
+    ///
+    /// FourCC: `JXL `
+    ///
+    /// Specification: _JPEG XL_
+    pub const JXL: BoxCode = BoxCode::new(*b"JXL ");
+    /// JPEG XS Signature
+    ///
+    /// FourCC: `JXS `
+    ///
+    /// Specification: _JPXS_
+    pub const JXS: BoxCode = BoxCode::new(*b"JXS ");
+    /// Unique Identifier Technology Solution
+    ///
+    /// FourCC: `UITS`
+    ///
+    /// Specification: _Universal Music Group_
+    pub const UITS: BoxCode = BoxCode::new(*b"UITS");
+    /// description of the content for accessibility purposes (similar to the HTML alt attribute); formatted as for the cprt user-data item
+    ///
+    /// FourCC: `ades`
+    ///
+    /// Specification: _Apple_
+    pub const ADES: BoxCode = BoxCode::new(*b"ades");
+    /// audio element description
+    ///
+    /// FourCC: `aedb`
+    ///
+    /// Specification: _ISO_
+    pub const AEDB: BoxCode = BoxCode::new(*b"aedb");
+    /// audio element box
+    ///
+    /// FourCC: `aelm`
+    ///
+    /// Specification: _ISO_
+    pub const AELM: BoxCode = BoxCode::new(*b"aelm");
+    /// audio element positioning interactivity polar box
+    ///
+    /// FourCC: `aepp`
+    ///
+    /// Specification: _ISO_
+    pub const AEPP: BoxCode = BoxCode::new(*b"aepp");
+    /// audio element prominence interactivity box
+    ///
+    /// FourCC: `aepr`
+    ///
+    /// Specification: _ISO_
+    pub const AEPR: BoxCode = BoxCode::new(*b"aepr");
+    /// audio element selection box
+    ///
+    /// FourCC: `aesb`
+    ///
+    /// Specification: _ISO_
+    pub const AESB: BoxCode = BoxCode::new(*b"aesb");
+    /// audio element selection description box
+    ///
+    /// FourCC: `aesd`
+    ///
+    /// Specification: _ISO_
+    pub const AESD: BoxCode = BoxCode::new(*b"aesd");
     /// Asset information to identify, license and play
     ///
     /// FourCC: `ainf`
     ///
     /// Specification: _DECE_
     pub const AINF: BoxCode = BoxCode::new(*b"ainf");
+    /// Album title and track number for media
+    ///
+    /// FourCC: `albm`
+    ///
+    /// Specification: _3GPP_
+    pub const ALBM: BoxCode = BoxCode::new(*b"albm");
+    /// Album loudness base
+    ///
+    /// FourCC: `alou`
+    ///
+    /// Specification: _ISO_
+    pub const ALOU: BoxCode = BoxCode::new(*b"alou");
+    /// Name of the camera angle through which the clip was shot
+    ///
+    /// FourCC: `angl`
+    ///
+    /// Specification: _Apple_
+    pub const ANGL: BoxCode = BoxCode::new(*b"angl");
+    /// audio rendering indication
+    ///
+    /// FourCC: `ardi`
+    ///
+    /// Specification: _ISO_
+    pub const ARDI: BoxCode = BoxCode::new(*b"ardi");
     /// alternative startup sequence properties
     ///
     /// FourCC: `assp`
     ///
     /// Specification: _ISO_
     pub const ASSP: BoxCode = BoxCode::new(*b"assp");
+    /// Author of the media
+    ///
+    /// FourCC: `auth`
+    ///
+    /// Specification: _3GPP_
+    pub const AUTH: BoxCode = BoxCode::new(*b"auth");
     /// Auxiliary track type information
     ///
     /// FourCC: `auxi`
@@ -1714,18 +1846,48 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const CINF: BoxCode = BoxCode::new(*b"cinf");
-    /// Reserved
+    /// Name of the clip file
+    ///
+    /// FourCC: `clfn`
+    ///
+    /// Specification: _Apple_
+    pub const CLFN: BoxCode = BoxCode::new(*b"clfn");
+    /// Identifier of the clip
+    ///
+    /// FourCC: `clid`
+    ///
+    /// Specification: _Apple_
+    pub const CLID: BoxCode = BoxCode::new(*b"clid");
+    /// Visual clipping region container
     ///
     /// FourCC: `clip`
     ///
-    /// Specification: _ISO_
+    /// Specification: _QT_
     pub const CLIP: BoxCode = BoxCode::new(*b"clip");
+    /// Classification of the media
+    ///
+    /// FourCC: `clsf`
+    ///
+    /// Specification: _3GPP_
+    pub const CLSF: BoxCode = BoxCode::new(*b"clsf");
     /// mapping between a palette and codestream components
     ///
     /// FourCC: `cmap`
     ///
     /// Specification: _JPEG2000_
     pub const CMAP: BoxCode = BoxCode::new(*b"cmap");
+    /// Identifier of the camera
+    ///
+    /// FourCC: `cmid`
+    ///
+    /// Specification: _Apple_
+    pub const CMID: BoxCode = BoxCode::new(*b"cmid");
+    /// Name that identifies the camera
+    ///
+    /// FourCC: `cmnm`
+    ///
+    /// Specification: _Apple_
+    pub const CMNM: BoxCode = BoxCode::new(*b"cmnm");
     /// 64-bit chunk offset
     ///
     /// FourCC: `co64`
@@ -1744,6 +1906,12 @@ impl BoxCode {
     ///
     /// Specification: _DECE_
     pub const COIN: BoxCode = BoxCode::new(*b"coin");
+    /// Name of the collection from which the media comes
+    ///
+    /// FourCC: `coll`
+    ///
+    /// Specification: _3GPP_
+    pub const COLL: BoxCode = BoxCode::new(*b"coll");
     /// specifies the colourspace of the image
     ///
     /// FourCC: `colr`
@@ -1756,11 +1924,17 @@ impl BoxCode {
     ///
     /// Specification: _OMAF_
     pub const COVI: BoxCode = BoxCode::new(*b"covi");
-    /// Reserved
+    /// copyright etc.
+    ///
+    /// FourCC: `cprt`
+    ///
+    /// Specification: _ISO_
+    pub const CPRT: BoxCode = BoxCode::new(*b"cprt");
+    /// Visual clipping region definition
     ///
     /// FourCC: `crgn`
     ///
-    /// Specification: _ISO_
+    /// Specification: _QT_
     pub const CRGN: BoxCode = BoxCode::new(*b"crgn");
     /// reserved for ClockReferenceStream header
     ///
@@ -1768,6 +1942,12 @@ impl BoxCode {
     ///
     /// Specification: _MP4v2_
     pub const CRHD: BoxCode = BoxCode::new(*b"crhd");
+    /// Compact sample to group used in QuickTime File Format
+    ///
+    /// FourCC: `csgm`
+    ///
+    /// Specification: _QT_
+    pub const CSGM: BoxCode = BoxCode::new(*b"csgm");
     /// compact sample to group
     ///
     /// FourCC: `csgp`
@@ -1786,11 +1966,11 @@ impl BoxCode {
     ///
     /// Specification: _ONVIF_
     pub const CSTB: BoxCode = BoxCode::new(*b"cstb");
-    /// Reserved
+    /// Track color-table
     ///
     /// FourCC: `ctab`
     ///
-    /// Specification: _ISO_
+    /// Specification: _QT_
     pub const CTAB: BoxCode = BoxCode::new(*b"ctab");
     /// (composition) time to sample
     ///
@@ -1804,6 +1984,18 @@ impl BoxCode {
     ///
     /// Specification: _OMA DRM 2.1_
     pub const CVRU: BoxCode = BoxCode::new(*b"cvru");
+    /// Date and time, formatted according to ISO 8601, when the content was created. For clips captured by recording devices, this is typically the date and time when the clip’s recording started.
+    ///
+    /// FourCC: `date`
+    ///
+    /// Specification: _Apple_
+    pub const DATE: BoxCode = BoxCode::new(*b"date");
+    /// Marlin DCF Duration, user-data atom type
+    ///
+    /// FourCC: `dcfD`
+    ///
+    /// Specification: _OMArlin_
+    pub const DCFD: BoxCode = BoxCode::new(*b"dcfD");
     /// Data Integrity Hash
     ///
     /// FourCC: `dihd`
@@ -1834,6 +2026,12 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const DREF: BoxCode = BoxCode::new(*b"dref");
+    /// Media description
+    ///
+    /// FourCC: `dscp`
+    ///
+    /// Specification: _3GPP_
+    pub const DSCP: BoxCode = BoxCode::new(*b"dscp");
     /// DVB Sample Group Description Box
     ///
     /// FourCC: `dsgd`
@@ -1852,6 +2050,12 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const EDTS: BoxCode = BoxCode::new(*b"edts");
+    /// Extended Language Tag
+    ///
+    /// FourCC: `elng`
+    ///
+    /// Specification: _QT_
+    pub const ELNG: BoxCode = BoxCode::new(*b"elng");
     /// an edit list
     ///
     /// FourCC: `elst`
@@ -1864,24 +2068,18 @@ impl BoxCode {
     ///
     /// Specification: _DASH_
     pub const EMSG: BoxCode = BoxCode::new(*b"emsg");
-    /// Event information
-    ///
-    /// FourCC: `evti`
-    ///
-    /// Specification: _ATSC 3.0 A337_
-    pub const EVTI: BoxCode = BoxCode::new(*b"evti");
     /// extended type and type combination
     ///
     /// FourCC: `etyp`
     ///
     /// Specification: _ISO_
     pub const ETYP: BoxCode = BoxCode::new(*b"etyp");
-    /// Exif Metadata
+    /// Event information
     ///
-    /// FourCC: `Exif`
+    /// FourCC: `evti`
     ///
-    /// Specification: _JPXS_
-    pub const EXIF: BoxCode = BoxCode::new(*b"Exif");
+    /// Specification: _ATSC 3.0 A337_
+    pub const EVTI: BoxCode = BoxCode::new(*b"evti");
     /// File delivery information (item info extension)
     ///
     /// FourCC: `fdel`
@@ -1972,6 +2170,12 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const GITN: BoxCode = BoxCode::new(*b"gitn");
+    /// Media genre
+    ///
+    /// FourCC: `gnre`
+    ///
+    /// Specification: _3GPP_
+    pub const GNRE: BoxCode = BoxCode::new(*b"gnre");
     /// OMA DRM Group ID
     ///
     /// FourCC: `grpi`
@@ -1990,12 +2194,24 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const HDLR: BoxCode = BoxCode::new(*b"hdlr");
+    /// hint information
+    ///
+    /// FourCC: `hinf`
+    ///
+    /// Specification: _ISO_
+    pub const HINF: BoxCode = BoxCode::new(*b"hinf");
     /// hint media header, overall information (hint track only)
     ///
     /// FourCC: `hmhd`
     ///
     /// Specification: _ISO_
     pub const HMHD: BoxCode = BoxCode::new(*b"hmhd");
+    /// Hint information
+    ///
+    /// FourCC: `hnti`
+    ///
+    /// Specification: _ISO_
+    pub const HNTI: BoxCode = BoxCode::new(*b"hnti");
     /// Hipix Rich Picture (user-data or meta-data)
     ///
     /// FourCC: `hpix`
@@ -2008,12 +2224,6 @@ impl BoxCode {
     ///
     /// Specification: _OMA DRM 2.0_
     pub const ICNU: BoxCode = BoxCode::new(*b"icnu");
-    /// ID3 version 2 container
-    ///
-    /// FourCC: `ID32`
-    ///
-    /// Specification: _id3v2_
-    pub const ID32: BoxCode = BoxCode::new(*b"ID32");
     /// Item data
     ///
     /// FourCC: `idat`
@@ -2038,11 +2248,11 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const ILOC: BoxCode = BoxCode::new(*b"iloc");
-    /// Reserved
+    /// Track input map definition
     ///
     /// FourCC: `imap`
     ///
-    /// Specification: _ISO_
+    /// Specification: _QT_
     pub const IMAP: BoxCode = BoxCode::new(*b"imap");
     /// Identified media data
     ///
@@ -2116,6 +2326,12 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const IREF: BoxCode = BoxCode::new(*b"iref");
+    /// SVC region of interest box
+    ///
+    /// FourCC: `iroi`
+    ///
+    /// Specification: _NALu Video_
+    pub const IROI: BoxCode = BoxCode::new(*b"iroi");
     /// JPEG 2000 header info
     ///
     /// FourCC: `j2kH`
@@ -2128,18 +2344,18 @@ impl BoxCode {
     ///
     /// Specification: _J2KHEIF_
     pub const J2KP: BoxCode = BoxCode::new(*b"j2kP");
-    /// JPEG bitstream reconstruction data
-    ///
-    /// FourCC: `jbrd`
-    ///
-    /// Specification: _JPEG XL_
-    pub const JBRD: BoxCode = BoxCode::new(*b"jbrd");
     /// JPEG 2000 Signature
     ///
     /// FourCC: `jP  `
     ///
     /// Specification: _JPEG2000_
     pub const JP: BoxCode = BoxCode::new(*b"jP  ");
+    /// JPEG bitstream reconstruction data
+    ///
+    /// FourCC: `jbrd`
+    ///
+    /// Specification: _JPEG XL_
+    pub const JBRD: BoxCode = BoxCode::new(*b"jbrd");
     /// JPEG 2000 contiguous codestream
     ///
     /// FourCC: `jp2c`
@@ -2158,42 +2374,12 @@ impl BoxCode {
     ///
     /// Specification: _JPEG2000_
     pub const JP2I: BoxCode = BoxCode::new(*b"jp2i");
-    /// JPEG Universal Metadata Box Format (JUMBF)
+    /// JPEG XS Video Transport Parameter
     ///
-    /// FourCC: `jumb`
+    /// FourCC: `jptp`
     ///
-    /// Specification: _JPEG Systems_
-    pub const JUMB: BoxCode = BoxCode::new(*b"jumb");
-    /// JPEG XL Signature
-    ///
-    /// FourCC: `JXL `
-    ///
-    /// Specification: _JPEG XL_
-    pub const JXL: BoxCode = BoxCode::new(*b"JXL ");
-    /// JPEG XL Level
-    ///
-    /// FourCC: `jxll`
-    ///
-    /// Specification: _JPEG XL_
-    pub const JXLL: BoxCode = BoxCode::new(*b"jxll");
-    /// JPEG XL Codestream
-    ///
-    /// FourCC: `jxlc`
-    ///
-    /// Specification: _JPEG XL_
-    pub const JXLC: BoxCode = BoxCode::new(*b"jxlc");
-    /// JPEG XL Frame Index
-    ///
-    /// FourCC: `jxli`
-    ///
-    /// Specification: _JPEG XL_
-    pub const JXLI: BoxCode = BoxCode::new(*b"jxli");
-    /// JPEG XL Partial Codestream
-    ///
-    /// FourCC: `jxlp`
-    ///
-    /// Specification: _JPEG XL_
-    pub const JXLP: BoxCode = BoxCode::new(*b"jxlp");
+    /// Specification: _JPXS_
+    pub const JPTP: BoxCode = BoxCode::new(*b"jptp");
     /// JPEG XS Video Information
     ///
     /// FourCC: `jpvi`
@@ -2206,42 +2392,90 @@ impl BoxCode {
     ///
     /// Specification: _JPXS_
     pub const JPVS: BoxCode = BoxCode::new(*b"jpvs");
-    /// JPEG XS Video Transport Parameter
+    /// JPEG Universal Metadata Box Format (JUMBF)
     ///
-    /// FourCC: `jptp`
+    /// FourCC: `jumb`
     ///
-    /// Specification: _JPXS_
-    pub const JPTP: BoxCode = BoxCode::new(*b"jptp");
-    /// JPEG XS Signature
+    /// Specification: _JPEG Systems_
+    pub const JUMB: BoxCode = BoxCode::new(*b"jumb");
+    /// JPEG XL Codestream
     ///
-    /// FourCC: `JXS `
+    /// FourCC: `jxlc`
     ///
-    /// Specification: _JPXS_
-    pub const JXS: BoxCode = BoxCode::new(*b"JXS ");
+    /// Specification: _JPEG XL_
+    pub const JXLC: BoxCode = BoxCode::new(*b"jxlc");
+    /// JPEG XL Frame Index
+    ///
+    /// FourCC: `jxli`
+    ///
+    /// Specification: _JPEG XL_
+    pub const JXLI: BoxCode = BoxCode::new(*b"jxli");
+    /// JPEG XL Level
+    ///
+    /// FourCC: `jxll`
+    ///
+    /// Specification: _JPEG XL_
+    pub const JXLL: BoxCode = BoxCode::new(*b"jxll");
+    /// JPEG XL Partial Codestream
+    ///
+    /// FourCC: `jxlp`
+    ///
+    /// Specification: _JPEG XL_
+    pub const JXLP: BoxCode = BoxCode::new(*b"jxlp");
     /// JPEG XS Profile and Level
     ///
     /// FourCC: `jxpl`
     ///
     /// Specification: _JPXS_
     pub const JXPL: BoxCode = BoxCode::new(*b"jxpl");
-    /// Reserved
+    /// Track kind
+    ///
+    /// FourCC: `kind`
+    ///
+    /// Specification: _ISO_
+    pub const KIND: BoxCode = BoxCode::new(*b"kind");
+    /// Compressed visual track matte
     ///
     /// FourCC: `kmat`
     ///
-    /// Specification: _ISO_
+    /// Specification: _QT_
     pub const KMAT: BoxCode = BoxCode::new(*b"kmat");
+    /// Media keywords
+    ///
+    /// FourCC: `kywd`
+    ///
+    /// Specification: _3GPP_
+    pub const KYWD: BoxCode = BoxCode::new(*b"kywd");
+    /// Label box
+    ///
+    /// FourCC: `labl`
+    ///
+    /// Specification: _ISO_
+    pub const LABL: BoxCode = BoxCode::new(*b"labl");
+    /// Tier dependency box
+    ///
+    /// FourCC: `ldep`
+    ///
+    /// Specification: _NALu Video_
+    pub const LDEP: BoxCode = BoxCode::new(*b"ldep");
     /// Leval assignment
     ///
     /// FourCC: `leva`
     ///
     /// Specification: _ISO_
     pub const LEVA: BoxCode = BoxCode::new(*b"leva");
-    /// Reserved
+    /// Track pre-load definitions
     ///
     /// FourCC: `load`
     ///
-    /// Specification: _ISO_
+    /// Specification: _QT_
     pub const LOAD: BoxCode = BoxCode::new(*b"load");
+    /// Media location information
+    ///
+    /// FourCC: `loci`
+    ///
+    /// Specification: _3GPP_
+    pub const LOCI: BoxCode = BoxCode::new(*b"loci");
     /// Looping behavior
     ///
     /// FourCC: `loop`
@@ -2254,17 +2488,29 @@ impl BoxCode {
     ///
     /// Specification: _OMA DRM 2.1_
     pub const LRCU: BoxCode = BoxCode::new(*b"lrcu");
+    /// Track loudness container
+    ///
+    /// FourCC: `ludt`
+    ///
+    /// Specification: _ISO_
+    pub const LUDT: BoxCode = BoxCode::new(*b"ludt");
     /// reserved for MPEG7Stream header
     ///
     /// FourCC: `m7hd`
     ///
     /// Specification: _MP4v2_
     pub const M7HD: BoxCode = BoxCode::new(*b"m7hd");
-    /// Reserved
+    /// Manufacturer name of the camera
+    ///
+    /// FourCC: `manu`
+    ///
+    /// Specification: _Apple_
+    pub const MANU: BoxCode = BoxCode::new(*b"manu");
+    /// Visual track matte for compositing
     ///
     /// FourCC: `matt`
     ///
-    /// Specification: _ISO_
+    /// Specification: _QT_
     pub const MATT: BoxCode = BoxCode::new(*b"matt");
     /// MD5IntegrityBox
     ///
@@ -2356,6 +2602,12 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const MINF: BoxCode = BoxCode::new(*b"minf");
+    /// The MinimizedImageBox provides a more compact representation of the MetaBox for a subset of use cases
+    ///
+    /// FourCC: `mini`
+    ///
+    /// Specification: _HEIF_
+    pub const MINI: BoxCode = BoxCode::new(*b"mini");
     /// reserved for MPEG-J Stream header
     ///
     /// FourCC: `mjhd`
@@ -2368,6 +2620,12 @@ impl BoxCode {
     ///
     /// Specification: _V3C-SYS_
     pub const MMVI: BoxCode = BoxCode::new(*b"mmvi");
+    /// Model name of the camera
+    ///
+    /// FourCC: `modl`
+    ///
+    /// Specification: _Apple_
+    pub const MODL: BoxCode = BoxCode::new(*b"modl");
     /// movie fragment
     ///
     /// FourCC: `moof`
@@ -2404,12 +2662,6 @@ impl BoxCode {
     ///
     /// Specification: _NALu Video_
     pub const MVCI: BoxCode = BoxCode::new(*b"mvci");
-    /// MVDDepthResolutionBox
-    ///
-    /// FourCC: `3dpr`
-    ///
-    /// Specification: _NALu Video_
-    pub const THREE_DPR: BoxCode = BoxCode::new(*b"3dpr");
     /// movie extends box
     ///
     /// FourCC: `mvex`
@@ -2488,6 +2740,12 @@ impl BoxCode {
     ///
     /// Specification: _OMA DRM 2.0_
     pub const OHDR: BoxCode = BoxCode::new(*b"ohdr");
+    /// Orientation information
+    ///
+    /// FourCC: `orie`
+    ///
+    /// Specification: _3GPP_
+    pub const ORIE: BoxCode = BoxCode::new(*b"orie");
     /// OMAF timed text configuration
     ///
     /// FourCC: `otcf`
@@ -2536,6 +2794,12 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const PDIN: BoxCode = BoxCode::new(*b"pdin");
+    /// Media performer name
+    ///
+    /// FourCC: `perf`
+    ///
+    /// Specification: _3GPP_
+    pub const PERF: BoxCode = BoxCode::new(*b"perf");
     /// Partial File Header
     ///
     /// FourCC: `pfhd`
@@ -2560,11 +2824,11 @@ impl BoxCode {
     ///
     /// Specification: _ISO-Partial_
     pub const PLOC: BoxCode = BoxCode::new(*b"ploc");
-    /// Reserved
+    /// Preview container
     ///
     /// FourCC: `pnot`
     ///
-    /// Specification: _ISO_
+    /// Specification: _QT_
     pub const PNOT: BoxCode = BoxCode::new(*b"pnot");
     /// projected omnidirectional video
     ///
@@ -2584,6 +2848,12 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const PRFT: BoxCode = BoxCode::new(*b"prft");
+    /// Production metadata box
+    ///
+    /// FourCC: `prmd`
+    ///
+    /// Specification: _Youtube_
+    pub const PRMD: BoxCode = BoxCode::new(*b"prmd");
     /// Partial Segment
     ///
     /// FourCC: `pseg`
@@ -2608,6 +2878,12 @@ impl BoxCode {
     ///
     /// Specification: _ISO-Partial_
     pub const PTLE: BoxCode = BoxCode::new(*b"ptle");
+    /// Name of the tape reel
+    ///
+    /// FourCC: `reel`
+    ///
+    /// Specification: _Apple_
+    pub const REEL: BoxCode = BoxCode::new(*b"reel");
     /// grid resolution
     ///
     /// FourCC: `res `
@@ -2632,18 +2908,36 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const RINF: BoxCode = BoxCode::new(*b"rinf");
-    /// rotation box
-    ///
-    /// FourCC: `rotn`
-    ///
-    /// Specification: _OMAF_
-    pub const ROTN: BoxCode = BoxCode::new(*b"rotn");
     /// sphere region configuration
     ///
     /// FourCC: `rosc`
     ///
     /// Specification: _OMAF_
     pub const ROSC: BoxCode = BoxCode::new(*b"rosc");
+    /// rotation box
+    ///
+    /// FourCC: `rotn`
+    ///
+    /// Specification: _OMAF_
+    pub const ROTN: BoxCode = BoxCode::new(*b"rotn");
+    /// SVC rect region box
+    ///
+    /// FourCC: `rrgn`
+    ///
+    /// Specification: _NALu Video_
+    pub const RRGN: BoxCode = BoxCode::new(*b"rrgn");
+    /// Redundant Sample Original Timing
+    ///
+    /// FourCC: `rsot`
+    ///
+    /// Specification: _ISO_
+    pub const RSOT: BoxCode = BoxCode::new(*b"rsot");
+    /// Media rating
+    ///
+    /// FourCC: `rtng`
+    ///
+    /// Specification: _3GPP_
+    pub const RTNG: BoxCode = BoxCode::new(*b"rtng");
     /// recommended viewport information
     ///
     /// FourCC: `rvif`
@@ -2674,6 +2968,12 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const SBGP: BoxCode = BoxCode::new(*b"sbgp");
+    /// Name of the scene for which the clip was shot
+    ///
+    /// FourCC: `scen`
+    ///
+    /// Specification: _Apple_
+    pub const SCEN: BoxCode = BoxCode::new(*b"scen");
     /// scheme information box
     ///
     /// FourCC: `schi`
@@ -2698,6 +2998,12 @@ impl BoxCode {
     ///
     /// Specification: _MP4v2_
     pub const SDHD: BoxCode = BoxCode::new(*b"sdhd");
+    /// SDP information
+    ///
+    /// FourCC: `sdp `
+    ///
+    /// Specification: _ISO_
+    pub const SDP: BoxCode = BoxCode::new(*b"sdp ");
     /// Independent and Disposable Samples Box
     ///
     /// FourCC: `sdtp`
@@ -2734,6 +3040,12 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const SGPD: BoxCode = BoxCode::new(*b"sgpd");
+    /// Name that identifies the shot
+    ///
+    /// FourCC: `shot`
+    ///
+    /// Specification: _Apple_
+    pub const SHOT: BoxCode = BoxCode::new(*b"shot");
     /// Segment Index Box
     ///
     /// FourCC: `sidx`
@@ -2752,12 +3064,24 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const SKIP: BoxCode = BoxCode::new(*b"skip");
+    /// Serial number of the camera
+    ///
+    /// FourCC: `slno`
+    ///
+    /// Specification: _Apple_
+    pub const SLNO: BoxCode = BoxCode::new(*b"slno");
     /// sound media header, overall information (sound track only)
     ///
     /// FourCC: `smhd`
     ///
     /// Specification: _ISO_
     pub const SMHD: BoxCode = BoxCode::new(*b"smhd");
+    /// Sample packing information box
+    ///
+    /// FourCC: `spki`
+    ///
+    /// Specification: _ISO_
+    pub const SPKI: BoxCode = BoxCode::new(*b"spki");
     /// sub-picture region
     ///
     /// FourCC: `sprg`
@@ -2794,6 +3118,12 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const SSIX: BoxCode = BoxCode::new(*b"ssix");
+    /// Sub-sample Reference Table Box
+    ///
+    /// FourCC: `ssrt`
+    ///
+    /// Specification: _ISO_
+    pub const SSRT: BoxCode = BoxCode::new(*b"ssrt");
     /// SVC sub track layer box
     ///
     /// FourCC: `sstl`
@@ -2842,6 +3172,12 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const STRI: BoxCode = BoxCode::new(*b"stri");
+    /// Sub track information
+    ///
+    /// FourCC: `strk`
+    ///
+    /// Specification: _ISO_
+    pub const STRK: BoxCode = BoxCode::new(*b"strk");
     /// sample-to-chunk, partial data-offset information
     ///
     /// FourCC: `stsc`
@@ -2890,6 +3226,12 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const STTS: BoxCode = BoxCode::new(*b"stts");
+    /// Stereo Video Box
+    ///
+    /// FourCC: `stvi`
+    ///
+    /// Specification: _ISO_
+    pub const STVI: BoxCode = BoxCode::new(*b"stvi");
     /// Segment Type Box
     ///
     /// FourCC: `styp`
@@ -2926,6 +3268,30 @@ impl BoxCode {
     ///
     /// Specification: _ISO-Partial_
     pub const SURL: BoxCode = BoxCode::new(*b"surl");
+    /// SVC dependency range
+    ///
+    /// FourCC: `svdr`
+    ///
+    /// Specification: _NALu Video_
+    pub const SVDR: BoxCode = BoxCode::new(*b"svdr");
+    /// Initial parameter sets box for tiers
+    ///
+    /// FourCC: `svip`
+    ///
+    /// Specification: _NALu Video_
+    pub const SVIP: BoxCode = BoxCode::new(*b"svip");
+    /// Priority range
+    ///
+    /// FourCC: `svpr`
+    ///
+    /// Specification: _NALu Video_
+    pub const SVPR: BoxCode = BoxCode::new(*b"svpr");
+    /// Name and version number of the software that generated this movie
+    ///
+    /// FourCC: `swre`
+    ///
+    /// Specification: _Apple_
+    pub const SWRE: BoxCode = BoxCode::new(*b"swre");
     /// Multiview Group Relation
     ///
     /// FourCC: `swtc`
@@ -2968,6 +3334,12 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const TFRA: BoxCode = BoxCode::new(*b"tfra");
+    /// Thumbnail image of the media
+    ///
+    /// FourCC: `thmb`
+    ///
+    /// Specification: _3GPP_
+    pub const THMB: BoxCode = BoxCode::new(*b"thmb");
     /// Tier Bit rate
     ///
     /// FourCC: `tibr`
@@ -2980,12 +3352,24 @@ impl BoxCode {
     ///
     /// Specification: _NALu Video_
     pub const TIRI: BoxCode = BoxCode::new(*b"tiri");
+    /// Media title
+    ///
+    /// FourCC: `titl`
+    ///
+    /// Specification: _3GPP_
+    pub const TITL: BoxCode = BoxCode::new(*b"titl");
     /// Track header, overall information about the track
     ///
     /// FourCC: `tkhd`
     ///
     /// Specification: _ISO_
     pub const TKHD: BoxCode = BoxCode::new(*b"tkhd");
+    /// Track loudness base
+    ///
+    /// FourCC: `tlou`
+    ///
+    /// Specification: _ISO_
+    pub const TLOU: BoxCode = BoxCode::new(*b"tlou");
     /// Track fragment
     ///
     /// FourCC: `traf`
@@ -2998,6 +3382,12 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const TRAK: BoxCode = BoxCode::new(*b"trak");
+    /// SVC lightweight transcoding
+    ///
+    /// FourCC: `tran`
+    ///
+    /// Specification: _NALu Video_
+    pub const TRAN: BoxCode = BoxCode::new(*b"tran");
     /// track reference container
     ///
     /// FourCC: `tref`
@@ -3034,6 +3424,12 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const TRUN: BoxCode = BoxCode::new(*b"trun");
+    /// Track selection
+    ///
+    /// FourCC: `tsel`
+    ///
+    /// Specification: _ISO_
+    pub const TSEL: BoxCode = BoxCode::new(*b"tsel");
     /// TileSubTrackGroupBox
     ///
     /// FourCC: `tstb`
@@ -3064,18 +3460,18 @@ impl BoxCode {
     ///
     /// Specification: _JPEG2000_
     pub const UINF: BoxCode = BoxCode::new(*b"uinf");
-    /// Unique Identifier Technology Solution
-    ///
-    /// FourCC: `UITS`
-    ///
-    /// Specification: _Universal Music Group_
-    pub const UITS: BoxCode = BoxCode::new(*b"UITS");
     /// a list of UUID’s
     ///
     /// FourCC: `ulst`
     ///
     /// Specification: _JPEG2000_
     pub const ULST: BoxCode = BoxCode::new(*b"ulst");
+    /// User 'star' rating of the media
+    ///
+    /// FourCC: `urat`
+    ///
+    /// Specification: _3GPP_
+    pub const URAT: BoxCode = BoxCode::new(*b"urat");
     /// a URL
     ///
     /// FourCC: `url `
@@ -3094,6 +3490,12 @@ impl BoxCode {
     ///
     /// Specification: _V3C-SYS_
     pub const V3SC: BoxCode = BoxCode::new(*b"v3sc");
+    /// View priority Box
+    ///
+    /// FourCC: `vipr`
+    ///
+    /// Specification: _NALu Video_
+    pub const VIPR: BoxCode = BoxCode::new(*b"vipr");
     /// video media header, overall information (video track only)
     ///
     /// FourCC: `vmhd`
@@ -3130,180 +3532,30 @@ impl BoxCode {
     ///
     /// Specification: _NALu Video_
     pub const VWDI: BoxCode = BoxCode::new(*b"vwdi");
+    /// Expansion space reservation
+    ///
+    /// FourCC: `wide`
+    ///
+    /// Specification: _QT_
+    pub const WIDE: BoxCode = BoxCode::new(*b"wide");
     /// segment position in the watermark pattern
     ///
     /// FourCC: `wmpi`
     ///
     /// Specification: _DASH-IF watermarking_
     pub const WMPI: BoxCode = BoxCode::new(*b"wmpi");
-    /// XML container
+    /// a tool by which vendors can add XML formatted information
     ///
     /// FourCC: `xml `
     ///
-    /// Specification: _ISO_
+    /// Specification: _JPEG2000_
     pub const XML: BoxCode = BoxCode::new(*b"xml ");
-    /// Compressed movie fragment
+    /// Year when media was recorded
     ///
-    /// FourCC: `!mof`
+    /// FourCC: `yrrc`
     ///
-    /// Specification: _ISO_
-    pub const COMPRESSED_MOF: BoxCode = BoxCode::new(*b"!mof");
-    /// Compressed movie
-    ///
-    /// FourCC: `!mov`
-    ///
-    /// Specification: _ISO_
-    pub const COMPRESSED_MOV: BoxCode = BoxCode::new(*b"!mov");
-    /// Compressed segment index
-    ///
-    /// FourCC: `!six`
-    ///
-    /// Specification: _ISO_
-    pub const COMPRESSED_SIX: BoxCode = BoxCode::new(*b"!six");
-    /// Compressed subsegment index
-    ///
-    /// FourCC: `!ssx`
-    ///
-    /// Specification: _ISO_
-    pub const COMPRESSED_SSX: BoxCode = BoxCode::new(*b"!ssx");
-    /// SVC region of interest box
-    ///
-    /// FourCC: `iroi`
-    ///
-    /// Specification: _NALu Video_
-    pub const IROI: BoxCode = BoxCode::new(*b"iroi");
-    /// Tier dependency box
-    ///
-    /// FourCC: `ldep`
-    ///
-    /// Specification: _NALu Video_
-    pub const LDEP: BoxCode = BoxCode::new(*b"ldep");
-    /// SVC rect region box
-    ///
-    /// FourCC: `rrgn`
-    ///
-    /// Specification: _NALu Video_
-    pub const RRGN: BoxCode = BoxCode::new(*b"rrgn");
-    /// SVC dependency range
-    ///
-    /// FourCC: `svdr`
-    ///
-    /// Specification: _NALu Video_
-    pub const SVDR: BoxCode = BoxCode::new(*b"svdr");
-    /// Initial parameter sets box for tiers
-    ///
-    /// FourCC: `svip`
-    ///
-    /// Specification: _NALu Video_
-    pub const SVIP: BoxCode = BoxCode::new(*b"svip");
-    /// Priority range
-    ///
-    /// FourCC: `svpr`
-    ///
-    /// Specification: _NALu Video_
-    pub const SVPR: BoxCode = BoxCode::new(*b"svpr");
-    /// SVC lightweight transcoding
-    ///
-    /// FourCC: `tran`
-    ///
-    /// Specification: _NALu Video_
-    pub const TRAN: BoxCode = BoxCode::new(*b"tran");
-    /// View priority Box
-    ///
-    /// FourCC: `vipr`
-    ///
-    /// Specification: _NALu Video_
-    pub const VIPR: BoxCode = BoxCode::new(*b"vipr");
-    /// SDP information
-    ///
-    /// FourCC: `sdp `
-    ///
-    /// Specification: _ISO_
-    pub const SDP: BoxCode = BoxCode::new(*b"sdp ");
-    /// Stereo Video Box
-    ///
-    /// FourCC: `stvi`
-    ///
-    /// Specification: _ISO_
-    pub const STVI: BoxCode = BoxCode::new(*b"stvi");
-    /// Sample packing information box
-    ///
-    /// FourCC: `spki`
-    ///
-    /// Specification: _ISO_
-    pub const SPKI: BoxCode = BoxCode::new(*b"spki");
-    /// audio element description
-    ///
-    /// FourCC: `aedb`
-    ///
-    /// Specification: _ISO_
-    pub const AEDB: BoxCode = BoxCode::new(*b"aedb");
-    /// audio element box
-    ///
-    /// FourCC: `aelm`
-    ///
-    /// Specification: _ISO_
-    pub const AELM: BoxCode = BoxCode::new(*b"aelm");
-    /// audio element positioning interactivity polar box
-    ///
-    /// FourCC: `aepp`
-    ///
-    /// Specification: _ISO_
-    pub const AEPP: BoxCode = BoxCode::new(*b"aepp");
-    /// audio element prominence interactivity box
-    ///
-    /// FourCC: `aepr`
-    ///
-    /// Specification: _ISO_
-    pub const AEPR: BoxCode = BoxCode::new(*b"aepr");
-    /// audio element selection box
-    ///
-    /// FourCC: `aesb`
-    ///
-    /// Specification: _ISO_
-    pub const AESB: BoxCode = BoxCode::new(*b"aesb");
-    /// audio element selection description box
-    ///
-    /// FourCC: `aesd`
-    ///
-    /// Specification: _ISO_
-    pub const AESD: BoxCode = BoxCode::new(*b"aesd");
-    /// audio rendering indication
-    ///
-    /// FourCC: `ardi`
-    ///
-    /// Specification: _ISO_
-    pub const ARDI: BoxCode = BoxCode::new(*b"ardi");
-    /// Label box
-    ///
-    /// FourCC: `labl`
-    ///
-    /// Specification: _ISO_
-    pub const LABL: BoxCode = BoxCode::new(*b"labl");
-    /// Extended Language Tag
-    ///
-    /// FourCC: `elng`
-    ///
-    /// Specification: _ISO_
-    pub const ELNG: BoxCode = BoxCode::new(*b"elng");
-    /// Redundant Sample Original Timing
-    ///
-    /// FourCC: `rsot`
-    ///
-    /// Specification: _ISO_
-    pub const RSOT: BoxCode = BoxCode::new(*b"rsot");
-    /// Sub-sample Reference Table Box
-    ///
-    /// FourCC: `ssrt`
-    ///
-    /// Specification: _ISO_
-    pub const SSRT: BoxCode = BoxCode::new(*b"ssrt");
-    /// The MinimizedImageBox provides a more compact representation of the MetaBox for a subset of use cases
-    ///
-    /// FourCC: `mini`
-    ///
-    /// Specification: _HEIF_
-    pub const MINI: BoxCode = BoxCode::new(*b"mini");
+    /// Specification: _3GPP_
+    pub const YRRC: BoxCode = BoxCode::new(*b"yrrc");
 }
 impl ObjectTypeIdentifier {
     /// Forbidden

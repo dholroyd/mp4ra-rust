@@ -42,11 +42,28 @@ impl BoxGen {
     }
 
     pub(crate) fn gen_boxes(&self, database: &Database, items: &mut Vec<syn::Item>) {
-        let mut box_list = database
-            .load::<Record>("boxes.csv")
-            .expect("Failure generating boxes entries");
-        // the code "xml " appears twice, so remove dup (maybe we should keep both descriptions?)
-        box_list.dedup_by_key(|bx| bx.code.clone());
+        // Load box definitions from all three CSV data files. The files share
+        // the same schema but have overlapping entries:
+        //  - boxes.csv marks some codes as "Reserved" that have full definitions
+        //    in boxes-qt.csv (e.g. clip, crgn, ctab, matt, pnot, etc.)
+        //  - boxes-udta.csv and boxes-qt.csv share a few codes (albm, auth,
+        //    clsf, cprt) with minor description differences
+        // We load them in order so that later files overwrite earlier ones,
+        // ensuring "Reserved" placeholders are replaced with real descriptions.
+        let mut boxes_by_code = std::collections::HashMap::<String, Record>::new();
+
+        for csv in ["boxes.csv", "boxes-qt.csv", "boxes-udta.csv"] {
+            let records = database
+                .load::<Record>(csv)
+                .unwrap_or_else(|e| panic!("Failure loading {csv}: {e}"));
+            for record in records {
+                boxes_by_code.insert(record.code.clone(), record);
+            }
+        }
+
+        let mut box_list: Vec<Record> = boxes_by_code.into_values().collect();
+        box_list.sort_by(|a, b| a.code.cmp(&b.code));
+
         self.gen_boxes_consts(&box_list, items);
     }
 
