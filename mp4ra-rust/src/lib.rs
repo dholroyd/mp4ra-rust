@@ -79,7 +79,7 @@ include!("generated.rs");
 /// // can't customise this "USER_PRIVATE" text,
 /// assert_eq!("USER_PRIVATE(0xc1)", format!("{:?}", MY_SPECIAL_OBJECT_TYPE))
 /// ```
-#[derive(Clone, Copy, Eq, PartialEq)]
+#[derive(Clone, Copy, Eq, PartialEq, Hash)]
 pub struct ObjectTypeIdentifier(pub u8);
 impl From<ObjectTypeIdentifier> for u8 {
     fn from(val: ObjectTypeIdentifier) -> Self {
@@ -101,7 +101,7 @@ impl From<u8> for ObjectTypeIdentifier {
 ///
 /// See also,
 ///  - the [Handlers section on mp4ra.org](http://mp4ra.org/#/handlers)
-#[derive(Clone, Copy, Eq, PartialEq, Debug)]
+#[derive(Clone, Copy, Eq, PartialEq, Debug, Hash)]
 pub struct HandlerCode(pub FourCC);
 impl HandlerCode {
     /// Construct a `HandlerCode` from its four-cc value
@@ -140,7 +140,7 @@ impl From<FourCC> for HandlerCode {
 ///
 /// See also,
 ///  - the [Sample Entry Codes section on mp4ra.org](http://mp4ra.org/#/qtcodecs)
-#[derive(Clone, Copy, Eq, PartialEq, Debug)]
+#[derive(Clone, Copy, Eq, PartialEq, Debug, Hash)]
 pub struct SampleEntryCode(pub FourCC);
 impl SampleEntryCode {
     /// Construct a `SampleEntryCode` from its four-cc value
@@ -163,7 +163,7 @@ impl From<FourCC> for SampleEntryCode {
 ///
 /// See also,
 ///  - the [Boxes section on mp4ra.org](http://mp4ra.org/#/atoms)
-#[derive(Clone, Copy, Eq, PartialEq, Debug)]
+#[derive(Clone, Copy, Eq, PartialEq, Debug, Hash)]
 pub struct BoxCode(pub FourCC);
 impl BoxCode {
     /// Construct a `BoxCode` from its four-cc value
@@ -186,7 +186,7 @@ impl From<FourCC> for BoxCode {
 ///
 /// See also,
 ///  - the [Brands section on mp4ra.org](http://mp4ra.org/#/brands)
-#[derive(Clone, Copy, Eq, PartialEq, Debug)]
+#[derive(Clone, Copy, Eq, PartialEq, Debug, Hash)]
 pub struct BrandCode(pub FourCC);
 impl BrandCode {
     /// Construct a `BrandCode` from its four-cc value
@@ -209,7 +209,7 @@ impl From<FourCC> for BrandCode {
 ///
 /// See also,
 ///  - the [Track References section on mp4ra.org](http://mp4ra.org/#/track_references)
-#[derive(Clone, Copy, Eq, PartialEq, Debug)]
+#[derive(Clone, Copy, Eq, PartialEq, Debug, Hash)]
 pub struct TrackReferenceCode(pub FourCC);
 impl TrackReferenceCode {
     /// Construct a `TrackReferenceCode` from its four-cc value
