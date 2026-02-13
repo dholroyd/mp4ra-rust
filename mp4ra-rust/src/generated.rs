@@ -1611,6 +1611,108 @@ impl SampleEntryCode {
     /// Specification: _OpenAPV_
     pub const APV1: SampleEntryCode = SampleEntryCode::new(*b"apv1");
 }
+/// Return the handler type for a box code that appears inside a sample entry, if one is defined.
+pub fn sample_entry_box_handler(code: BoxCode) -> Option<HandlerCode> {
+    match code {
+        BoxCode::THREE_SIB => Some(HandlerCode::VIDE),
+        BoxCode::SIX_VPC => Some(HandlerCode::VOLV),
+        BoxCode::A3DC => Some(HandlerCode::VIDE),
+        BoxCode::AUXI => Some(HandlerCode::VIDE),
+        BoxCode::AV1C => Some(HandlerCode::VIDE),
+        BoxCode::AVCC => Some(HandlerCode::VIDE),
+        BoxCode::BTRT => None,
+        BoxCode::CCLV => Some(HandlerCode::VIDE),
+        BoxCode::CCST => Some(HandlerCode::VIDE),
+        BoxCode::CHNL => Some(HandlerCode::SOUN),
+        BoxCode::CLAP => Some(HandlerCode::VIDE),
+        BoxCode::CLLI => Some(HandlerCode::VIDE),
+        BoxCode::COLR => Some(HandlerCode::VIDE),
+        BoxCode::COLL => Some(HandlerCode::VIDE),
+        BoxCode::DAC3 => Some(HandlerCode::SOUN),
+        BoxCode::DAC4 => Some(HandlerCode::SOUN),
+        BoxCode::DEC3 => Some(HandlerCode::SOUN),
+        BoxCode::DFLA => Some(HandlerCode::SOUN),
+        BoxCode::DHEC => Some(HandlerCode::VIDE),
+        BoxCode::DMIX => Some(HandlerCode::SOUN),
+        BoxCode::DMLP => Some(HandlerCode::SOUN),
+        BoxCode::DVCC => Some(HandlerCode::VIDE),
+        BoxCode::DVVC => Some(HandlerCode::VIDE),
+        BoxCode::DVWC => Some(HandlerCode::VIDE),
+        BoxCode::ECAM => Some(HandlerCode::VIDE),
+        BoxCode::ESDS => None,
+        BoxCode::EVCC => Some(HandlerCode::VIDE),
+        BoxCode::EVSC => Some(HandlerCode::VIDE),
+        BoxCode::FIEL => Some(HandlerCode::VIDE),
+        BoxCode::HVCC => Some(HandlerCode::VIDE),
+        BoxCode::HVTC => Some(HandlerCode::VIDE),
+        BoxCode::ICAM => Some(HandlerCode::VIDE),
+        BoxCode::JPGC => Some(HandlerCode::PICT),
+        BoxCode::LEQI => Some(HandlerCode::SOUN),
+        BoxCode::LHVC => Some(HandlerCode::VIDE),
+        BoxCode::M4DS => None,
+        BoxCode::MAEI => Some(HandlerCode::SOUN),
+        BoxCode::MAEM => Some(HandlerCode::SOUN),
+        BoxCode::MDCV => Some(HandlerCode::VIDE),
+        BoxCode::MHAC => Some(HandlerCode::SOUN),
+        BoxCode::MHAD => Some(HandlerCode::SOUN),
+        BoxCode::MHAP => Some(HandlerCode::SOUN),
+        BoxCode::MVCC => Some(HandlerCode::VIDE),
+        BoxCode::MVCP => Some(HandlerCode::VIDE),
+        BoxCode::MVDC => Some(HandlerCode::VIDE),
+        BoxCode::PASP => Some(HandlerCode::VIDE),
+        BoxCode::PDC1 => Some(HandlerCode::SOUN),
+        BoxCode::PDI1 => Some(HandlerCode::SOUN),
+        BoxCode::PRMR => Some(HandlerCode::VIDE),
+        BoxCode::QLIF => Some(HandlerCode::VIDE),
+        BoxCode::SCRB => Some(HandlerCode::VIDE),
+        BoxCode::SEIB => Some(HandlerCode::VIDE),
+        BoxCode::SILB => Some(HandlerCode::META),
+        BoxCode::SMDM => Some(HandlerCode::VIDE),
+        BoxCode::SRAT => Some(HandlerCode::SOUN),
+        BoxCode::SVCC => Some(HandlerCode::VIDE),
+        BoxCode::SVCP => Some(HandlerCode::VIDE),
+        BoxCode::SVMC => Some(HandlerCode::META),
+        BoxCode::TXTC => Some(HandlerCode::TEXT),
+        BoxCode::UDC1 => Some(HandlerCode::SOUN),
+        BoxCode::UDC2 => Some(HandlerCode::SOUN),
+        BoxCode::UDEX => Some(HandlerCode::SOUN),
+        BoxCode::UDI1 => Some(HandlerCode::SOUN),
+        BoxCode::UDI2 => Some(HandlerCode::SOUN),
+        BoxCode::UEQC => Some(HandlerCode::SOUN),
+        BoxCode::UEQI => Some(HandlerCode::SOUN),
+        BoxCode::URII => Some(HandlerCode::META),
+        BoxCode::V3CC => Some(HandlerCode::VOLV),
+        BoxCode::V3TC => Some(HandlerCode::VOLV),
+        BoxCode::VEXU => Some(HandlerCode::VIDE),
+        BoxCode::VPCC => Some(HandlerCode::VIDE),
+        BoxCode::VSIB => Some(HandlerCode::VIDE),
+        BoxCode::VTTC => Some(HandlerCode::TEXT),
+        BoxCode::VVNC => Some(HandlerCode::VIDE),
+        BoxCode::VVCC => Some(HandlerCode::VIDE),
+        BoxCode::VWID => Some(HandlerCode::VIDE),
+        BoxCode::VLAB => Some(HandlerCode::TEXT),
+        BoxCode::CUVV => Some(HandlerCode::VIDE),
+        BoxCode::CMPD => Some(HandlerCode::VIDE),
+        BoxCode::UNCC => Some(HandlerCode::VIDE),
+        BoxCode::CPAL => Some(HandlerCode::VIDE),
+        BoxCode::CPAT => Some(HandlerCode::VIDE),
+        BoxCode::CLEV => Some(HandlerCode::VIDE),
+        BoxCode::SPLZ => Some(HandlerCode::VIDE),
+        BoxCode::SNUC => Some(HandlerCode::VIDE),
+        BoxCode::SBPM => Some(HandlerCode::VIDE),
+        BoxCode::CLOC => Some(HandlerCode::VIDE),
+        BoxCode::FPAC => Some(HandlerCode::VIDE),
+        BoxCode::DISI => Some(HandlerCode::VIDE),
+        BoxCode::PCMC => Some(HandlerCode::SOUN),
+        BoxCode::LVCC => Some(HandlerCode::VIDE),
+        BoxCode::ACXD => Some(HandlerCode::SOUN),
+        BoxCode::DCA3 => Some(HandlerCode::SOUN),
+        BoxCode::APVC => Some(HandlerCode::VIDE),
+        BoxCode::AMVE => Some(HandlerCode::VIDE),
+        BoxCode::ALMO => Some(HandlerCode::VIDE),
+        _ => None,
+    }
+}
 impl BoxCode {
     /// Compressed movie fragment
     ///
@@ -1654,6 +1756,22 @@ impl BoxCode {
     ///
     /// Specification: _NALu Video_
     pub const THREE_DPR: BoxCode = BoxCode::new(*b"3dpr");
+    /// MVD Scalability Information SEI Message Box
+    ///
+    /// FourCC: `3sib`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const THREE_SIB: BoxCode = BoxCode::new(*b"3sib");
+    /// Viewport Configuration
+    ///
+    /// FourCC: `6vpC`
+    ///
+    /// Specification: _V3C-SYS_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const SIX_VPC: BoxCode = BoxCode::new(*b"6vpC");
     /// Exif Metadata
     ///
     /// FourCC: `Exif`
@@ -1678,12 +1796,36 @@ impl BoxCode {
     ///
     /// Specification: _JPXS_
     pub const JXS: BoxCode = BoxCode::new(*b"JXS ");
+    /// Mastering Display Metadata Box
+    ///
+    /// FourCC: `SmDm`
+    ///
+    /// Specification: _VPxx_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const SMDM: BoxCode = BoxCode::new(*b"SmDm");
     /// Unique Identifier Technology Solution
     ///
     /// FourCC: `UITS`
     ///
     /// Specification: _Universal Music Group_
     pub const UITS: BoxCode = BoxCode::new(*b"UITS");
+    /// A3DConfigurationBox
+    ///
+    /// FourCC: `a3dC`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const A3DC: BoxCode = BoxCode::new(*b"a3dC");
+    /// Decoder-specific info for Auro-Cx audio
+    ///
+    /// FourCC: `acxd`
+    ///
+    /// Specification: _Auro_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const ACXD: BoxCode = BoxCode::new(*b"acxd");
     /// description of the content for accessibility purposes (similar to the HTML alt attribute); formatted as for the cprt user-data item
     ///
     /// FourCC: `ades`
@@ -1738,18 +1880,42 @@ impl BoxCode {
     ///
     /// Specification: _3GPP_
     pub const ALBM: BoxCode = BoxCode::new(*b"albm");
+    /// Alpha mode (straight vs premultiplied alpha) signaling
+    ///
+    /// FourCC: `almo`
+    ///
+    /// Specification: _Apple_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const ALMO: BoxCode = BoxCode::new(*b"almo");
     /// Album loudness base
     ///
     /// FourCC: `alou`
     ///
     /// Specification: _ISO_
     pub const ALOU: BoxCode = BoxCode::new(*b"alou");
+    /// Ambient viewing environment
+    ///
+    /// FourCC: `amve`
+    ///
+    /// Specification: _ISO_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const AMVE: BoxCode = BoxCode::new(*b"amve");
     /// Name of the camera angle through which the clip was shot
     ///
     /// FourCC: `angl`
     ///
     /// Specification: _Apple_
     pub const ANGL: BoxCode = BoxCode::new(*b"angl");
+    /// APV Codec Configuration Box
+    ///
+    /// FourCC: `apvC`
+    ///
+    /// Specification: _OpenAPV_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const APVC: BoxCode = BoxCode::new(*b"apvC");
     /// audio rendering indication
     ///
     /// FourCC: `ardi`
@@ -1773,7 +1939,25 @@ impl BoxCode {
     /// FourCC: `auxi`
     ///
     /// Specification: _HEIF_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
     pub const AUXI: BoxCode = BoxCode::new(*b"auxi");
+    /// AOM Video Codec Configuration
+    ///
+    /// FourCC: `av1C`
+    ///
+    /// Specification: _AV1-ISOBMFF_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const AV1C: BoxCode = BoxCode::new(*b"av1C");
+    /// AVC Configuration
+    ///
+    /// FourCC: `avcC`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const AVCC: BoxCode = BoxCode::new(*b"avcC");
     /// AVC NAL Unit Storage Box
     ///
     /// FourCC: `avcn`
@@ -1810,6 +1994,14 @@ impl BoxCode {
     ///
     /// Specification: _JPEG XL_
     pub const BROB: BoxCode = BoxCode::new(*b"brob");
+    /// Bit-rate information
+    ///
+    /// FourCC: `btrt`
+    ///
+    /// Specification: _ISO_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const BTRT: BoxCode = BoxCode::new(*b"btrt");
     /// Buffering information
     ///
     /// FourCC: `buff`
@@ -1828,11 +2020,21 @@ impl BoxCode {
     ///
     /// Specification: _OMA DRM 2.1_
     pub const CCID: BoxCode = BoxCode::new(*b"ccid");
+    /// Content colour volume
+    ///
+    /// FourCC: `cclv`
+    ///
+    /// Specification: _ISO_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const CCLV: BoxCode = BoxCode::new(*b"cclv");
     /// Coding constraints box
     ///
     /// FourCC: `ccst`
     ///
     /// Specification: _HEIF_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
     pub const CCST: BoxCode = BoxCode::new(*b"ccst");
     /// type and ordering of the components within the codestream
     ///
@@ -1840,12 +2042,36 @@ impl BoxCode {
     ///
     /// Specification: _JPEG2000_
     pub const CDEF: BoxCode = BoxCode::new(*b"cdef");
+    /// Channel layout
+    ///
+    /// FourCC: `chnl`
+    ///
+    /// Specification: _ISO_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const CHNL: BoxCode = BoxCode::new(*b"chnl");
     /// complete track information
     ///
     /// FourCC: `cinf`
     ///
     /// Specification: _ISO_
     pub const CINF: BoxCode = BoxCode::new(*b"cinf");
+    /// Clean aperture
+    ///
+    /// FourCC: `clap`
+    ///
+    /// Specification: _ISO_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const CLAP: BoxCode = BoxCode::new(*b"clap");
+    /// Component Reference Level
+    ///
+    /// FourCC: `clev`
+    ///
+    /// Specification: _UNCV_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const CLEV: BoxCode = BoxCode::new(*b"clev");
     /// Name of the clip file
     ///
     /// FourCC: `clfn`
@@ -1864,6 +2090,22 @@ impl BoxCode {
     ///
     /// Specification: _QT_
     pub const CLIP: BoxCode = BoxCode::new(*b"clip");
+    /// Content Light Level
+    ///
+    /// FourCC: `clli`
+    ///
+    /// Specification: _ISO_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const CLLI: BoxCode = BoxCode::new(*b"clli");
+    /// Chroma Location
+    ///
+    /// FourCC: `cloc`
+    ///
+    /// Specification: _UNCV_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const CLOC: BoxCode = BoxCode::new(*b"cloc");
     /// Classification of the media
     ///
     /// FourCC: `clsf`
@@ -1888,6 +2130,14 @@ impl BoxCode {
     ///
     /// Specification: _Apple_
     pub const CMNM: BoxCode = BoxCode::new(*b"cmnm");
+    /// Component Definition
+    ///
+    /// FourCC: `cmpd`
+    ///
+    /// Specification: _UNCV_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const CMPD: BoxCode = BoxCode::new(*b"cmpd");
     /// 64-bit chunk offset
     ///
     /// FourCC: `co64`
@@ -1911,12 +2161,16 @@ impl BoxCode {
     /// FourCC: `coll`
     ///
     /// Specification: _3GPP_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
     pub const COLL: BoxCode = BoxCode::new(*b"coll");
     /// specifies the colourspace of the image
     ///
     /// FourCC: `colr`
     ///
     /// Specification: _JPEG2000_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
     pub const COLR: BoxCode = BoxCode::new(*b"colr");
     /// coverage information
     ///
@@ -1924,6 +2178,22 @@ impl BoxCode {
     ///
     /// Specification: _OMAF_
     pub const COVI: BoxCode = BoxCode::new(*b"covi");
+    /// Component Palette Configuration
+    ///
+    /// FourCC: `cpal`
+    ///
+    /// Specification: _UNCV_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const CPAL: BoxCode = BoxCode::new(*b"cpal");
+    /// Component Pattern Definition
+    ///
+    /// FourCC: `cpat`
+    ///
+    /// Specification: _UNCV_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const CPAT: BoxCode = BoxCode::new(*b"cpat");
     /// copyright etc.
     ///
     /// FourCC: `cprt`
@@ -1978,24 +2248,80 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const CTTS: BoxCode = BoxCode::new(*b"ctts");
+    /// HDR Vivid Configuration
+    ///
+    /// FourCC: `cuvv`
+    ///
+    /// Specification: _UWA_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const CUVV: BoxCode = BoxCode::new(*b"cuvv");
     /// OMA DRM Cover URI
     ///
     /// FourCC: `cvru`
     ///
     /// Specification: _OMA DRM 2.1_
     pub const CVRU: BoxCode = BoxCode::new(*b"cvru");
+    /// Decoder specific info for AC-3 audio
+    ///
+    /// FourCC: `dac3`
+    ///
+    /// Specification: _ETSI AC-3_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const DAC3: BoxCode = BoxCode::new(*b"dac3");
+    /// Decoder specific info for AC-4 audio
+    ///
+    /// FourCC: `dac4`
+    ///
+    /// Specification: _ETSI AC-4_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const DAC4: BoxCode = BoxCode::new(*b"dac4");
     /// Date and time, formatted according to ISO 8601, when the content was created. For clips captured by recording devices, this is typically the date and time when the clip’s recording started.
     ///
     /// FourCC: `date`
     ///
     /// Specification: _Apple_
     pub const DATE: BoxCode = BoxCode::new(*b"date");
+    /// Decoder configuration for AVS3-P3 Codec
+    ///
+    /// FourCC: `dca3`
+    ///
+    /// Specification: _T-AI-109.7_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const DCA3: BoxCode = BoxCode::new(*b"dca3");
     /// Marlin DCF Duration, user-data atom type
     ///
     /// FourCC: `dcfD`
     ///
     /// Specification: _OMArlin_
     pub const DCFD: BoxCode = BoxCode::new(*b"dcfD");
+    /// Decoder specific info for Enhanced AC-3 audio
+    ///
+    /// FourCC: `dec3`
+    ///
+    /// Specification: _ETSI AC-3_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const DEC3: BoxCode = BoxCode::new(*b"dec3");
+    /// Free Lossless Audio Codec (FLAC) specific data
+    ///
+    /// FourCC: `dfLa`
+    ///
+    /// Specification: _FLAC_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const DFLA: BoxCode = BoxCode::new(*b"dfLa");
+    /// Default HEVC extractor constructor box
+    ///
+    /// FourCC: `dhec`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const DHEC: BoxCode = BoxCode::new(*b"dhec");
     /// Data Integrity Hash
     ///
     /// FourCC: `dihd`
@@ -2014,6 +2340,30 @@ impl BoxCode {
     ///
     /// Specification: _ISO-Partial_
     pub const DINT: BoxCode = BoxCode::new(*b"dint");
+    /// Disparity Information
+    ///
+    /// FourCC: `disi`
+    ///
+    /// Specification: _UNCV_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const DISI: BoxCode = BoxCode::new(*b"disi");
+    /// Downmix instructions
+    ///
+    /// FourCC: `dmix`
+    ///
+    /// Specification: _ISO_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const DMIX: BoxCode = BoxCode::new(*b"dmix");
+    /// Decoder specific info for MLP audio
+    ///
+    /// FourCC: `dmlp`
+    ///
+    /// Specification: _Dolby MLP_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const DMLP: BoxCode = BoxCode::new(*b"dmlp");
     /// Mastering Display Metadata
     ///
     /// FourCC: `dmon`
@@ -2044,6 +2394,38 @@ impl BoxCode {
     ///
     /// Specification: _DVB_
     pub const DSTG: BoxCode = BoxCode::new(*b"dstg");
+    /// Dolby Vision Configuration
+    ///
+    /// FourCC: `dvcC`
+    ///
+    /// Specification: _Dolby Vision_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const DVCC: BoxCode = BoxCode::new(*b"dvcC");
+    /// Dolby Vision Extended Configuration
+    ///
+    /// FourCC: `dvvC`
+    ///
+    /// Specification: _Dolby Vision_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const DVVC: BoxCode = BoxCode::new(*b"dvvC");
+    /// Dolby Vision Extended Configuration 2
+    ///
+    /// FourCC: `dvwC`
+    ///
+    /// Specification: _Dolby Vision_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const DVWC: BoxCode = BoxCode::new(*b"dvwC");
+    /// Extrinsic camera parameters
+    ///
+    /// FourCC: `ecam`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const ECAM: BoxCode = BoxCode::new(*b"ecam");
     /// edit list container
     ///
     /// FourCC: `edts`
@@ -2068,12 +2450,36 @@ impl BoxCode {
     ///
     /// Specification: _DASH_
     pub const EMSG: BoxCode = BoxCode::new(*b"emsg");
+    /// Elementary stream descriptor
+    ///
+    /// FourCC: `esds`
+    ///
+    /// Specification: _MP4v2_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const ESDS: BoxCode = BoxCode::new(*b"esds");
     /// extended type and type combination
     ///
     /// FourCC: `etyp`
     ///
     /// Specification: _ISO_
     pub const ETYP: BoxCode = BoxCode::new(*b"etyp");
+    /// EVC configuration
+    ///
+    /// FourCC: `evcC`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const EVCC: BoxCode = BoxCode::new(*b"evcC");
+    /// Configuration for EVC slice component track
+    ///
+    /// FourCC: `evsC`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const EVSC: BoxCode = BoxCode::new(*b"evsC");
     /// Event information
     ///
     /// FourCC: `evti`
@@ -2104,6 +2510,14 @@ impl BoxCode {
     ///
     /// Specification: _ISO-Partial_
     pub const FIDX: BoxCode = BoxCode::new(*b"fidx");
+    /// Field Coding
+    ///
+    /// FourCC: `fiel`
+    ///
+    /// Specification: _MJ2_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const FIEL: BoxCode = BoxCode::new(*b"fiel");
     /// FD Item Information
     ///
     /// FourCC: `fiin`
@@ -2128,6 +2542,14 @@ impl BoxCode {
     ///
     /// Specification: _OMAF_
     pub const FOVI: BoxCode = BoxCode::new(*b"fovi");
+    /// Frame Packing Information
+    ///
+    /// FourCC: `fpac`
+    ///
+    /// Specification: _UNCV_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const FPAC: BoxCode = BoxCode::new(*b"fpac");
     /// File Partition
     ///
     /// FourCC: `fpar`
@@ -2218,6 +2640,30 @@ impl BoxCode {
     ///
     /// Specification: _Hipix_
     pub const HPIX: BoxCode = BoxCode::new(*b"hpix");
+    /// HEVC Configuration
+    ///
+    /// FourCC: `hvcC`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const HVCC: BoxCode = BoxCode::new(*b"hvcC");
+    /// HEVC Tile Configuration
+    ///
+    /// FourCC: `hvtC`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const HVTC: BoxCode = BoxCode::new(*b"hvtC");
+    /// Intrinsic camera parameters
+    ///
+    /// FourCC: `icam`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const ICAM: BoxCode = BoxCode::new(*b"icam");
     /// OMA DRM Icon URI
     ///
     /// FourCC: `icnu`
@@ -2374,6 +2820,14 @@ impl BoxCode {
     ///
     /// Specification: _JPEG2000_
     pub const JP2I: BoxCode = BoxCode::new(*b"jp2i");
+    /// JPEG Configuration
+    ///
+    /// FourCC: `jpgC`
+    ///
+    /// Specification: _HEIF_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const JPGC: BoxCode = BoxCode::new(*b"jpgC");
     /// JPEG XS Video Transport Parameter
     ///
     /// FourCC: `jptp`
@@ -2458,12 +2912,28 @@ impl BoxCode {
     ///
     /// Specification: _NALu Video_
     pub const LDEP: BoxCode = BoxCode::new(*b"ldep");
+    /// Loudness equalization instructions
+    ///
+    /// FourCC: `leqi`
+    ///
+    /// Specification: _DRC_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const LEQI: BoxCode = BoxCode::new(*b"leqi");
     /// Leval assignment
     ///
     /// FourCC: `leva`
     ///
     /// Specification: _ISO_
     pub const LEVA: BoxCode = BoxCode::new(*b"leva");
+    /// Layered HEVC Configuration
+    ///
+    /// FourCC: `lhvC`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const LHVC: BoxCode = BoxCode::new(*b"lhvC");
     /// Track pre-load definitions
     ///
     /// FourCC: `load`
@@ -2494,12 +2964,44 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const LUDT: BoxCode = BoxCode::new(*b"ludt");
+    /// LCEVC configuration
+    ///
+    /// FourCC: `lvcC`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const LVCC: BoxCode = BoxCode::new(*b"lvcC");
+    /// MPEG-4 descriptors
+    ///
+    /// FourCC: `m4ds`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const M4DS: BoxCode = BoxCode::new(*b"m4ds");
     /// reserved for MPEG7Stream header
     ///
     /// FourCC: `m7hd`
     ///
     /// Specification: _MP4v2_
     pub const M7HD: BoxCode = BoxCode::new(*b"m7hd");
+    /// MPEG-H Audio scene information
+    ///
+    /// FourCC: `maeI`
+    ///
+    /// Specification: _MPEG-H_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const MAEI: BoxCode = BoxCode::new(*b"maeI");
+    /// MPEG-H Audio multi-stream signalling
+    ///
+    /// FourCC: `maeM`
+    ///
+    /// Specification: _MPEG-H_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const MAEM: BoxCode = BoxCode::new(*b"maeM");
     /// Manufacturer name of the camera
     ///
     /// FourCC: `manu`
@@ -2524,6 +3026,14 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const MDAT: BoxCode = BoxCode::new(*b"mdat");
+    /// mastering display colour volume
+    ///
+    /// FourCC: `mdcv`
+    ///
+    /// Specification: _ISO_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const MDCV: BoxCode = BoxCode::new(*b"mdcv");
     /// media header, overall information about the media
     ///
     /// FourCC: `mdhd`
@@ -2596,6 +3106,30 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const MFRO: BoxCode = BoxCode::new(*b"mfro");
+    /// MPEG-H Audio Decoder Configuration
+    ///
+    /// FourCC: `mhaC`
+    ///
+    /// Specification: _MPEG-H_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const MHAC: BoxCode = BoxCode::new(*b"mhaC");
+    /// MPEG-H Audio dynamic range control and loudness
+    ///
+    /// FourCC: `mhaD`
+    ///
+    /// Specification: _MPEG-H_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const MHAD: BoxCode = BoxCode::new(*b"mhaD");
+    /// MPEG-H Audio profile and level compatibility set
+    ///
+    /// FourCC: `mhaP`
+    ///
+    /// Specification: _MPEG-H_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const MHAP: BoxCode = BoxCode::new(*b"mhaP");
     /// media information container
     ///
     /// FourCC: `minf`
@@ -2650,6 +3184,22 @@ impl BoxCode {
     ///
     /// Specification: _NALu Video_
     pub const MSTV: BoxCode = BoxCode::new(*b"mstv");
+    /// MVC configuration
+    ///
+    /// FourCC: `mvcC`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const MVCC: BoxCode = BoxCode::new(*b"mvcC");
+    /// MVC priority assignment
+    ///
+    /// FourCC: `mvcP`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const MVCP: BoxCode = BoxCode::new(*b"mvcP");
     /// Multiview group
     ///
     /// FourCC: `mvcg`
@@ -2662,6 +3212,14 @@ impl BoxCode {
     ///
     /// Specification: _NALu Video_
     pub const MVCI: BoxCode = BoxCode::new(*b"mvci");
+    /// MVCDConfigurationBox
+    ///
+    /// FourCC: `mvdC`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const MVDC: BoxCode = BoxCode::new(*b"mvdC");
     /// movie extends box
     ///
     /// FourCC: `mvex`
@@ -2776,18 +3334,50 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const PAEN: BoxCode = BoxCode::new(*b"paen");
+    /// Pixel aspect ratio
+    ///
+    /// FourCC: `pasp`
+    ///
+    /// Specification: _ISO_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const PASP: BoxCode = BoxCode::new(*b"pasp");
     /// palette which maps a single component in index space to a multiple- component image
     ///
     /// FourCC: `pclr`
     ///
     /// Specification: _JPEG2000_
     pub const PCLR: BoxCode = BoxCode::new(*b"pclr");
+    /// Uncompressed audio PCM configuration
+    ///
+    /// FourCC: `pcmC`
+    ///
+    /// Specification: _ISO-UNCA_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const PCMC: BoxCode = BoxCode::new(*b"pcmC");
     /// Partial Data
     ///
     /// FourCC: `pdat`
     ///
     /// Specification: _ISO-Partial_
     pub const PDAT: BoxCode = BoxCode::new(*b"pdat");
+    /// Parametric DRC coefficients
+    ///
+    /// FourCC: `pdc1`
+    ///
+    /// Specification: _DRC_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const PDC1: BoxCode = BoxCode::new(*b"pdc1");
+    /// Parametric DRC instructions
+    ///
+    /// FourCC: `pdi1`
+    ///
+    /// Specification: _DRC_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const PDI1: BoxCode = BoxCode::new(*b"pdi1");
     /// Progressive download information
     ///
     /// FourCC: `pdin`
@@ -2854,6 +3444,14 @@ impl BoxCode {
     ///
     /// Specification: _Youtube_
     pub const PRMD: BoxCode = BoxCode::new(*b"prmd");
+    /// Production metadata reference box
+    ///
+    /// FourCC: `prmr`
+    ///
+    /// Specification: _Youtube_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const PRMR: BoxCode = BoxCode::new(*b"prmr");
     /// Partial Segment
     ///
     /// FourCC: `pseg`
@@ -2878,6 +3476,14 @@ impl BoxCode {
     ///
     /// Specification: _ISO-Partial_
     pub const PTLE: BoxCode = BoxCode::new(*b"ptle");
+    /// Layer quality assignments
+    ///
+    /// FourCC: `qlif`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const QLIF: BoxCode = BoxCode::new(*b"qlif");
     /// Name of the tape reel
     ///
     /// FourCC: `reel`
@@ -2968,6 +3574,14 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const SBGP: BoxCode = BoxCode::new(*b"sbgp");
+    /// Sensor Bad Pixels Map
+    ///
+    /// FourCC: `sbpm`
+    ///
+    /// Specification: _UNCV_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const SBPM: BoxCode = BoxCode::new(*b"sbpm");
     /// Name of the scene for which the clip was shot
     ///
     /// FourCC: `scen`
@@ -2986,6 +3600,14 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const SCHM: BoxCode = BoxCode::new(*b"schm");
+    /// Scramble scheme information
+    ///
+    /// FourCC: `scrb`
+    ///
+    /// Specification: _ISO_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const SCRB: BoxCode = BoxCode::new(*b"scrb");
     /// Sample dependency
     ///
     /// FourCC: `sdep`
@@ -3022,6 +3644,14 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const SEGR: BoxCode = BoxCode::new(*b"segr");
+    /// Scalability information
+    ///
+    /// FourCC: `seib`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const SEIB: BoxCode = BoxCode::new(*b"seib");
     /// SEI information box
     ///
     /// FourCC: `seii`
@@ -3052,6 +3682,14 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const SIDX: BoxCode = BoxCode::new(*b"sidx");
+    /// Scheme ID list Box
+    ///
+    /// FourCC: `silb`
+    ///
+    /// Specification: _Event Message_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const SILB: BoxCode = BoxCode::new(*b"silb");
     /// protection scheme information box
     ///
     /// FourCC: `sinf`
@@ -3076,18 +3714,42 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const SMHD: BoxCode = BoxCode::new(*b"smhd");
+    /// Sensor Non-Uniformity Correction
+    ///
+    /// FourCC: `snuc`
+    ///
+    /// Specification: _UNCV_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const SNUC: BoxCode = BoxCode::new(*b"snuc");
     /// Sample packing information box
     ///
     /// FourCC: `spki`
     ///
     /// Specification: _ISO_
     pub const SPKI: BoxCode = BoxCode::new(*b"spki");
+    /// Polarization Pattern Definition
+    ///
+    /// FourCC: `splz`
+    ///
+    /// Specification: _UNCV_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const SPLZ: BoxCode = BoxCode::new(*b"splz");
     /// sub-picture region
     ///
     /// FourCC: `sprg`
     ///
     /// Specification: _OMAF_
     pub const SPRG: BoxCode = BoxCode::new(*b"sprg");
+    /// Sampling rate
+    ///
+    /// FourCC: `srat`
+    ///
+    /// Specification: _ISO_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const SRAT: BoxCode = BoxCode::new(*b"srat");
     /// System Renewability Message
     ///
     /// FourCC: `srmb`
@@ -3268,6 +3930,22 @@ impl BoxCode {
     ///
     /// Specification: _ISO-Partial_
     pub const SURL: BoxCode = BoxCode::new(*b"surl");
+    /// SVC configuration
+    ///
+    /// FourCC: `svcC`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const SVCC: BoxCode = BoxCode::new(*b"svcC");
+    /// SVC priority assignments
+    ///
+    /// FourCC: `svcP`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const SVCP: BoxCode = BoxCode::new(*b"svcP");
     /// SVC dependency range
     ///
     /// FourCC: `svdr`
@@ -3280,6 +3958,14 @@ impl BoxCode {
     ///
     /// Specification: _NALu Video_
     pub const SVIP: BoxCode = BoxCode::new(*b"svip");
+    /// SVC information configuration
+    ///
+    /// FourCC: `svmC`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const SVMC: BoxCode = BoxCode::new(*b"svmC");
     /// Priority range
     ///
     /// FourCC: `svpr`
@@ -3442,18 +4128,82 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const TTYP: BoxCode = BoxCode::new(*b"ttyp");
+    /// Text stream configuration
+    ///
+    /// FourCC: `txtC`
+    ///
+    /// Specification: _ISO_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const TXTC: BoxCode = BoxCode::new(*b"txtC");
     /// type and-combination
     ///
     /// FourCC: `tyco`
     ///
     /// Specification: _ISO_
     pub const TYCO: BoxCode = BoxCode::new(*b"tyco");
+    /// Basic DRC coefficients
+    ///
+    /// FourCC: `udc1`
+    ///
+    /// Specification: _DRC_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const UDC1: BoxCode = BoxCode::new(*b"udc1");
+    /// Unified DRC coefficients
+    ///
+    /// FourCC: `udc2`
+    ///
+    /// Specification: _DRC_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const UDC2: BoxCode = BoxCode::new(*b"udc2");
+    /// Unified DRC configuration extension
+    ///
+    /// FourCC: `udex`
+    ///
+    /// Specification: _DRC_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const UDEX: BoxCode = BoxCode::new(*b"udex");
+    /// Basic DRC instructions
+    ///
+    /// FourCC: `udi1`
+    ///
+    /// Specification: _DRC_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const UDI1: BoxCode = BoxCode::new(*b"udi1");
+    /// Unified DRC instructions
+    ///
+    /// FourCC: `udi2`
+    ///
+    /// Specification: _DRC_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const UDI2: BoxCode = BoxCode::new(*b"udi2");
     /// user-data
     ///
     /// FourCC: `udta`
     ///
     /// Specification: _ISO_
     pub const UDTA: BoxCode = BoxCode::new(*b"udta");
+    /// Equalization coefficients
+    ///
+    /// FourCC: `ueqc`
+    ///
+    /// Specification: _DRC_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const UEQC: BoxCode = BoxCode::new(*b"ueqc");
+    /// Equalization instructions
+    ///
+    /// FourCC: `ueqi`
+    ///
+    /// Specification: _DRC_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const UEQI: BoxCode = BoxCode::new(*b"ueqi");
     /// a tool by which a vendor may provide access to additional information associated with a UUID
     ///
     /// FourCC: `uinf`
@@ -3466,12 +4216,28 @@ impl BoxCode {
     ///
     /// Specification: _JPEG2000_
     pub const ULST: BoxCode = BoxCode::new(*b"ulst");
+    /// Uncompressed Frame Configuration
+    ///
+    /// FourCC: `uncC`
+    ///
+    /// Specification: _UNCV_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const UNCC: BoxCode = BoxCode::new(*b"uncC");
     /// User 'star' rating of the media
     ///
     /// FourCC: `urat`
     ///
     /// Specification: _3GPP_
     pub const URAT: BoxCode = BoxCode::new(*b"urat");
+    /// URI Information
+    ///
+    /// FourCC: `uriI`
+    ///
+    /// Specification: _ISO_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const URII: BoxCode = BoxCode::new(*b"uriI");
     /// a URL
     ///
     /// FourCC: `url `
@@ -3484,18 +4250,50 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const UUID: BoxCode = BoxCode::new(*b"uuid");
+    /// V3C Configuration
+    ///
+    /// FourCC: `v3cC`
+    ///
+    /// Specification: _V3C-SYS_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const V3CC: BoxCode = BoxCode::new(*b"v3cC");
     /// V3C spatial region collection
     ///
     /// FourCC: `v3sc`
     ///
     /// Specification: _V3C-SYS_
     pub const V3SC: BoxCode = BoxCode::new(*b"v3sc");
+    /// V3C Atlas Tile Configuration
+    ///
+    /// FourCC: `v3tC`
+    ///
+    /// Specification: _V3C-SYS_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const V3TC: BoxCode = BoxCode::new(*b"v3tC");
+    /// Video Extended Usage
+    ///
+    /// FourCC: `vexu`
+    ///
+    /// Specification: _Apple_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const VEXU: BoxCode = BoxCode::new(*b"vexu");
     /// View priority Box
     ///
     /// FourCC: `vipr`
     ///
     /// Specification: _NALu Video_
     pub const VIPR: BoxCode = BoxCode::new(*b"vipr");
+    /// WebVTT Source Label
+    ///
+    /// FourCC: `vlab`
+    ///
+    /// Specification: _ISO-Text_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const VLAB: BoxCode = BoxCode::new(*b"vlab");
     /// video media header, overall information (video track only)
     ///
     /// FourCC: `vmhd`
@@ -3508,30 +4306,78 @@ impl BoxCode {
     ///
     /// Specification: _V3C-SYS_
     pub const VPBB: BoxCode = BoxCode::new(*b"vpbb");
+    /// VP9 Codec Configuration
+    ///
+    /// FourCC: `vpcC`
+    ///
+    /// Specification: _VPxx_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const VPCC: BoxCode = BoxCode::new(*b"vpcC");
+    /// View scalability information
+    ///
+    /// FourCC: `vsib`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const VSIB: BoxCode = BoxCode::new(*b"vsib");
     /// viewing space
     ///
     /// FourCC: `vssn`
     ///
     /// Specification: _OMAF_
     pub const VSSN: BoxCode = BoxCode::new(*b"vssn");
+    /// WebVTTConfigurationBox
+    ///
+    /// FourCC: `vttC`
+    ///
+    /// Specification: _ISO-Text_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const VTTC: BoxCode = BoxCode::new(*b"vttC");
     /// V3C unit header
     ///
     /// FourCC: `vunt`
     ///
     /// Specification: _V3C-SYS_
     pub const VUNT: BoxCode = BoxCode::new(*b"vunt");
+    /// VVC video configuration
+    ///
+    /// FourCC: `vvcC`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const VVCC: BoxCode = BoxCode::new(*b"vvcC");
     /// volumetric visual media header
     ///
     /// FourCC: `vvhd`
     ///
     /// Specification: _ISO_
     pub const VVHD: BoxCode = BoxCode::new(*b"vvhd");
+    /// VVC Network Abstraction Layer unit configuration
+    ///
+    /// FourCC: `vvnC`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const VVNC: BoxCode = BoxCode::new(*b"vvnC");
     /// Multiview Scene Information
     ///
     /// FourCC: `vwdi`
     ///
     /// Specification: _NALu Video_
     pub const VWDI: BoxCode = BoxCode::new(*b"vwdi");
+    /// View identifier
+    ///
+    /// FourCC: `vwid`
+    ///
+    /// Specification: _NALu Video_
+    ///
+    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
+    pub const VWID: BoxCode = BoxCode::new(*b"vwid");
     /// Expansion space reservation
     ///
     /// FourCC: `wide`

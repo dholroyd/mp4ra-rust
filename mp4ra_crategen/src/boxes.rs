@@ -3,6 +3,7 @@ use crate::doc_attrs;
 use crate::record::Record;
 use quote::format_ident;
 use regex::Captures;
+use std::collections::HashSet;
 
 pub struct BoxGen {
     bangstart: regex::Regex,
@@ -41,41 +42,66 @@ impl BoxGen {
         val.to_string()
     }
 
-    pub(crate) fn gen_boxes(&self, database: &Database, items: &mut Vec<syn::Item>) {
+    pub(crate) fn gen_boxes(
+        &self,
+        database: &Database,
+        items: &mut Vec<syn::Item>,
+        extra_records: &[Record],
+    ) {
         // Load box definitions from all three CSV data files. The files share
         // the same schema but have overlapping entries:
         //  - boxes.csv marks some codes as "Reserved" that have full definitions
         //    in boxes-qt.csv (e.g. clip, crgn, ctab, matt, pnot, etc.)
         //  - boxes-udta.csv and boxes-qt.csv share a few codes (albm, auth,
         //    clsf, cprt) with minor description differences
-        // We load them in order so that later files overwrite earlier ones,
-        // ensuring "Reserved" placeholders are replaced with real descriptions.
-        let mut boxes_by_code = std::collections::HashMap::<String, Record>::new();
+        // We insert extra records first, then load the CSV files in order so
+        // that later sources overwrite earlier ones, ensuring the main CSV
+        // files remain authoritative.  We key by const name (uppercased) to
+        // also handle case-collisions like "CoLL" vs "coll".
+        let mut boxes_by_const = std::collections::HashMap::<String, Record>::new();
+
+        let sample_entry_box_consts: HashSet<String> = extra_records
+            .iter()
+            .map(|r| self.create_const_name(&r.code))
+            .collect();
+
+        for record in extra_records {
+            boxes_by_const.insert(self.create_const_name(&record.code), record.clone());
+        }
 
         for csv in ["boxes.csv", "boxes-qt.csv", "boxes-udta.csv"] {
             let records = database
                 .load::<Record>(csv)
                 .unwrap_or_else(|e| panic!("Failure loading {csv}: {e}"));
             for record in records {
-                boxes_by_code.insert(record.code.clone(), record);
+                boxes_by_const.insert(self.create_const_name(&record.code), record);
             }
         }
 
-        let mut box_list: Vec<Record> = boxes_by_code.into_values().collect();
+        let mut box_list: Vec<Record> = boxes_by_const.into_values().collect();
         box_list.sort_by(|a, b| a.code.cmp(&b.code));
 
-        self.gen_boxes_consts(&box_list, items);
+        self.gen_boxes_consts(&box_list, &sample_entry_box_consts, items);
     }
 
-    fn gen_boxes_consts(&self, box_list: &[Record], items: &mut Vec<syn::Item>) {
+    fn gen_boxes_consts(
+        &self,
+        box_list: &[Record],
+        sample_entry_box_consts: &HashSet<String>,
+        items: &mut Vec<syn::Item>,
+    ) {
         let mut consts: Vec<syn::ImplItem> = Vec::new();
         for se in box_list {
             let code = &se.code;
-            let const_ident = format_ident!("{}", self.create_const_name(code));
-            let doc = format!(
+            let const_name = self.create_const_name(code);
+            let const_ident = format_ident!("{}", const_name);
+            let mut doc = format!(
                 "{}\n\nFourCC: `{}`\n\nSpecification: _{}_",
                 se.description, code, se.specification
             );
+            if sample_entry_box_consts.contains(&const_name) {
+                doc.push_str("\n\nThis box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.");
+            }
             let attrs = doc_attrs(&doc);
             let init_expr: syn::Expr =
                 syn::parse_str(&format!("BoxCode::new(*b{:?})", code)).unwrap();

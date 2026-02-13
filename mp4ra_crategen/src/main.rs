@@ -8,6 +8,7 @@ mod handlers;
 mod oti;
 mod record;
 mod sample_entry;
+mod sample_entry_boxes;
 
 pub(crate) fn doc_attrs(doc: &str) -> Vec<syn::Attribute> {
     doc.lines()
@@ -29,7 +30,12 @@ fn main() {
         &mut items,
         &handler_variants_by_description,
     );
-    boxes::BoxGen::new().gen_boxes(&database, &mut items);
+    let extra_box_records = sample_entry_boxes::SampleEntryBoxGen::new().gen_sample_entry_boxes(
+        &database,
+        &mut items,
+        &handler_variants_by_description,
+    );
+    boxes::BoxGen::new().gen_boxes(&database, &mut items, &extra_box_records);
     oti::OtiGen::new().gen_oti(&database, &mut items);
 
     generic::GenericGenerator::new("BrandCode").gen(
