@@ -37,7 +37,7 @@ jobs:
 
       - name: Create pull request
         if: steps.git-diff.outputs.changed == 'true'
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           commit-message: "Sync with upstream MP4RA data (mp4ra.github.io@${{ steps.git-diff.outputs.submodule_sha }})"
           title: "Sync with upstream MP4RA data (mp4ra.github.io@${{ steps.git-diff.outputs.submodule_sha }})"
