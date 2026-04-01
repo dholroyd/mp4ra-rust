@@ -119,6 +119,11 @@ impl From<FourCC> for HandlerCode {
         HandlerCode(val)
     }
 }
+impl fmt::Display for HandlerCode {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        self.0.fmt(f)
+    }
+}
 
 /// Codes identifying _sample entries_ registered with ISO.
 ///
@@ -181,6 +186,11 @@ impl From<FourCC> for BoxCode {
         BoxCode(val)
     }
 }
+impl fmt::Display for BoxCode {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        self.0.fmt(f)
+    }
+}
 
 /// Codes for MPEG4 _brands_, identifying with which specification some MP4 data is compatible .
 ///
@@ -202,6 +212,11 @@ impl From<BrandCode> for FourCC {
 impl From<FourCC> for BrandCode {
     fn from(val: FourCC) -> Self {
         BrandCode(val)
+    }
+}
+impl fmt::Display for BrandCode {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        self.0.fmt(f)
     }
 }
 

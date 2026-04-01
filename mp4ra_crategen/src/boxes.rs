@@ -115,5 +115,31 @@ impl BoxGen {
                 #(#consts)*
             }
         });
+
+        // Generate description() method
+        let mut match_arms: Vec<syn::Arm> = Vec::new();
+        for se in box_list {
+            let const_ident = format_ident!("{}", self.create_const_name(&se.code));
+            let desc = &se.description;
+            match_arms.push(syn::parse_quote! {
+                BoxCode::#const_ident => Some(#desc),
+            });
+        }
+        match_arms.push(syn::parse_quote! {
+            _ => None,
+        });
+
+        let doc_text = doc_attrs("Return a human-readable description for this box code, if one is known.");
+
+        items.push(syn::parse_quote! {
+            impl BoxCode {
+                #(#doc_text)*
+                pub fn description(&self) -> Option<&'static str> {
+                    match *self {
+                        #(#match_arms)*
+                    }
+                }
+            }
+        });
     }
 }
