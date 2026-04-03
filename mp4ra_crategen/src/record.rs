@@ -15,7 +15,8 @@ pub struct TypedRecord {
     #[serde(with = "code_format")]
     pub code: String,
     pub description: String,
-    pub r#type: String,
+    #[serde(rename = "type")]
+    pub _type: String,
     pub specification: String,
 }
 

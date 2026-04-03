@@ -13,7 +13,7 @@ struct SampleEntry {
     handler: String,
     specification: String,
     #[serde(rename = "ObjectType")]
-    object_type: Option<String>,
+    _object_type: Option<String>,
 }
 
 pub struct SampleEntryGen {
