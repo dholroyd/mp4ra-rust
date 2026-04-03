@@ -129,7 +129,8 @@ impl BoxGen {
             _ => None,
         });
 
-        let doc_text = doc_attrs("Return a human-readable description for this box code, if one is known.");
+        let doc_text =
+            doc_attrs("Return a human-readable description for this box code, if one is known.");
 
         items.push(syn::parse_quote! {
             impl BoxCode {
