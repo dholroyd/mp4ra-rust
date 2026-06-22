@@ -5032,7 +5032,7 @@ impl ObjectTypeIdentifier {
     /// Type value: `0x0A`
     ///
     /// Specification: _MPEG-4_
-    pub const SIMPLE_AGGREGATION_FORMAT_STREAM: ObjectTypeIdentifier = ObjectTypeIdentifier(
+    pub const SIMPLE_AGGREGATION_FORMAT__STREAM: ObjectTypeIdentifier = ObjectTypeIdentifier(
         0x0A,
     );
     /// Visual ISO/IEC 14496-2
@@ -5046,7 +5046,7 @@ impl ObjectTypeIdentifier {
     /// Type value: `0x21`
     ///
     /// Specification: _MPEG-4_
-    pub const VISUAL_ITU_T_RECOMMENDATION_H_264_ISO_IEC_14496_10: ObjectTypeIdentifier = ObjectTypeIdentifier(
+    pub const VISUAL_ITU_T_RECOMMENDATION_H_264___ISO_IEC_14496_10: ObjectTypeIdentifier = ObjectTypeIdentifier(
         0x21,
     );
     /// Parameter Sets for ITU-T Recommendation H.264 | ISO/IEC 14496-10
@@ -5054,7 +5054,7 @@ impl ObjectTypeIdentifier {
     /// Type value: `0x22`
     ///
     /// Specification: _MPEG-4_
-    pub const PARAMETER_SETS_FOR_ITU_T_RECOMMENDATION_H_264_ISO_IEC_14496_10: ObjectTypeIdentifier = ObjectTypeIdentifier(
+    pub const PARAMETER_SETS_FOR_ITU_T_RECOMMENDATION_H_264___ISO_IEC_14496_10: ObjectTypeIdentifier = ObjectTypeIdentifier(
         0x22,
     );
     /// Visual ISO/IEC 23008-2 | ITU-T Recommendation H.265
@@ -5062,7 +5062,7 @@ impl ObjectTypeIdentifier {
     /// Type value: `0x23`
     ///
     /// Specification: _MPEG-4_
-    pub const VISUAL_ISO_IEC_23008_2_ITU_T_RECOMMENDATION_H_265: ObjectTypeIdentifier = ObjectTypeIdentifier(
+    pub const VISUAL_ISO_IEC_23008_2___ITU_T_RECOMMENDATION_H_265: ObjectTypeIdentifier = ObjectTypeIdentifier(
         0x23,
     );
     /// Audio ISO/IEC 14496-3
@@ -5236,7 +5236,7 @@ impl ObjectTypeIdentifier {
     /// Type value: `0xAA`
     ///
     /// Specification: _DTS-HD_
-    pub const CORE_SUBSTREAM_EXTENSION_SUBSTREAM: ObjectTypeIdentifier = ObjectTypeIdentifier(
+    pub const CORE_SUBSTREAM___EXTENSION_SUBSTREAM: ObjectTypeIdentifier = ObjectTypeIdentifier(
         0xAA,
     );
     /// Extension Substream containing only XLL
@@ -5323,18 +5323,18 @@ impl fmt::Debug for ObjectTypeIdentifier {
             ObjectTypeIdentifier::SYNTHETISED_TEXTURE => "SYNTHETISED_TEXTURE",
             ObjectTypeIdentifier::TEXT_STREAM => "TEXT_STREAM",
             ObjectTypeIdentifier::LA_SE_R_STREAM => "LA_SE_R_STREAM",
-            ObjectTypeIdentifier::SIMPLE_AGGREGATION_FORMAT_STREAM => {
-                "SIMPLE_AGGREGATION_FORMAT_STREAM"
+            ObjectTypeIdentifier::SIMPLE_AGGREGATION_FORMAT__STREAM => {
+                "SIMPLE_AGGREGATION_FORMAT__STREAM"
             }
             ObjectTypeIdentifier::VISUAL_ISO_IEC_14496_2 => "VISUAL_ISO_IEC_14496_2",
-            ObjectTypeIdentifier::VISUAL_ITU_T_RECOMMENDATION_H_264_ISO_IEC_14496_10 => {
-                "VISUAL_ITU_T_RECOMMENDATION_H_264_ISO_IEC_14496_10"
+            ObjectTypeIdentifier::VISUAL_ITU_T_RECOMMENDATION_H_264___ISO_IEC_14496_10 => {
+                "VISUAL_ITU_T_RECOMMENDATION_H_264___ISO_IEC_14496_10"
             }
-            ObjectTypeIdentifier::PARAMETER_SETS_FOR_ITU_T_RECOMMENDATION_H_264_ISO_IEC_14496_10 => {
-                "PARAMETER_SETS_FOR_ITU_T_RECOMMENDATION_H_264_ISO_IEC_14496_10"
+            ObjectTypeIdentifier::PARAMETER_SETS_FOR_ITU_T_RECOMMENDATION_H_264___ISO_IEC_14496_10 => {
+                "PARAMETER_SETS_FOR_ITU_T_RECOMMENDATION_H_264___ISO_IEC_14496_10"
             }
-            ObjectTypeIdentifier::VISUAL_ISO_IEC_23008_2_ITU_T_RECOMMENDATION_H_265 => {
-                "VISUAL_ISO_IEC_23008_2_ITU_T_RECOMMENDATION_H_265"
+            ObjectTypeIdentifier::VISUAL_ISO_IEC_23008_2___ITU_T_RECOMMENDATION_H_265 => {
+                "VISUAL_ISO_IEC_23008_2___ITU_T_RECOMMENDATION_H_265"
             }
             ObjectTypeIdentifier::AUDIO_ISO_IEC_14496_3 => "AUDIO_ISO_IEC_14496_3",
             ObjectTypeIdentifier::VISUAL_ISO_IEC_13818_2_SIMPLE_PROFILE => {
@@ -5384,8 +5384,8 @@ impl fmt::Debug for ObjectTypeIdentifier {
             ObjectTypeIdentifier::DRA_AUDIO => "DRA_AUDIO",
             ObjectTypeIdentifier::ITU_G_719_AUDIO => "ITU_G_719_AUDIO",
             ObjectTypeIdentifier::CORE_SUBSTREAM => "CORE_SUBSTREAM",
-            ObjectTypeIdentifier::CORE_SUBSTREAM_EXTENSION_SUBSTREAM => {
-                "CORE_SUBSTREAM_EXTENSION_SUBSTREAM"
+            ObjectTypeIdentifier::CORE_SUBSTREAM___EXTENSION_SUBSTREAM => {
+                "CORE_SUBSTREAM___EXTENSION_SUBSTREAM"
             }
             ObjectTypeIdentifier::EXTENSION_SUBSTREAM_CONTAINING_ONLY_XLL => {
                 "EXTENSION_SUBSTREAM_CONTAINING_ONLY_XLL"
