@@ -10,7 +10,7 @@ publish = false
 [dependencies]
 csv = "1.1.3"
 serde = { version = "1.0", features = ["derive"] }
-syn = { version = "2", features = ["full"] }
+syn = { version = "3", features = ["full"] }
 quote = "1"
 proc-macro2 = "1"
 prettyplease = "0.2"
