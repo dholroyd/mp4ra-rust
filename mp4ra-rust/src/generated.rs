@@ -489,11 +489,6 @@ impl SampleEntryCode {
             SampleEntryCode::LVC1 => Some(HandlerCode::VIDE),
             SampleEntryCode::APAC => Some(HandlerCode::SOUN),
             SampleEntryCode::APV1 => Some(HandlerCode::VIDE),
-            SampleEntryCode::JAIM => Some(HandlerCode::VIDE),
-            SampleEntryCode::SCL6 => Some(HandlerCode::SOUN),
-            SampleEntryCode::SAVP => Some(HandlerCode::META),
-            SampleEntryCode::VQEM => Some(HandlerCode::META),
-            SampleEntryCode::AHAP => Some(HandlerCode::HAPT),
             _ => None,
         }
     }
@@ -1615,36 +1610,6 @@ impl SampleEntryCode {
     ///
     /// Specification: _OpenAPV_
     pub const APV1: SampleEntryCode = SampleEntryCode::new(*b"apv1");
-    /// JPEG AI Image Sequence
-    ///
-    /// FourCC: `jaim`
-    ///
-    /// Specification: _JPEGAI_
-    pub const JAIM: SampleEntryCode = SampleEntryCode::new(*b"jaim");
-    /// SCL6 audio
-    ///
-    /// FourCC: `scl6`
-    ///
-    /// Specification: _SCL6_
-    pub const SCL6: SampleEntryCode = SampleEntryCode::new(*b"scl6");
-    /// SAV Parametric Ultrasonic Verification
-    ///
-    /// FourCC: `savp`
-    ///
-    /// Specification: _SAVX_
-    pub const SAVP: SampleEntryCode = SampleEntryCode::new(*b"savp");
-    /// Quality metrics
-    ///
-    /// FourCC: `vqem`
-    ///
-    /// Specification: _Metrics_
-    pub const VQEM: SampleEntryCode = SampleEntryCode::new(*b"vqem");
-    /// Apple Haptic and Audio Pattern (AHAP)
-    ///
-    /// FourCC: `ahap`
-    ///
-    /// Specification: _Apple_
-    pub const AHAP: SampleEntryCode = SampleEntryCode::new(*b"ahap");
 }
 /// Return the handler type for a box code that appears inside a sample entry, if one is defined.
 pub fn sample_entry_box_handler(code: BoxCode) -> Option<HandlerCode> {
@@ -1745,10 +1710,6 @@ pub fn sample_entry_box_handler(code: BoxCode) -> Option<HandlerCode> {
         BoxCode::APVC => Some(HandlerCode::VIDE),
         BoxCode::AMVE => Some(HandlerCode::VIDE),
         BoxCode::ALMO => Some(HandlerCode::VIDE),
-        BoxCode::TAIC => None,
-        BoxCode::JAIC => Some(HandlerCode::VIDE),
-        BoxCode::CCFG => Some(HandlerCode::SOUN),
-        BoxCode::SAVC => Some(HandlerCode::META),
         _ => None,
     }
 }
@@ -2053,14 +2014,6 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const BXML: BoxCode = BoxCode::new(*b"bxml");
-    /// SCL6SpecificBox
-    ///
-    /// FourCC: `ccfg`
-    ///
-    /// Specification: _SCL6_
-    ///
-    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
-    pub const CCFG: BoxCode = BoxCode::new(*b"ccfg");
     /// OMA DRM Content ID
     ///
     /// FourCC: `ccid`
@@ -2289,12 +2242,6 @@ impl BoxCode {
     ///
     /// Specification: _QT_
     pub const CTAB: BoxCode = BoxCode::new(*b"ctab");
-    /// Content type for loudness control
-    ///
-    /// FourCC: `ctlc`
-    ///
-    /// Specification: _Apple_
-    pub const CTLC: BoxCode = BoxCode::new(*b"ctlc");
     /// (composition) time to sample
     ///
     /// FourCC: `ctts`
@@ -2375,12 +2322,6 @@ impl BoxCode {
     ///
     /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
     pub const DHEC: BoxCode = BoxCode::new(*b"dhec");
-    /// Dialogue processing (DialogueProcessingBox)
-    ///
-    /// FourCC: `diap`
-    ///
-    /// Specification: _ETSI AC-4_
-    pub const DIAP: BoxCode = BoxCode::new(*b"diap");
     /// Data Integrity Hash
     ///
     /// FourCC: `dihd`
@@ -2855,14 +2796,6 @@ impl BoxCode {
     ///
     /// Specification: _JPEG2000_
     pub const JP: BoxCode = BoxCode::new(*b"jP  ");
-    /// JPEG AI JAIMConfigurationBox
-    ///
-    /// FourCC: `jaiC`
-    ///
-    /// Specification: _JPEGAI_
-    ///
-    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
-    pub const JAIC: BoxCode = BoxCode::new(*b"jaiC");
     /// JPEG bitstream reconstruction data
     ///
     /// FourCC: `jbrd`
@@ -3635,14 +3568,6 @@ impl BoxCode {
     ///
     /// Specification: _ISO_
     pub const SAIZ: BoxCode = BoxCode::new(*b"saiz");
-    /// SAV Configuration Box
-    ///
-    /// FourCC: `savC`
-    ///
-    /// Specification: _SAVX_
-    ///
-    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
-    pub const SAVC: BoxCode = BoxCode::new(*b"savC");
     /// Sample to Group box
     ///
     /// FourCC: `sbgp`
@@ -4059,14 +3984,6 @@ impl BoxCode {
     ///
     /// Specification: _NALu Video_
     pub const SWTC: BoxCode = BoxCode::new(*b"swtc");
-    /// TAI clock information box
-    ///
-    /// FourCC: `taic`
-    ///
-    /// Specification: _UNCV_
-    ///
-    /// This box appears inside sample entries. Use [`sample_entry_box_handler`] to look up the handler type.
-    pub const TAIC: BoxCode = BoxCode::new(*b"taic");
     /// Track Encryption
     ///
     /// FourCC: `tenc`
@@ -4548,7 +4465,6 @@ impl BoxCode {
             BoxCode::BTRT => Some("Bit-rate information"),
             BoxCode::BUFF => Some("Buffering information"),
             BoxCode::BXML => Some("binary XML container"),
-            BoxCode::CCFG => Some("SCL6SpecificBox"),
             BoxCode::CCID => Some("OMA DRM Content ID"),
             BoxCode::CCLV => Some("Content colour volume"),
             BoxCode::CCST => Some("Coding constraints box"),
@@ -4587,7 +4503,6 @@ impl BoxCode {
             BoxCode::CSLG => Some("composition to decode timeline mapping"),
             BoxCode::CSTB => Some("corrected wall clock start time"),
             BoxCode::CTAB => Some("Track color-table"),
-            BoxCode::CTLC => Some("Content type for loudness control"),
             BoxCode::CTTS => Some("(composition) time to sample"),
             BoxCode::CUVV => Some("HDR Vivid Configuration"),
             BoxCode::CVRU => Some("OMA DRM Cover URI"),
@@ -4603,7 +4518,6 @@ impl BoxCode {
             BoxCode::DEC3 => Some("Decoder specific info for Enhanced AC-3 audio"),
             BoxCode::DFLA => Some("Free Lossless Audio Codec (FLAC) specific data"),
             BoxCode::DHEC => Some("Default HEVC extractor constructor box"),
-            BoxCode::DIAP => Some("Dialogue processing (DialogueProcessingBox)"),
             BoxCode::DIHD => Some("Data Integrity Hash"),
             BoxCode::DINF => Some("data information box, container"),
             BoxCode::DINT => Some("Data Integrity"),
@@ -4682,7 +4596,6 @@ impl BoxCode {
             BoxCode::J2KH => Some("JPEG 2000 header info"),
             BoxCode::J2KP => Some("JPEG 2000 prefix"),
             BoxCode::JP => Some("JPEG 2000 Signature"),
-            BoxCode::JAIC => Some("JPEG AI JAIMConfigurationBox"),
             BoxCode::JBRD => Some("JPEG bitstream reconstruction data"),
             BoxCode::JP2C => Some("JPEG 2000 contiguous codestream"),
             BoxCode::JP2H => Some("Header"),
@@ -4817,7 +4730,6 @@ impl BoxCode {
             BoxCode::RWPK => Some("region-wise packing"),
             BoxCode::SAIO => Some("Sample auxiliary information offsets"),
             BoxCode::SAIZ => Some("Sample auxiliary information sizes"),
-            BoxCode::SAVC => Some("SAV Configuration Box"),
             BoxCode::SBGP => Some("Sample to Group box"),
             BoxCode::SBPM => Some("Sensor Bad Pixels Map"),
             BoxCode::SCEN => Some("Name of the scene for which the clip was shot"),
@@ -4890,7 +4802,6 @@ impl BoxCode {
                 Some("Name and version number of the software that generated this movie")
             }
             BoxCode::SWTC => Some("Multiview Group Relation"),
-            BoxCode::TAIC => Some("TAI clock information box"),
             BoxCode::TENC => Some("Track Encryption"),
             BoxCode::TFAD => Some("Track fragment adjustment box"),
             BoxCode::TFDT => Some("Track fragment decode time"),
@@ -5032,7 +4943,7 @@ impl ObjectTypeIdentifier {
     /// Type value: `0x0A`
     ///
     /// Specification: _MPEG-4_
-    pub const SIMPLE_AGGREGATION_FORMAT_STREAM: ObjectTypeIdentifier = ObjectTypeIdentifier(
+    pub const SIMPLE_AGGREGATION_FORMAT__STREAM: ObjectTypeIdentifier = ObjectTypeIdentifier(
         0x0A,
     );
     /// Visual ISO/IEC 14496-2
@@ -5046,7 +4957,7 @@ impl ObjectTypeIdentifier {
     /// Type value: `0x21`
     ///
     /// Specification: _MPEG-4_
-    pub const VISUAL_ITU_T_RECOMMENDATION_H_264_ISO_IEC_14496_10: ObjectTypeIdentifier = ObjectTypeIdentifier(
+    pub const VISUAL_ITU_T_RECOMMENDATION_H_264___ISO_IEC_14496_10: ObjectTypeIdentifier = ObjectTypeIdentifier(
         0x21,
     );
     /// Parameter Sets for ITU-T Recommendation H.264 | ISO/IEC 14496-10
@@ -5054,7 +4965,7 @@ impl ObjectTypeIdentifier {
     /// Type value: `0x22`
     ///
     /// Specification: _MPEG-4_
-    pub const PARAMETER_SETS_FOR_ITU_T_RECOMMENDATION_H_264_ISO_IEC_14496_10: ObjectTypeIdentifier = ObjectTypeIdentifier(
+    pub const PARAMETER_SETS_FOR_ITU_T_RECOMMENDATION_H_264___ISO_IEC_14496_10: ObjectTypeIdentifier = ObjectTypeIdentifier(
         0x22,
     );
     /// Visual ISO/IEC 23008-2 | ITU-T Recommendation H.265
@@ -5062,7 +4973,7 @@ impl ObjectTypeIdentifier {
     /// Type value: `0x23`
     ///
     /// Specification: _MPEG-4_
-    pub const VISUAL_ISO_IEC_23008_2_ITU_T_RECOMMENDATION_H_265: ObjectTypeIdentifier = ObjectTypeIdentifier(
+    pub const VISUAL_ISO_IEC_23008_2___ITU_T_RECOMMENDATION_H_265: ObjectTypeIdentifier = ObjectTypeIdentifier(
         0x23,
     );
     /// Audio ISO/IEC 14496-3
@@ -5236,7 +5147,7 @@ impl ObjectTypeIdentifier {
     /// Type value: `0xAA`
     ///
     /// Specification: _DTS-HD_
-    pub const CORE_SUBSTREAM_EXTENSION_SUBSTREAM: ObjectTypeIdentifier = ObjectTypeIdentifier(
+    pub const CORE_SUBSTREAM___EXTENSION_SUBSTREAM: ObjectTypeIdentifier = ObjectTypeIdentifier(
         0xAA,
     );
     /// Extension Substream containing only XLL
@@ -5323,18 +5234,18 @@ impl fmt::Debug for ObjectTypeIdentifier {
             ObjectTypeIdentifier::SYNTHETISED_TEXTURE => "SYNTHETISED_TEXTURE",
             ObjectTypeIdentifier::TEXT_STREAM => "TEXT_STREAM",
             ObjectTypeIdentifier::LA_SE_R_STREAM => "LA_SE_R_STREAM",
-            ObjectTypeIdentifier::SIMPLE_AGGREGATION_FORMAT_STREAM => {
-                "SIMPLE_AGGREGATION_FORMAT_STREAM"
+            ObjectTypeIdentifier::SIMPLE_AGGREGATION_FORMAT__STREAM => {
+                "SIMPLE_AGGREGATION_FORMAT__STREAM"
             }
             ObjectTypeIdentifier::VISUAL_ISO_IEC_14496_2 => "VISUAL_ISO_IEC_14496_2",
-            ObjectTypeIdentifier::VISUAL_ITU_T_RECOMMENDATION_H_264_ISO_IEC_14496_10 => {
-                "VISUAL_ITU_T_RECOMMENDATION_H_264_ISO_IEC_14496_10"
+            ObjectTypeIdentifier::VISUAL_ITU_T_RECOMMENDATION_H_264___ISO_IEC_14496_10 => {
+                "VISUAL_ITU_T_RECOMMENDATION_H_264___ISO_IEC_14496_10"
             }
-            ObjectTypeIdentifier::PARAMETER_SETS_FOR_ITU_T_RECOMMENDATION_H_264_ISO_IEC_14496_10 => {
-                "PARAMETER_SETS_FOR_ITU_T_RECOMMENDATION_H_264_ISO_IEC_14496_10"
+            ObjectTypeIdentifier::PARAMETER_SETS_FOR_ITU_T_RECOMMENDATION_H_264___ISO_IEC_14496_10 => {
+                "PARAMETER_SETS_FOR_ITU_T_RECOMMENDATION_H_264___ISO_IEC_14496_10"
             }
-            ObjectTypeIdentifier::VISUAL_ISO_IEC_23008_2_ITU_T_RECOMMENDATION_H_265 => {
-                "VISUAL_ISO_IEC_23008_2_ITU_T_RECOMMENDATION_H_265"
+            ObjectTypeIdentifier::VISUAL_ISO_IEC_23008_2___ITU_T_RECOMMENDATION_H_265 => {
+                "VISUAL_ISO_IEC_23008_2___ITU_T_RECOMMENDATION_H_265"
             }
             ObjectTypeIdentifier::AUDIO_ISO_IEC_14496_3 => "AUDIO_ISO_IEC_14496_3",
             ObjectTypeIdentifier::VISUAL_ISO_IEC_13818_2_SIMPLE_PROFILE => {
@@ -5384,8 +5295,8 @@ impl fmt::Debug for ObjectTypeIdentifier {
             ObjectTypeIdentifier::DRA_AUDIO => "DRA_AUDIO",
             ObjectTypeIdentifier::ITU_G_719_AUDIO => "ITU_G_719_AUDIO",
             ObjectTypeIdentifier::CORE_SUBSTREAM => "CORE_SUBSTREAM",
-            ObjectTypeIdentifier::CORE_SUBSTREAM_EXTENSION_SUBSTREAM => {
-                "CORE_SUBSTREAM_EXTENSION_SUBSTREAM"
+            ObjectTypeIdentifier::CORE_SUBSTREAM___EXTENSION_SUBSTREAM => {
+                "CORE_SUBSTREAM___EXTENSION_SUBSTREAM"
             }
             ObjectTypeIdentifier::EXTENSION_SUBSTREAM_CONTAINING_ONLY_XLL => {
                 "EXTENSION_SUBSTREAM_CONTAINING_ONLY_XLL"
@@ -7092,72 +7003,6 @@ impl BrandCode {
     ///
     /// Specification: _ISO_
     pub const SAIE: BrandCode = BrandCode::new(*b"saie");
-    /// The file is conformant to version 1 of NGA.STND.0076-01_V1.0_GIMI
-    ///
-    /// FourCC: `geo1`
-    ///
-    /// Specification: _NGA.STND.0076_
-    pub const GEO1: BrandCode = BrandCode::new(*b"geo1");
-    /// The file carries GIMI Security XML markings
-    ///
-    /// FourCC: `sm01`
-    ///
-    /// Specification: _NGA.STND.0076_
-    pub const SM01: BrandCode = BrandCode::new(*b"sm01");
-    /// JPEG AI coded image
-    ///
-    /// FourCC: `jaii`
-    ///
-    /// Specification: _JPEGAI_
-    pub const JAII: BrandCode = BrandCode::new(*b"jaii");
-    /// ISOBMFF brand for Static Audible Verified X profile
-    ///
-    /// FourCC: `SAV1`
-    ///
-    /// Specification: _SAVX_
-    pub const SAV1: BrandCode = BrandCode::new(*b"SAV1");
-    /// Tone-map derived image item present
-    ///
-    /// FourCC: `tmap`
-    ///
-    /// Specification: _HEIF_
-    pub const TMAP: BrandCode = BrandCode::new(*b"tmap");
-    /// CMAF Media Profile - AC-4 subsample encrypted
-    ///
-    /// FourCC: `ca4e`
-    ///
-    /// Specification: _ETSI AC-4_
-    pub const CA4E: BrandCode = BrandCode::new(*b"ca4e");
-    /// Dolby Vision Profile 5/8 CMAF Media Profile
-    ///
-    /// FourCC: `dv58`
-    ///
-    /// Specification: _Dolby Vision_
-    pub const DV58: BrandCode = BrandCode::new(*b"dv58");
-    /// Dolby Vision Profile 9 CMAF Media Profile
-    ///
-    /// FourCC: `dv09`
-    ///
-    /// Specification: _Dolby Vision_
-    pub const DV09: BrandCode = BrandCode::new(*b"dv09");
-    /// Dolby Vision Profile 10 CMAF Media Profile
-    ///
-    /// FourCC: `dv10`
-    ///
-    /// Specification: _Dolby Vision_
-    pub const DV10: BrandCode = BrandCode::new(*b"dv10");
-    /// Dolby Vision Profile 20 CMAF Media Profile
-    ///
-    /// FourCC: `dv20`
-    ///
-    /// Specification: _Dolby Vision_
-    pub const DV20: BrandCode = BrandCode::new(*b"dv20");
-    /// glTF JSON document as primary metadata item with timed media
-    ///
-    /// FourCC: `gltf`
-    ///
-    /// Specification: _MPEG-SD_
-    pub const GLTF: BrandCode = BrandCode::new(*b"gltf");
 }
 impl TrackReferenceCode {
     /// Additional audio track
@@ -7418,10 +7263,4 @@ impl TrackReferenceCode {
     ///
     /// Specification: _Apple_
     pub const RNDR: TrackReferenceCode = TrackReferenceCode::new(*b"rndr");
-    /// Viewport-Attested Track Reference
-    ///
-    /// FourCC: `vatt`
-    ///
-    /// Specification: _SAVX_
-    pub const VATT: TrackReferenceCode = TrackReferenceCode::new(*b"vatt");
 }
